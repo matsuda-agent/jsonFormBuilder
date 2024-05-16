@@ -23,11 +23,10 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
       }
     </div>
   );
-  
+
 };
 
 // SelectField.propTypes = SelectFieldAttributes; // Apply the predefined PropTypes
-
 export default ArrayField;
 
 
