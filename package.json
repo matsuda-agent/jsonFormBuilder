@@ -18,7 +18,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "react-hook-form": "^7.51.4",
-    "@headlessui/react": "^2.0.3"
+    "@headlessui/react": "^2.0.3",
+    "react-hook-form": "^7.51.4"
   }
 }

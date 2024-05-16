@@ -36,6 +36,7 @@ export function SampleForm() {
       {errors.exampleRequired && <span>This field is required</span>}
 
       <Button type='submit'> Submit </Button>
+      <Button type='submit'> Submit </Button>
     </form>
    </>
   );
