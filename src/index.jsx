@@ -1,6 +1,6 @@
 import React from 'react';
-import Field from './Field';
-import { FieldType } from './FieldAttributes'; // Ensure this matches your actual import path
+import Field from './Fields/Field';
+import { FieldType } from './Fields/FieldAttributes'; // Ensure this matches your actual import path
 import { useForm, FormProvider } from 'react-hook-form';
 
 // Define your form schema using the FieldType constants

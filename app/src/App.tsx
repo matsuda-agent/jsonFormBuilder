@@ -1,10 +1,7 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { FormRender } from 'jsonformbuilder';
-import { Input , Button } from '@headlessui/react'
 
+import './App.css'
+import { FormRender  , FieldType} from 'jsonformbuilder' ; 
+ 
 
 interface FormField{
   id: number;
@@ -30,19 +27,30 @@ const FormSchema = {
   "fields" : [
     {
       "id" : 1,
-      "type": "text",
-      "title": "First name"
+      "name" : "firstName",
+      "title": "First name",
+      "description": "Enter your first name",
+      type: FieldType.TEXT,
+      isMandatory: true,
+      
 
     },
     {
-      "id"  : 2,
-      "type": "text",
-      "title": "Last name"
-    }
-    ,{
-      "id"  : 3,
-      "type": "date",
-      "title": "Date of Birth"
+      "id" : 2,
+      "name" : "lastName",
+      "title": "Last name",
+      "description": "Enter your first name",
+      type: FieldType.TEXT,
+      isMandatory: true,
+
+    },
+    {
+      "id" : 3,
+      "name" : "address",
+      "title": "Address",
+      "description": "Enter your Address",
+      type: FieldType.ARRAY,
+      isMandatory: true
     }
   ]
 };

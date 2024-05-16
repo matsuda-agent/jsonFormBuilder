@@ -1,32 +1,34 @@
 import React from 'react'
 import { Input , Button } from '@headlessui/react'
-import clsx from 'clsx'
+import clsx from 'clsx' 
+import  Field  from './Fields/Field.jsx';
+import { useForm } from 'react-hook-form';
 
-
-
-const Field = ({field}) => {
-  return (
-    <>
-    <label>{field.title}</label>
-    <Input className="bg-gray-100 border-2 border-blue-400 text-white h-[60px] w-[200px]"
-            type={field.type} placeholder={field.title} />
-    </>
-  )
-}
 
 
 export function  FormRender({schema}) {
-  console.log('Form Schema' , schema)
+  const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
+
+  const formMethods = {
+    register,
+    control
+  }
+
+
+  const onSubmit = (data) => {
+    console.log(data)
+  }
+
   return (
-    <form className='flex flex-col w-full h-full items-center justify-center'>
+    <form className='flex flex-col w-full h-full items-center justify-center space-y-6' onSubmit={handleSubmit(onSubmit)}>
       {schema.fields.map((field) => {
           return <Field key={field.id} 
-                        field={field} />
+                        field={field} 
+                        formMethods={formMethods}/>
         })
         
       }
-
-      <Button className="bg-purple-400 text-white w-[200px] h-[40px]">Submit</Button>
+      <Button type='submit' className="bg-purple-400 text-white">Submit</Button>
      
     </form>
   )

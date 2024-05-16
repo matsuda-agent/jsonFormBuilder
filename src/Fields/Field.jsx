@@ -1,25 +1,33 @@
-import React from 'react';
+import React , {FC} from 'react';
 import { useFormContext } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import { FieldType, BaseFieldAttributes } from './FieldAttributes'; // Adjust path as necessary
 import InputField from './InputField';
 import SelectField from './SelectField';
-import SelectAddress from './SelectAddress';
+import ArrayField from './ArrayField';
+// import SelectAddress from './SelectAddress';
 
 
-const Field = ({ type, ...props }) => {
-  switch (type) {
+
+
+
+const Field = ({field , formMethods}) => {
+
+  switch (field.type) {
     case FieldType.TEXT:
-      return <InputField {...props} />;
+      return <InputField field={field} formMethods={formMethods} />;
     case FieldType.SELECT:
-      return <SelectField {...props} />;
-      // case FieldType.ADDRESS:
-      //     return <SelectAddress {...props}/>;
+      return <SelectField field={field} formMethods={formMethods} />;
+    case FieldType.ARRAY:
+      return <ArrayField field={field} formMethods={formMethods} />;
+
     default:
-      throw new Error("Invalid Field Type");
+      console.error('Unsupported field type');
+      console.log('field', field);
+      return null ;
   }
 };
 
-Field.propTypes = BaseFieldAttributes; // Use imported BaseFieldAttributes for prop validation
+// Field.propTypes = BaseFieldAttributes; // Use imported BaseFieldAttributes for prop validation
 
 export default Field;

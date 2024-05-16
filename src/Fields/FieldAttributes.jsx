@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 export const FieldType = {
   TEXT: 'text',
   SELECT: 'select',
+  ARRAY: 'array'
   // ADDRESS: 'address',
 };
 
