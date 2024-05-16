@@ -50,7 +50,25 @@ const FormSchema = {
       "title": "Address",
       "description": "Enter your Address",
       type: FieldType.ARRAY,
-      isMandatory: true
+      isMandatory: true,
+      subFields: [
+        {
+          "id" : 1,
+          "name" : "street",
+          "title": "Street",
+          "description": "Enter your Street",
+          type: FieldType.TEXT,
+          isMandatory: true,
+        },
+        {
+          "id" : 2,
+          "name" : "city",
+          "title": "City",
+          "description": "Enter your City",
+          type: FieldType.TEXT,
+          isMandatory: true,
+        }
+      ]
     }
   ]
 };

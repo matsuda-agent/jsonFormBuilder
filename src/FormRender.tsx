@@ -7,11 +7,12 @@ import { useForm } from 'react-hook-form';
 
 
 export function  FormRender({schema}) {
-  const { register, handleSubmit, control, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm();
 
   const formMethods = {
     register,
-    control
+    control,
+    setValue
   }
 
 
