@@ -1,0 +1,75 @@
+{
+    "title": "Personal Information",
+    "type": "object",
+    "required": ["firstName", "lastName"],
+    "fields" : [
+      {
+        "id" : 1,
+        "name" : "firstName",
+        "title": "First name",
+        "description": "Enter your first name",
+        "type": "text",
+        "is_mandatory": true
+      },
+      {
+        "id" : 2,
+        "name" : "lastName",
+        "title": "Last name",
+        "description": "Enter your last name",
+        "type": "text",
+        "is_mandatory": true
+      },
+      {
+        "id" : 3,
+        "name" : "address",
+        "title": "Address",
+        "description": "Enter your Address",
+        "type": "array",
+        "is_mandatory": true,
+        "subFields": [
+          {
+            "id" : 1,
+            "name" : "postcode",
+            "title": "postcode",
+            "description": "Enter your postcode",
+            "type": "text",
+            "is_mandatory": true
+          },
+          {
+            "id" : 2,
+            "name" : "Country",
+            "title": "Country",
+            "description": "Enter your Country",
+            "type": "text",
+            "is_mandatory": true
+          }
+        ]
+      },
+      {
+        "id" : 4,
+        "name" : "Conditional address",
+        "title": "Address",
+        "description": "Enter your Address",
+        "type": "carray",
+        "is_mandatory": true,
+        "subFields": [
+          {
+            "id" : 1,
+            "name" : "street",
+            "title": "Street",
+            "description": "Enter your Street",
+            "type": "text",
+            "is_mandatory": true
+          },
+          {
+            "id" : 2,
+            "name" : "city",
+            "title": "City",
+            "description": "Enter your City",
+            "type": "text",
+            "is_mandatory": true
+          }
+        ]
+      } 
+    ]
+}

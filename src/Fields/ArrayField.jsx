@@ -12,11 +12,20 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
     name: name
   });
 
-  useEffect(() => {
+
+    // extract the subfields name form the subfileds 
+    const FieldValues = subFields.reduce((acc, current_value) => {
+      acc[current_value.name] = '';
+      return acc;
+        },{});
+
+    useEffect(() => {
     if(fields.length === 0){
-        update(0,{'street' :'' , 'city' : ''});
-      }
-  },[])
+    update(0,FieldValues);
+    }
+    },[])
+
+
 
   return (
 

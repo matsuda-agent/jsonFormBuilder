@@ -5,7 +5,7 @@ export const FieldType = {
   TEXT: 'text',
   SELECT: 'select',
   ARRAY: 'array',
-  CARRAY: 'conditional_array'
+  CARRAY: 'carray'
   // ADDRESS: 'address',
 };
 

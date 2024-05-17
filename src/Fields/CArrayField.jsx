@@ -12,9 +12,15 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
     name: name
   });
 
+  // extract the subfields name form the subfileds 
+  const FieldValues = subFields.reduce((acc, current_value) => {
+                                    acc[current_value.name] = '';
+                                    return acc;
+                                      },{});
+
   useEffect(() => {
     if(fields.length === 0){
-        update(0,{'postcode' :'' , 'Country' : ''});
+        update(0,FieldValues);
       }
   },[])
 
@@ -24,7 +30,7 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
 
   useEffect(() => {
     if(watchFields && watchFields.length > 0 && watchFields[watchFields.length-1].Country === 'a'){
-        append({'postcode' :'' , 'Country' : ''});
+        append(FieldValues);
     }
   },[watchFields?.[watchFields.length-1].Country]
 )
