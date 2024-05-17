@@ -3,7 +3,6 @@ import { Input , Button } from '@headlessui/react'
 import clsx from 'clsx' 
 import  Field  from '../Fields/Field.jsx';
 import { useForm , useFieldArray, Controller , useWatch} from 'react-hook-form';
-import PhoneInput from 'react-phone-number-input'
 
 
 // const PhoneField = ({ field, formMethods: { control, register }, index }) => {};
