@@ -6,6 +6,7 @@ import InputField from './InputField';
 import SelectField from './SelectField';
 import ArrayField from './ArrayField';
 import CArrayField from './CArrayField';
+import PhoneField from './PhoneField';
 // import SelectAddress from './SelectAddress';
 
 
@@ -17,6 +18,10 @@ const Field = ({field , formMethods}) => {
   switch (field.type) {
     case FieldType.TEXT:
       return <InputField field={field} formMethods={formMethods} />;
+    case FieldType.DATE:
+        return <InputField field={field} formMethods={formMethods} />;
+    case FieldType.PHONE:
+          return <PhoneField field={field} formMethods={formMethods} />;
     case FieldType.SELECT:
       return <SelectField field={field} formMethods={formMethods} />;
     case FieldType.ARRAY:

@@ -24,3 +24,9 @@ const InputField = ({ field :{id  , name, title , type, isMandatory , descriptio
 
 export default InputField;
 
+
+
+
+// InputField.propTypes = InputFieldAttributes; // Apply the predefined PropTypes
+
+

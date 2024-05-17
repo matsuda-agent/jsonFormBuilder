@@ -1,40 +1,60 @@
-import React from 'react'
+import React , {useState , useEffect} from 'react'
 import { Input , Button } from '@headlessui/react'
 import clsx from 'clsx' 
 import  Field  from '../Fields/Field.jsx';
-import { useForm , useFieldArray} from 'react-hook-form';
+import { useForm , useFieldArray, Controller , useWatch} from 'react-hook-form';
+import PhoneInput from 'react-phone-number-input'
 
 
+// const PhoneField = ({ field, formMethods: { control, register }, index }) => {};
 
 const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMethods:{update} , schemaFields}) => {
-    const { register, handleSubmit } = useForm({
+    const { register ,handleSubmit , setValue  } = useForm({
       defaultValues: field 
     });
-  
+
+    const [formData , setFormData] = useState({})
+
+    const onSubmit = (data) => {
+        update(index, formData);
+      };
+    
+
+    const data = useWatch({
+        control,
+        name: `array.${index}`
+      });
+    
+
+    
+    useEffect(() => {
+        setFormData(data)
+    }, [data])
+
+    
   
     return (
       <div className='flex flex-col'>
 
-    {field && Object.keys(field).map((key , i) => {
-          if (key !== 'id'){
-          return (
-                <Field key={key} 
-                    field={schemaFields[i]} 
-                    formMethods={{control , register}}
-                />
-          );
-        }
-  
-        })
-        }           
-  
+            {field && Object.keys(field).map((key , i) => {
+            
+                if (key !== 'id'){
+                return (
+                        <Field key={key} 
+                            field={schemaFields[i]} 
+                            index={index}
+                            formMethods={{control , register}}
+                        />
+                );
+                } 
+        
+                })
+                }           
+        
         <button
           type="button"
           className='bg-white rounded-lg text-black my-3'
-          onClick={handleSubmit((data) => {
-            update(index, data);
-            console.log(data);
-          })}
+          onClick={handleSubmit(onSubmit)}
         >
           Update
         </button>
@@ -63,7 +83,8 @@ const MultiForm = ({form}) => {
         register,
         control,
         setValue,
-        watch
+        watch,
+        handleSubmit
       }
       const { fields, append, update, remove } = useFieldArray({
         control,

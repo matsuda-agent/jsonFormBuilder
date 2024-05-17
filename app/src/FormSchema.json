@@ -7,7 +7,7 @@
     "formType": "multi",
     "appendButtonName": "Add Applicant",
     "type": "object",
-    "required": ["title" , "firstName", "lastName"] ,
+    "required": ["title" , "firstName", "lastName" , "dateOfBirth"] ,
     "fields" : [
       {
         "id" : 1,
@@ -37,7 +37,25 @@
         "description": "Enter your last name",
         "type": "text",
         "is_mandatory": true
-      }]
+      },
+      {
+        "id" : 4,
+        "name" : "dateOfBirth",
+        "title": "Date Of Birth",
+        "description": "Enter your date of birth",
+        "type": "date",
+        "is_mandatory": true
+      },
+      {
+        "id" : 5,
+        "name" : "phone",
+        "title": "Phone Number",
+        "description": "Enter your phone number",
+        "type": "phone",
+        "is_mandatory": true
+      }
+    
+    ]
   },
   {
     "formId" : 2,
