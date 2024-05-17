@@ -91,15 +91,23 @@
           },
           {
             "id" : 2,
-            "name" : "Country",
-            "title": "Country",
-            "description": "Enter your Country",
+            "name" : "city",
+            "title": "City",
+            "description": "Enter your City",
             "type": "text",
+            "is_mandatory": true
+          },
+          {
+            "id" : 3,
+            "name" : "move_in_date",
+            "title": "Move In Date",
+            "description": "Enter your Move In Date",
+            "type": "date",
             "is_mandatory": true
           }
         ],
         "condition" : {
-          "fieldName": "Country",
+          "fieldName": "move_in_date",
           "if": {
             "and": [
               {
@@ -111,8 +119,9 @@
                 "greaterThan": 0
               },
               {
-                "property": "watchFields[watchFields.length-1].Country",
-                "equals": "a"
+                "property": "new Date(watchFields[watchFields.length-1].move_in_date)",
+                "eval_method": "eval",
+                "greaterThan": "((new Date(new Date().setFullYear(new Date().getFullYear() - 3))))"
               }
             ]
           },

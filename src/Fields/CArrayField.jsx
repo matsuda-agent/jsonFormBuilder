@@ -7,12 +7,20 @@ import clsx from 'clsx';
 
 function compileCondition(condition) {
   // recursive function to go through the conditions and join the them into a singe string 
+  
   if (condition.and) {
     return condition.and.map(compileCondition).filter(Boolean).join(' && ');
   } else if (condition.property) {
     if (condition.notNull) {
       return `${condition.property}`;
     } else if (condition.greaterThan) {
+        if(condition.eval_method && condition.eval_method === 'eval'){
+          // evaluate the expression
+          // const eval_var = eval(condition.greaterThan);
+          console.log('condition.greaterThan',eval(condition.greaterThan));
+          return `${condition.property} > ${condition.greaterThan}`;
+
+        }
       return `${condition.property} > ${condition.greaterThan}`;
     } else if (condition.equals) {
       return `${condition.property} === '${condition.equals}'`;
@@ -28,6 +36,8 @@ function compileAction(action) {
 function compile(obj) {
   const condition = compileCondition(obj.if);
   const action = compileAction(obj.action);
+  console.log(condition);
+  console.log(new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`));
   return new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`);
 }
 
@@ -75,6 +85,7 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
                     'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
                   )}
+                  type={subFields[i].type}
                   {...register(`${name}.${index}.${key}`)} />
            
                 </Field>
