@@ -10,7 +10,7 @@ import clsx from 'clsx'
 const SelectField = ({ field :{id  , name, title , type, isMandatory , description , options},   formMethods : {register} }) => {
 
   return (
-    <Field>
+    <Field className="my-3">
       <Label className="text-sm/6 font-medium text-white">{title}</Label>
       <Description className="text-sm/6 text-white/50">{description}</Description>
       <div className="relative">

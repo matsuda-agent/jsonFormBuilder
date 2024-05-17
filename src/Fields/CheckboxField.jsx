@@ -21,7 +21,7 @@ const CheckboxField = ({ field :{id  , name, title , type, isMandatory , descrip
     //  <Field className="w-full">
     
     //   <Description className="text-sm/6 text-white/50">{description}</Description>
-    <div className="flex items-center justify-between p-4 space-x-3">
+    <div className="flex items-center justify-between p-4 space-x-3 my-3">
       <span className="text-sm/6 font-medium text-white">{description}</span>
 
       <Controller

@@ -10,7 +10,7 @@ const PhoneField = ({ field :{id  , name, title , type, isMandatory , descriptio
 
 
   return (
-    <Field>
+    <Field className="my-3">
       <Label className="text-sm/6 font-medium text-white">{title}</Label>
       <Description className="text-sm/6 text-white/50">{description}</Description>
         <Controller
@@ -22,6 +22,27 @@ const PhoneField = ({ field :{id  , name, title , type, isMandatory , descriptio
               placeholder="Enter phone number"
               value={value}
               onChange={phoneNumber => onChange(phoneNumber)} 
+              inputStyle={
+                {
+                  width: '100%',
+                  padding: '0.375rem 0.75rem',
+                  fontSize: '1rem',
+                  fontWeight: '400',
+                  lineHeight: '1.5',
+                  color: '#495057',
+                  backgroundColor: 'white',
+                  backgroundClip: 'padding-box',
+                  border: '1px solid #ced4da',
+                  transition: 'border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out',
+                  '&:focus': {
+                    color: '#495057',
+                    backgroundColor: '#fff',
+                    borderColor: '#80bdff',
+                    outline: 0,
+                    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+                  },
+                }
+              }
 
               // className='mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-black focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
             />

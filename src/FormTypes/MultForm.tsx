@@ -71,6 +71,7 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
         >
           Update
         </button>
+        <div className='divider bg-white h-0.5 w-full shadow-lg'></div>    
       </div>
     );
   };
@@ -111,26 +112,33 @@ const MultiForm = ({form}) => {
       }
     
       return (
-        <form className='flex flex-col w-full max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto bg-white/5 rounded-md p-3' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col gapy-y-3 w-full max-h-[90vh] items-center justify-center overflow-y-auto bg-white/5 rounded-md py-3' onSubmit={handleSubmit(onSubmit)}>
             <h1 className='text-2xl font-bold text-center'>{form.title}</h1>
-            {fields.map((field ,index) => {
-                return <Edit key={field.id} 
-                              fieldValues={{index, field}} 
-                              formMethods={formMethods}
-                              arrayMethods= {{ update }}
-                              schemaFields={form.fields}
-                              />
-              })
-              
-            }
-            
-          <Button type='submit' className="bg-purple-400 text-white w-full max-w-52">Submit</Button>
-    
-          <Button type='button' 
-                  onClick={() => {
-                    append(defaultValues);
-                  }}
-                  className="bg-purple-400 text-white w-full max-w-52">{form.appendButtonName}</Button>
+                <div className='space-y-5'>
+                    {fields.map((field ,index) => {
+                        return <Edit key={field.id} 
+                                    fieldValues={{index, field}} 
+                                    formMethods={formMethods}
+                                    arrayMethods= {{ update }}
+                                    schemaFields={form.fields}
+                                    />
+                            
+                    })
+                    
+                    }
+               
+                </div>
+
+                <div className='my-2 space-y-3'>
+                    <Button type='submit' className="bg-purple-400 text-white w-full max-w-52">Submit</Button>
+                
+                    <Button type='button' 
+                            onClick={() => {
+                                append(defaultValues);
+                            }}
+                            className="bg-purple-400 text-white w-full max-w-52">{form.appendButtonName}</Button>
+                  
+                  </div>
          
         </form>
       );
