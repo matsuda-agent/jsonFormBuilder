@@ -7,6 +7,7 @@ import SelectField from './SelectField';
 import ArrayField from './ArrayField';
 import CArrayField from './CArrayField';
 import PhoneField from './PhoneField';
+import CheckboxField from './CheckboxField';
 // import SelectAddress from './SelectAddress';
 
 
@@ -28,6 +29,8 @@ const Field = ({field , formMethods, index}) => {
       return <ArrayField field={field} formMethods={formMethods} />;
     case FieldType.CARRAY:
       return <CArrayField field={field} formMethods={formMethods} />;
+    case FieldType.CHECKBOX:
+      return <CheckboxField field={field} formMethods={formMethods} index={index}/>;
 
     default:
       console.error('Unsupported field type');

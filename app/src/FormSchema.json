@@ -53,6 +53,14 @@
         "description": "Enter your phone number",
         "type": "phone",
         "is_mandatory": true
+      },
+      {
+        "id" : 6,
+        "name" : "smoker_status",
+        "title": "",
+        "description": "Are you a smoker?",
+        "type": "checkbox",
+        "is_mandatory": true
       }
     
     ]

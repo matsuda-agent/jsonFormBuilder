@@ -15,14 +15,14 @@ const PhoneField = ({ field :{id  , name, title , type, isMandatory , descriptio
       <Description className="text-sm/6 text-white/50">{description}</Description>
         <Controller
           control={control}
-          name={`array.${index}.phone`} // Adjust the name prop
+          name={`array.${index}.${name}`} // Adjust the name prop
           rules={{ required: isMandatory }}
           render={({ field: { onChange, onBlur, value, ref } })  => (
             <PhoneInput
               placeholder="Enter phone number"
               value={value}
               onChange={phoneNumber => onChange(phoneNumber)} 
-              
+
               // className='mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-black focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
             />
           )}

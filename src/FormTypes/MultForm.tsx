@@ -15,6 +15,7 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
     const [formData , setFormData] = useState({})
 
     const onSubmit = (data) => {
+
         update(index, formData);
       };
     
@@ -27,6 +28,7 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
 
     
     useEffect(() => {
+        console.log(data)
         setFormData(data)
     }, [data])
 
@@ -44,7 +46,18 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
                             index={index}
                             formMethods={{control , register}}
                         />
-                );
+                        )
+                };
+                if(key === 'id'){
+                    return (
+                        <Input className={clsx(
+                            'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
+                            'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+                          )}
+                          {...register("id", { required: "true" })} 
+                          key = {key}
+                          />
+                    )
                 } 
         
                 })
@@ -69,6 +82,7 @@ const MultiForm = ({form}) => {
         acc[current_value.name] = '';
         return acc;
       }, {})
+      console.log(defaultValues)
     
       const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm({
         defaultValues: {
