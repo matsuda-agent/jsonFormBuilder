@@ -175,6 +175,14 @@
           }
         ]
 
+      },
+      {
+        "id" : 5,
+        "name" : "income_details",
+        "title": "Income Details",
+        "description": "Please Provide More details",
+        "type": "textarea",
+        "is_mandatory": true
       }
       
     

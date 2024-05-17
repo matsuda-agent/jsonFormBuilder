@@ -9,7 +9,8 @@ export const FieldType = {
   DATE: 'date',
   PHONE : 'phone',
   CHECKBOX : 'checkbox',
-  CCHECKBOX : 'ccheckbox'
+  CCHECKBOX : 'ccheckbox',
+  TEXTAREA : 'textarea',
   // ADDRESS: 'address',
 };
 
