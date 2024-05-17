@@ -1,7 +1,11 @@
 {
-    "title": "Personal Information",
+"forms": 
+[
+  {  
+    "formId" : 1,
+    "title": "Applicant Details",
     "type": "object",
-    "required": ["firstName", "lastName"],
+    "required": ["firstName", "lastName"] ,
     "fields" : [
       {
         "id" : 1,
@@ -18,13 +22,20 @@
         "description": "Enter your last name",
         "type": "text",
         "is_mandatory": true
-      },
+      }]
+  },
+  {
+    "formId" : 2,
+    "title": "Applicant Address Details",
+    "type": "object",
+    "required": ["address"],
+    "fields" : [
       {
-        "id" : 3,
+        "id" : 1,
         "name" : "address",
         "title": "Address",
         "description": "Enter your Address",
-        "type": "array",
+        "type": "carray",
         "is_mandatory": true,
         "subFields": [
           {
@@ -43,33 +54,28 @@
             "type": "text",
             "is_mandatory": true
           }
-        ]
-      },
-      {
-        "id" : 4,
-        "name" : "Conditional address",
-        "title": "Conditional Address",
-        "description": "Enter your Address",
-        "type": "carray",
-        "is_mandatory": true,
-        "subFields": [
-          {
-            "id" : 1,
-            "name" : "street",
-            "title": "Street",
-            "description": "Enter your Street",
-            "type": "text",
-            "is_mandatory": true
+        ],
+        "condition" : {
+          "fieldName": "Country",
+          "if": {
+            "and": [
+              {
+                "property": "watchFields",
+                "notNull": true
+              },
+              {
+                "property": "watchFields.length",
+                "greaterThan": 0
+              },
+              {
+                "property": "watchFields[watchFields.length-1].Country",
+                "equals": "a"
+              }
+            ]
           },
-          {
-            "id" : 2,
-            "name" : "city",
-            "title": "City",
-            "description": "Enter your City",
-            "type": "text",
-            "is_mandatory": true
-          }
-        ]
-      } 
-    ]
-}
+          "action": "append(FieldValues)"
+        }
+      }]
+    
+  }
+]}

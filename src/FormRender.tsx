@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form';
 
 
 
-export function  FormRender({schema}) {
+
+const Form = ({form}) => {
   const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm();
 
   const formMethods = {
@@ -16,23 +17,42 @@ export function  FormRender({schema}) {
     watch
   }
 
-
   const onSubmit = (data) => {
     console.log(data)
   }
 
   return (
-    <form className='flex flex-col w-full max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto' onSubmit={handleSubmit(onSubmit)}>
-      {schema.fields.map((field) => {
-          return <Field key={field.id} 
-                        field={field} 
-                        formMethods={formMethods}/>
-        })
+    <form className='flex flex-col w-full max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto bg-white/5 rounded-md p-3' onSubmit={handleSubmit(onSubmit)}>
+        <h1 className='text-2xl font-bold text-center'>{form.title}</h1>
+        {form.fields.map((field) => {
+            return <Field key={field.id} 
+                          field={field} 
+                          formMethods={formMethods}/>
+          })
+          
+        }
         
-      }
-      <Button type='submit' className="bg-purple-400 text-white">Submit</Button>
+      <Button type='submit' className="bg-purple-400 text-white w-full max-w-52">Submit</Button>
      
     </form>
+  )
+
+}
+
+
+
+export function  FormRender({schema}) {
+ 
+
+  return (
+    <div className='grid grid-cols-2 items-center justify-center gap-3'>
+      {
+        schema.forms.map((form) => {
+          return <Form key={form.formId} form={form}/>
+        })
+      }
+
+    </div>
   )
 }
 

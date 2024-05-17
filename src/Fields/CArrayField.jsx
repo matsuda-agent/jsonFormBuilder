@@ -25,16 +25,14 @@ function compileAction(action) {
   return action;
 }
 
-function compile(json) {
-  const obj = JSON.parse(json);
-  const condition = compileCondition(obj.condition);
+function compile(obj) {
+  const condition = compileCondition(obj.if);
   const action = compileAction(obj.action);
-  console.log(condition);
   return new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`);
 }
 
 
-const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields} 
+const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields , condition} 
                       , formMethods: {register , control ,setValue ,watch}}) => {
 
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
@@ -54,36 +52,16 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
       }
   },[])
   const watchFields = watch(name);
-  const json = `{
-  "condition": {
-    "and": [
-      {
-        "property": "watchFields",
-        "notNull": true
-      },
-      {
-        "property": "watchFields.length",
-        "greaterThan": 0
-      },
-      {
-        "property": "watchFields[watchFields.length-1].city",
-        "equals": "a"
-      }
-    ]
-  },
-  "action": "append(FieldValues)"
-}`;
-
-  const compiledFunction = compile(json);
+  const compiledFunction = compile(condition);
 
   useEffect(() => {
     compiledFunction(watchFields, FieldValues, append)
-  }, [watchFields?.[watchFields.length-1].city]);
+  }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
 
 
   return (
 
-    <Fieldset className="space-y-3 rounded-xl bg-white/5 p-6 sm:p-10">
+    <Fieldset className="">
       <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
         {
           fields.map((field, index) => {
