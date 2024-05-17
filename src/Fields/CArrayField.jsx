@@ -65,12 +65,12 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
       <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
         {
           fields.map((field, index) => {
-            return Object.keys(field).map((key) => {
+            return Object.keys(field).map((key , i) => {
               if (key!='id'){
               return (
                 
                 <Field key={key}>
-                  <Label className="text-sm/6 font-medium text-white">{key}</Label>
+                  <Label className="text-sm/6 font-medium text-white">{subFields[i].title}</Label>
                   <Input className={clsx(
                     'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'

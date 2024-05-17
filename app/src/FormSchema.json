@@ -57,7 +57,7 @@
           {
             "id" : 1,
             "name" : "postcode",
-            "title": "postcode",
+            "title": "Post Code",
             "description": "Enter your postcode",
             "type": "text",
             "is_mandatory": true
