@@ -8,13 +8,14 @@ import ArrayField from './ArrayField';
 import CArrayField from './CArrayField';
 import PhoneField from './PhoneField';
 import CheckboxField from './CheckboxField';
+import CCheckboxField from './CCheckboxField';
 // import SelectAddress from './SelectAddress';
 
 
 
 
 
-const Field = ({field , formMethods, index}) => {
+const Field = ({field , formMethods, index , fieldArrayName}) => {
 
   switch (field.type) {
     case FieldType.TEXT:
@@ -22,7 +23,7 @@ const Field = ({field , formMethods, index}) => {
     case FieldType.DATE:
         return <InputField field={field} formMethods={formMethods} />;
     case FieldType.PHONE:
-          return <PhoneField field={field} formMethods={formMethods} index={index} />;
+          return <PhoneField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
     case FieldType.SELECT:
       return <SelectField field={field} formMethods={formMethods} />;
     case FieldType.ARRAY:
@@ -30,7 +31,9 @@ const Field = ({field , formMethods, index}) => {
     case FieldType.CARRAY:
       return <CArrayField field={field} formMethods={formMethods} />;
     case FieldType.CHECKBOX:
-      return <CheckboxField field={field} formMethods={formMethods} index={index}/>;
+      return <CheckboxField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
+      case FieldType.CCHECKBOX:
+        return <CCheckboxField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
 
     default:
       console.error('Unsupported field type');

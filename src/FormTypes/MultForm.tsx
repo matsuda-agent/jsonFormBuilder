@@ -7,6 +7,8 @@ import { useForm , useFieldArray, Controller , useWatch} from 'react-hook-form';
 
 // const PhoneField = ({ field, formMethods: { control, register }, index }) => {};
 
+let fieldArrayName;
+
 const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMethods:{update} , schemaFields}) => {
     const { register ,handleSubmit , setValue  } = useForm({
       defaultValues: field 
@@ -15,22 +17,20 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
     const [formData , setFormData] = useState({})
 
     const onSubmit = (data) => {
-
         update(index, formData);
       };
     
 
     const data = useWatch({
         control,
-        name: `array.${index}`
+        name: `${fieldArrayName}.${index}`
       });
     
-
     
     useEffect(() => {
-        console.log(data)
         setFormData(data)
     }, [data])
+
 
     
   
@@ -44,6 +44,7 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
                         <Field key={key} 
                             field={schemaFields[i]} 
                             index={index}
+                            fieldArrayName={fieldArrayName}
                             formMethods={{control , register}}
                         />
                         )
@@ -82,11 +83,13 @@ const MultiForm = ({form}) => {
         acc[current_value.name] = '';
         return acc;
       }, {})
-      console.log(defaultValues)
-    
+
+      fieldArrayName = form.fieldArrayName;
+
+
       const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm({
         defaultValues: {
-          array: [
+            [fieldArrayName] : [
             defaultValues
             ]
         }
@@ -101,7 +104,7 @@ const MultiForm = ({form}) => {
       }
       const { fields, append, update, remove } = useFieldArray({
         control,
-        name: "array"
+        name: fieldArrayName
       });
       const onSubmit = (data) => {
         console.log(data)

@@ -6,6 +6,7 @@
     "title": "Applicant Details",
     "formType": "multi",
     "appendButtonName": "Add Applicant",
+    "fieldArrayName": "applicants",
     "type": "object",
     "required": ["title" , "firstName", "lastName" , "dateOfBirth"] ,
     "fields" : [
@@ -119,5 +120,64 @@
         }
       }]
     
+  },
+  {
+    "formId" : 3,
+    "formType": "single",
+    "title": "Employed Details",
+    "type": "object",
+    "required": ["address"],
+    "fields" : [
+      {
+        "id" : 1,
+        "name" : "commence_date",
+        "title": "Commence Date",
+        "description": "When did you start working?",
+        "type": "date",
+        "is_mandatory": true
+      },
+      {
+        "id" : 2,
+        "name" : "employment_type",
+        "title": "Employment Type",
+        "description": "Enter your Employment Type",
+        "type": "select",
+        "is_mandatory": true,
+        "options" : [
+          { "label": "Full Time", "value": "full_time" },
+          { "label": "Part Time", "value": "part_time" },
+          { "label": "Contract", "value": "contract" }
+        ]
+      },
+      {
+        "id" : 3,
+        "name" : "probation_status",
+        "title": "",
+        "description": "Are you on probation?",
+        "type": "checkbox",
+        "is_mandatory": true
+      },
+      {
+        "id" : 4,
+        "name" : "income_currency",
+        "title": "Is your income in foreign currency?",
+        "description": "Is your income in foreign currency?",
+        "type": "ccheckbox",
+        "is_mandatory": true,
+        "subFields" : [
+          {
+            "id" : 1,
+            "name" : "currency_details",
+            "title": "Currency Details",
+            "description": "Please provide currency details",
+            "type": "text",
+            "is_mandatory": true
+          }
+        ]
+
+      }
+      
+    
+    ]
   }
 ]}

@@ -5,21 +5,28 @@ import {Checkbox , Field , Label, Description} from '@headlessui/react'
 import { FaCheck } from "react-icons/fa";
 import clsx from 'clsx'
 
-const CheckboxField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , index}) => {
+const CheckboxField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , index , fieldArrayName}) => {
 
   const [enabled, setEnabled] = useState(false)
+  let fieldName;
+  if(fieldArrayName){
+    fieldName= `${fieldArrayName}.${index}.${name}`
+  } else{
+    fieldName = name
+  }
+
 
 
   return (
     //  <Field className="w-full">
     
     //   <Description className="text-sm/6 text-white/50">{description}</Description>
-    <div className="flex items-center justify-between p-4">
+    <div className="flex items-center justify-between p-4 space-x-3">
       <span className="text-sm/6 font-medium text-white">{description}</span>
 
       <Controller
           control={control}
-          name={`array.${index}.${name}`} // Adjust the name prop
+          name={fieldName} // Adjust the name prop
           rules={{ required: isMandatory }}
           render={({ field: { onChange, onBlur, value, ref } })  => (
           <Checkbox 

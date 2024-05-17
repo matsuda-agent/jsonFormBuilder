@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { PiX } from 'react-icons/pi';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
-const PhoneField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , index}) => {
+const PhoneField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , fieldArrayName , index}) => {
 
 
   return (
@@ -15,7 +15,7 @@ const PhoneField = ({ field :{id  , name, title , type, isMandatory , descriptio
       <Description className="text-sm/6 text-white/50">{description}</Description>
         <Controller
           control={control}
-          name={`array.${index}.${name}`} // Adjust the name prop
+          name={`${fieldArrayName}.${index}.${name}`} // Adjust the name prop
           rules={{ required: isMandatory }}
           render={({ field: { onChange, onBlur, value, ref } })  => (
             <PhoneInput

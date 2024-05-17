@@ -8,7 +8,26 @@ import { useForm , useFieldArray} from 'react-hook-form';
 
 
 const Form = ({form}) => {
-    const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm();
+
+    // extract the default values from the form schema as long as there is not CArrray
+    const defaultValues = form.fields.reduce((acc, field) => {
+      if (field.type !== 'carray') {
+        if( field.type === 'checkbox' || field.type === 'ccheckbox' ){
+          acc[field.name] = false
+
+        }else{
+          acc[field.name] = field.value || ''
+        }
+      
+      }
+      return acc
+    }, {})
+
+    const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm(
+      {
+        defaultValues
+      }
+    );
   
     const formMethods = {
       register,

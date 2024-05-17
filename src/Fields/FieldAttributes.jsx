@@ -8,7 +8,8 @@ export const FieldType = {
   CARRAY: 'carray',
   DATE: 'date',
   PHONE : 'phone',
-  CHECKBOX : 'checkbox'
+  CHECKBOX : 'checkbox',
+  CCHECKBOX : 'ccheckbox'
   // ADDRESS: 'address',
 };
 
