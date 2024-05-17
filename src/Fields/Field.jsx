@@ -13,7 +13,7 @@ import PhoneField from './PhoneField';
 
 
 
-const Field = ({field , formMethods}) => {
+const Field = ({field , formMethods, index}) => {
 
   switch (field.type) {
     case FieldType.TEXT:
@@ -21,7 +21,7 @@ const Field = ({field , formMethods}) => {
     case FieldType.DATE:
         return <InputField field={field} formMethods={formMethods} />;
     case FieldType.PHONE:
-          return <PhoneField field={field} formMethods={formMethods} />;
+          return <PhoneField field={field} formMethods={formMethods} index={index} />;
     case FieldType.SELECT:
       return <SelectField field={field} formMethods={formMethods} />;
     case FieldType.ARRAY:
