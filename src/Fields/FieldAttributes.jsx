@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 export const FieldType = {
   TEXT: 'text',
   SELECT: 'select',
-  ARRAY: 'array'
+  ARRAY: 'array',
+  CARRAY: 'conditional_array'
   // ADDRESS: 'address',
 };
 

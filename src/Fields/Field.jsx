@@ -5,6 +5,7 @@ import { FieldType, BaseFieldAttributes } from './FieldAttributes'; // Adjust pa
 import InputField from './InputField';
 import SelectField from './SelectField';
 import ArrayField from './ArrayField';
+import CArrayField from './CArrayField';
 // import SelectAddress from './SelectAddress';
 
 
@@ -20,6 +21,9 @@ const Field = ({field , formMethods}) => {
       return <SelectField field={field} formMethods={formMethods} />;
     case FieldType.ARRAY:
       return <ArrayField field={field} formMethods={formMethods} />;
+    case FieldType.CARRAY:
+      console.log('field', field);
+      return <CArrayField field={field} formMethods={formMethods} />;
 
     default:
       console.error('Unsupported field type');

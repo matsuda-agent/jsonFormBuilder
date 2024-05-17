@@ -54,6 +54,32 @@ const FormSchema = {
       subFields: [
         {
           "id" : 1,
+          "name" : "postcode",
+          "title": "postcode",
+          "description": "Enter your postcode",
+          type: FieldType.TEXT,
+          isMandatory: true,
+        },
+        {
+          "id" : 2,
+          "name" : "Country",
+          "title": "Country",
+          "description": "Enter your Country",
+          type: FieldType.TEXT,
+          isMandatory: true,
+        }
+      ]
+    },
+    {
+      "id" : 4,
+      "name" : "Conditional address",
+      "title": "Address",
+      "description": "Enter your Address",
+      type: FieldType.CARRAY,
+      isMandatory: true,
+      subFields: [
+        {
+          "id" : 1,
           "name" : "street",
           "title": "Street",
           "description": "Enter your Street",
@@ -69,7 +95,7 @@ const FormSchema = {
           isMandatory: true,
         }
       ]
-    }
+    } 
   ]
 };
 

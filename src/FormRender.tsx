@@ -12,7 +12,8 @@ export function  FormRender({schema}) {
   const formMethods = {
     register,
     control,
-    setValue
+    setValue,
+    watch
   }
 
 
@@ -21,7 +22,7 @@ export function  FormRender({schema}) {
   }
 
   return (
-    <form className='flex flex-col w-full h-full items-center justify-center space-y-6' onSubmit={handleSubmit(onSubmit)}>
+    <form className='flex flex-col w-full max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto' onSubmit={handleSubmit(onSubmit)}>
       {schema.fields.map((field) => {
           return <Field key={field.id} 
                         field={field} 

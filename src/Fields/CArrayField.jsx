@@ -4,7 +4,7 @@ import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 
-const ArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields} 
+const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields} 
                       , formMethods: {register , control ,setValue ,watch}}) => {
 
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
@@ -14,9 +14,24 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
 
   useEffect(() => {
     if(fields.length === 0){
-        update(0,{'street' :'' , 'city' : ''});
+        update(0,{'postcode' :'' , 'Country' : ''});
       }
   },[])
+
+
+  const watchFields = watch(name);
+  console.log('watchFields', watchFields);
+
+  useEffect(() => {
+    if(watchFields && watchFields.length > 0 && watchFields[watchFields.length-1].Country === 'a'){
+        append({'postcode' :'' , 'Country' : ''});
+    }
+  },[watchFields?.[watchFields.length-1].Country]
+)
+
+
+
+
 
   return (
 
@@ -47,6 +62,6 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
 
 };
 // SelectField.propTypes = SelectFieldAttributes; // Apply the predefined PropTypes
-export default ArrayField;
+export default CArrayField;
 
 
