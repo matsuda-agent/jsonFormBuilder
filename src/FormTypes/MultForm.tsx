@@ -14,25 +14,6 @@ const Edit = ({fieldValues: {index, field} , formMethods: { control } , arrayMet
   
     return (
       <div className='flex flex-col'>
-  
-        {/* {field && Object.keys(field).map((key , i) => {
-          if (key !== 'id'){
-          return (
-            
-            <div key={key} className='flex flex-col space-y-2'>
-              <label htmlFor={key}>{schemaFields[i].title}</label>
-              <input
-                type="text"
-                className='text-black'
-                {...register(key)}
-                defaultValue={field[key]}
-              />
-            </div>
-          );
-        }
-  
-        })
-        } */}
 
     {field && Object.keys(field).map((key , i) => {
           if (key !== 'id'){
