@@ -2,42 +2,12 @@ import React from 'react'
 import { Input , Button } from '@headlessui/react'
 import clsx from 'clsx' 
 import  Field  from './Fields/Field.jsx';
-import { useForm } from 'react-hook-form';
+import { useForm , useFieldArray} from 'react-hook-form';
+
+import MultiForm from './FormTypes/MultForm.tsx';
+import Form from './FormTypes/Form.tsx';
 
 
-
-
-const Form = ({form}) => {
-  const { register, handleSubmit, control, watch, formState: { errors } , setValue } = useForm();
-
-  const formMethods = {
-    register,
-    control,
-    setValue,
-    watch
-  }
-
-  const onSubmit = (data) => {
-    console.log(data)
-  }
-
-  return (
-    <form className='flex flex-col w-full max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto bg-white/5 rounded-md p-3' onSubmit={handleSubmit(onSubmit)}>
-        <h1 className='text-2xl font-bold text-center'>{form.title}</h1>
-        {form.fields.map((field) => {
-            return <Field key={field.id} 
-                          field={field} 
-                          formMethods={formMethods}/>
-          })
-          
-        }
-        
-      <Button type='submit' className="bg-purple-400 text-white w-full max-w-52">Submit</Button>
-     
-    </form>
-  )
-
-}
 
 
 
@@ -48,6 +18,9 @@ export function  FormRender({schema}) {
     <div className='grid grid-cols-2 items-center justify-center gap-3'>
       {
         schema.forms.map((form) => {
+          if (form.formType === 'multi') {
+            return <MultiForm key={form.formId} form={form}/>
+          }
           return <Form key={form.formId} form={form}/>
         })
       }

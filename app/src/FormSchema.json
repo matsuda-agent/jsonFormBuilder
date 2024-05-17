@@ -4,11 +4,26 @@
   {  
     "formId" : 1,
     "title": "Applicant Details",
+    "formType": "multi",
+    "appendButtonName": "Add Applicant",
     "type": "object",
-    "required": ["firstName", "lastName"] ,
+    "required": ["title" , "firstName", "lastName"] ,
     "fields" : [
       {
         "id" : 1,
+        "name" : "title",
+        "title": "Title",
+        "description": "Enter your title",
+        "type": "select",
+        "is_mandatory": true, 
+        "options" : [
+          { "label": "Mr", "value": "mr" },
+          { "label": "Miss", "value": "miss" },
+          { "label": "Mrs", "value": "mrs" }
+        ]
+      },
+      {
+        "id" : 2,
         "name" : "firstName",
         "title": "First name",
         "description": "Enter your first name",
@@ -16,7 +31,7 @@
         "is_mandatory": true
       },
       {
-        "id" : 2,
+        "id" : 3,
         "name" : "lastName",
         "title": "Last name",
         "description": "Enter your last name",
@@ -26,6 +41,7 @@
   },
   {
     "formId" : 2,
+    "formType": "single",
     "title": "Applicant Address Details",
     "type": "object",
     "required": ["address"],
