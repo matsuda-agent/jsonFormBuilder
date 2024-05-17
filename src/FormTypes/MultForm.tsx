@@ -112,7 +112,7 @@ const MultiForm = ({form}) => {
       }
     
       return (
-        <form className='flex flex-col gapy-y-3 w-full max-h-[90vh] items-center justify-center overflow-y-auto bg-white/5 rounded-md py-3' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col gap-y-3 w-full max-h-[100vh]  items-center justify-center overflow-y-auto bg-white/5 rounded-md py-3' onSubmit={handleSubmit(onSubmit)}>
             <h1 className='text-2xl font-bold text-center'>{form.title}</h1>
                 <div className='space-y-5'>
                     {fields.map((field ,index) => {

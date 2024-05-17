@@ -15,7 +15,7 @@ export function  FormRender({schema}) {
  
 
   return (
-    <div className='grid grid-cols-3 items-center justify-center gap-3 overflow-y-auto'>
+    <div className='grid grid-cols-3 items-center justify-center gap-3 max-h-[90vh]'>
       {
         schema.forms.map((form) => {
           if (form.formType === 'multi') {
