@@ -4,6 +4,36 @@ import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 
+
+function compileCondition(condition) {
+  // recursive function to go through the conditions and join the them into a singe string 
+  if (condition.and) {
+    return condition.and.map(compileCondition).filter(Boolean).join(' && ');
+  } else if (condition.property) {
+    if (condition.notNull) {
+      return `${condition.property}`;
+    } else if (condition.greaterThan) {
+      return `${condition.property} > ${condition.greaterThan}`;
+    } else if (condition.equals) {
+      return `${condition.property} === '${condition.equals}'`;
+    }
+  }
+  return null
+}
+
+function compileAction(action) {
+  return action;
+}
+
+function compile(json) {
+  const obj = JSON.parse(json);
+  const condition = compileCondition(obj.condition);
+  const action = compileAction(obj.action);
+  console.log(condition);
+  return new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`);
+}
+
+
 const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields} 
                       , formMethods: {register , control ,setValue ,watch}}) => {
 
@@ -23,20 +53,32 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
         update(0,FieldValues);
       }
   },[])
-
-
   const watchFields = watch(name);
-  console.log('watchFields', watchFields);
+  const json = `{
+  "condition": {
+    "and": [
+      {
+        "property": "watchFields",
+        "notNull": true
+      },
+      {
+        "property": "watchFields.length",
+        "greaterThan": 0
+      },
+      {
+        "property": "watchFields[watchFields.length-1].city",
+        "equals": "a"
+      }
+    ]
+  },
+  "action": "append(FieldValues)"
+}`;
+
+  const compiledFunction = compile(json);
 
   useEffect(() => {
-    if(watchFields && watchFields.length > 0 && watchFields[watchFields.length-1].Country === 'a'){
-        append(FieldValues);
-    }
-  },[watchFields?.[watchFields.length-1].Country]
-)
-
-
-
+    compiledFunction(watchFields, FieldValues, append)
+  }, [watchFields?.[watchFields.length-1].city]);
 
 
   return (

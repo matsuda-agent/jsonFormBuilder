@@ -22,7 +22,6 @@ const Field = ({field , formMethods}) => {
     case FieldType.ARRAY:
       return <ArrayField field={field} formMethods={formMethods} />;
     case FieldType.CARRAY:
-      console.log('field', field);
       return <CArrayField field={field} formMethods={formMethods} />;
 
     default:
