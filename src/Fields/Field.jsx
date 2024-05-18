@@ -28,9 +28,9 @@ const Field = ({field , formMethods, index , fieldArrayName}) => {
     case FieldType.SELECT:
       return <SelectField field={field} formMethods={formMethods} />;
     case FieldType.ARRAY:
-      return <ArrayField field={field} formMethods={formMethods} />;
+      return <ArrayField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
     case FieldType.CARRAY:
-      return <CArrayField field={field} formMethods={formMethods} />;
+      return <CArrayField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
     case FieldType.CHECKBOX:
       return <CheckboxField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
     case FieldType.CCHECKBOX:

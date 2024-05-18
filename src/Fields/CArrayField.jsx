@@ -17,7 +17,6 @@ function compileCondition(condition) {
         if(condition.eval_method && condition.eval_method === 'eval'){
           // evaluate the expression
           // const eval_var = eval(condition.greaterThan);
-          console.log('condition.greaterThan',eval(condition.greaterThan));
           return `${condition.property} > ${condition.greaterThan}`;
 
         }
@@ -36,19 +35,27 @@ function compileAction(action) {
 function compile(obj) {
   const condition = compileCondition(obj.if);
   const action = compileAction(obj.action);
-  console.log(condition);
-  console.log(new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`));
   return new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`);
 }
 
 
 const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields , condition} 
+                      , fieldArrayName , index
                       , formMethods: {register , control ,setValue ,watch}}) => {
 
+
+  let fieldName1
+  if (fieldArrayName) {
+    fieldName1 = `${fieldArrayName}.${index}.${name}`;
+  } else {
+    fieldName1 = name;
+  }
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
     control: control,
-    name: name
+    name: fieldName1
   });
+
+
 
   // extract the subfields name form the subfileds 
   const FieldValues = subFields.reduce((acc, current_value) => {
@@ -61,12 +68,18 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
         update(0,FieldValues);
       }
   },[])
-  const watchFields = watch(name);
+  
+  // const watchFields = watch(fieldName1);
   const compiledFunction = compile(condition);
+ 
+  const watchedFields = fields.map((field, index) => {
+    return watch(`${fieldName1}.${index}`);
+  });
+  console.log('watchedFields', watchedFields);
 
-  useEffect(() => {
-    compiledFunction(watchFields, FieldValues, append)
-  }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
+  // useEffect(() => {
+  //   compiledFunction(watchFields, FieldValues, append)
+  // }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
 
 
   return (
@@ -86,7 +99,7 @@ const CArrayField = ({ field :{id  , name, title , type, isMandatory , descripti
                     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
                   )}
                   type={subFields[i].type}
-                  {...register(`${name}.${index}.${key}`)} />
+                  {...register(`${fieldName1}.${index}.${key}`)} />
            
                 </Field>
               );
