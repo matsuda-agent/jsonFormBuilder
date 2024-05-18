@@ -2,7 +2,7 @@
 
     "applicants.first_name" : {
         "type" : "text"
-        ,"isMandatory" : true
+        ,"isMandatory" : false
         ,"title" : "First Name"
         ,"description" : "Please enter your first name"
 
@@ -11,7 +11,7 @@
     },
     "applicants.last_name" : {
         "type" : "text"
-        ,"isMandatory" : true
+        ,"isMandatory" : false
         ,"title" : "Last Name"
         ,"description" : "Please enter your last name"
 
@@ -19,16 +19,23 @@
     },
     "applicants.email" : {
         "type" : "text"
-        ,"isMandatory" : true
+        ,"isMandatory" : false
         ,"title" : "Email"
         ,"description" : "Please enter your email address"
 
     },
     "applicants.phone" : {
-        "type" : "text"
-        ,"isMandatory" : true
+        "type" : "phone"
+        ,"isMandatory" : false
         ,"title" : "Phone"
         ,"description" : "Please enter your phone number"
+
+    },
+    "applicants.dateOfBirth" : {
+        "type" : "date"
+        ,"isMandatory" : false
+        ,"title" : "Date of Birth"
+        ,"description" : "Please enter your Date of Birth"
 
     }
 }

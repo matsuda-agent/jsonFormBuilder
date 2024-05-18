@@ -6,8 +6,11 @@ import clsx from 'clsx'
 import { PiX } from 'react-icons/pi';
 import { PhoneInput } from 'react-international-phone';
 import 'react-international-phone/style.css';
-const PhoneField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , fieldArrayName , index}) => {
 
+import { useFormContext } from 'react-hook-form';
+
+const PhoneField = ({name , Attributes : {type, isMandatory , title ,  description}}) => {
+  const { register, control, setValue, watch } = useFormContext();
 
   return (
     <Field className="my-3">
@@ -15,7 +18,7 @@ const PhoneField = ({ field :{id  , name, title , type, isMandatory , descriptio
       <Description className="text-sm/6 text-white/50">{description}</Description>
         <Controller
           control={control}
-          name={`${fieldArrayName}.${index}.${name}`} // Adjust the name prop
+          name={name} // Adjust the name prop
           rules={{ required: isMandatory }}
           render={({ field: { onChange, onBlur, value, ref } })  => (
             <PhoneInput

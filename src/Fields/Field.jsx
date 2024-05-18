@@ -16,27 +16,27 @@ import TextAreaField from './TextAreaField';
 
 
 
-const Field = ({field , formMethods, index , fieldArrayName}) => {
+const Field = ({name , Attributes}) => {
 
-  switch (field.type) {
+  switch (Attributes.type) {
     case FieldType.TEXT:
-      return <InputField field={field} formMethods={formMethods} />;
+      return <InputField name={name} Attributes={Attributes} />;
     case FieldType.DATE:
-        return <InputField field={field} formMethods={formMethods} />;
+        return <InputField name={name} Attributes={Attributes} />;
     case FieldType.PHONE:
-          return <PhoneField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
+          return <PhoneField name={name} Attributes={Attributes}  />;
     case FieldType.SELECT:
-      return <SelectField field={field} formMethods={formMethods} />;
+      return <SelectField name={name} Attributes={Attributes} />;
     case FieldType.ARRAY:
-      return <ArrayField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
+      return <ArrayField name={name} Attributes={Attributes}  />;
     case FieldType.CARRAY:
-      return <CArrayField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName} />;
+      return <CArrayField name={name} Attributes={Attributes}  />;
     case FieldType.CHECKBOX:
-      return <CheckboxField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
+      return <CheckboxField name={name} Attributes={Attributes} />;
     case FieldType.CCHECKBOX:
-        return <CCheckboxField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
+        return <CCheckboxField name={name} Attributes={Attributes} />;
     case FieldType.TEXTAREA:
-          return <TextAreaField field={field} formMethods={formMethods} index={index} fieldArrayName={fieldArrayName}/>;
+          return <TextAreaField name={name} Attributes={Attributes} />;
 
     default:
       console.error('Unsupported field type');
