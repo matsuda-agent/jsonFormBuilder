@@ -1,115 +1,155 @@
 {
-"forms": 
-[
-  {  
-    "formId" : 1,
-    "title": "Applicant Details",
-    "formType": "multi",
-    "appendButtonName": "Add Applicant",
-    "type": "object",
-    "required": ["title" , "firstName", "lastName" , "dateOfBirth"] ,
-    "fields" : [
-      {
-        "id" : 1,
-        "name" : "title",
-        "title": "Title",
-        "description": "Enter your title",
-        "type": "select",
-        "is_mandatory": true, 
-        "options" : [
-          { "label": "Mr", "value": "mr" },
-          { "label": "Miss", "value": "miss" },
-          { "label": "Mrs", "value": "mrs" }
-        ]
-      },
-      {
-        "id" : 2,
-        "name" : "firstName",
-        "title": "First name",
-        "description": "Enter your first name",
-        "type": "text",
-        "is_mandatory": true
-      },
-      {
-        "id" : 3,
-        "name" : "lastName",
-        "title": "Last name",
-        "description": "Enter your last name",
-        "type": "text",
-        "is_mandatory": true
-      },
-      {
-        "id" : 4,
-        "name" : "dateOfBirth",
-        "title": "Date Of Birth",
-        "description": "Enter your date of birth",
-        "type": "date",
-        "is_mandatory": true
-      },
-      {
-        "id" : 5,
-        "name" : "phone",
-        "title": "Phone Number",
-        "description": "Enter your phone number",
-        "type": "phone",
-        "is_mandatory": true
-      }
-    
-    ]
-  },
-  {
-    "formId" : 2,
-    "formType": "single",
-    "title": "Applicant Address Details",
-    "type": "object",
-    "required": ["address"],
-    "fields" : [
-      {
-        "id" : 1,
-        "name" : "address",
-        "title": "Address",
-        "description": "Enter your Address",
-        "type": "carray",
-        "is_mandatory": true,
-        "subFields": [
-          {
-            "id" : 1,
-            "name" : "postcode",
-            "title": "Post Code",
-            "description": "Enter your postcode",
-            "type": "text",
-            "is_mandatory": true
-          },
-          {
-            "id" : 2,
-            "name" : "Country",
-            "title": "Country",
-            "description": "Enter your Country",
-            "type": "text",
-            "is_mandatory": true
-          }
-        ],
-        "condition" : {
-          "fieldName": "Country",
-          "if": {
-            "and": [
-              {
-                "property": "watchFields",
-                "notNull": true
-              },
-              {
-                "property": "watchFields.length",
-                "greaterThan": 0
-              },
-              {
-                "property": "watchFields[watchFields.length-1].Country",
-                "equals": "a"
-              }
-            ]
-          },
-          "action": "append(FieldValues)"
+  "forms": [
+        {
+      "formId": 1,
+      "title": "Applicant Details",
+      "formType": "multi",
+      "appendButtonName": "Add Applicant",
+      "type": "object",
+      "required": ["title", "firstName", "lastName", "dateOfBirth"],
+      "fields": [
+        {
+          "id": 1,
+          "name": "title",
+          "title": "Title",
+          "description": "Enter your title",
+          "type": "select",
+          "is_mandatory": true,
+          "options": [
+            {"label": "Mr", "value": "mr"},
+            {"label": "Miss", "value": "miss"},
+            {"label": "Mrs", "value": "mrs"}
+          ]
+        },
+        {
+          "id": 2,
+          "name": "firstName",
+          "title": "First name",
+          "description": "Enter your first name",
+          "type": "text",
+          "is_mandatory": true
+        },
+        {
+          "id": 3,
+          "name": "lastName",
+          "title": "Last name",
+          "description": "Enter your last name",
+          "type": "text",
+          "is_mandatory": true
+        },
+        {
+          "id": 4,
+          "name": "dateOfBirth",
+          "title": "Date Of Birth",
+          "description": "Enter your date of birth",
+          "type": "date",
+          "is_mandatory": true
+        },
+        {
+          "id": 5,
+          "name": "phone",
+          "title": "Phone Number",
+          "description": "Enter your phone number",
+          "type": "phone",
+          "is_mandatory": true
         }
-      }]
-    
-  }
-]}
+      ]
+    },
+
+    {
+      "formId": 2,
+      "formType": "single",
+      "title": "Applicant Address Details",
+      "type": "object",
+      "required": ["address"],
+      "fields": [
+        {
+          "id": 1,
+          "name": "address",
+          "title": "Address",
+          "description": "Enter your Address",
+          "type": "carray",
+          "is_mandatory": true,
+          "subFields": [
+            {
+              "id": 1,
+              "name": "postcode",
+              "title": "Post Code",
+              "description": "Enter your postcode",
+              "type": "text",
+              "is_mandatory": true
+            },
+            {
+              "id": 2,
+              "name": "Country",
+              "title": "Country",
+              "description": "Enter your Country",
+              "type": "text",
+              "is_mandatory": true
+            }
+          ],
+          "condition": {
+            "fieldName": "Country",
+            "if": {
+              "and": [
+                {"property": "watchFields", "notNull": true},
+                {"property": "watchFields.length", "greaterThan": 0},
+                {"property": "watchFields[watchFields.length-1].Country", "equals": "a"}
+              ]
+            },
+            "action": "append(FieldValues)"
+          }
+        }
+      ]
+    },
+    {
+      "formId": 3,
+      "title": "Employment History",
+      "formType": "single",
+      "type": "dynamic table",
+      "fields": [
+        {
+          "id": 1,
+          "name": "employer",
+          "title": "Employer Name",
+          "description": "Enter your employer's name",
+          "type": "text",
+          "is_mandatory": true
+        },
+        {
+          "id": 2,
+          "name": "role",
+          "title": "Role",
+          "description": "Enter your role",
+          "type": "text",
+          "is_mandatory": true
+        },
+        {
+          "id": 3,
+          "name": "startYear",
+          "title": "Start Year",
+          "description": "Enter the start year of employment",
+          "type": "number",
+          "is_mandatory": true
+        },
+        {
+          "id": 4,
+          "name": "endYear",
+          "title": "End Year",
+          "description": "Enter the end year of employment, if applicable",
+          "type": "number",
+          "is_mandatory": false
+        },
+        {
+          "id": 5,
+          "name": "isCurrent",
+          "title": "Current Employer",
+          "description": "Is this your current employer?",
+          "type": "checkbox",
+          "is_mandatory": false
+        }
+      ]
+    }
+  ]
+}
+

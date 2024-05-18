@@ -12,16 +12,18 @@ import Form from './FormTypes/Form.tsx';
 
 
 export function  FormRender({schema}) {
- 
+
+  console.log(schema.forms[2]);
 
   return (
-    <div className='grid grid-cols-2 items-center justify-center gap-3'>
+    <div className='grid grid-cols-2 items-center justify-center gap-3 scroll-auto'>
       {
         schema.forms.map((form) => {
           if (form.formType === 'multi') {
             return <MultiForm key={form.formId} form={form}/>
           }
           return <Form key={form.formId} form={form}/>
+
         })
       }
 

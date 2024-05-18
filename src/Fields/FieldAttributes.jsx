@@ -7,7 +7,8 @@ export const FieldType = {
   ARRAY: 'array',
   CARRAY: 'carray',
   DATE: 'date',
-  PHONE : 'phone'
+  PHONE : 'phone',
+  DTABLE : 'dynamic table'
   // ADDRESS: 'address',
 };
 

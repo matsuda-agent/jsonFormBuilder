@@ -7,15 +7,13 @@ import schema  from './FormSchema.json';
 // probably need to validate the schema before passing it to the form render or 
 
 function App() {
-
-
   return (
-    <>
-    <div className="flex items-center justify-center h-screen w-screen bg-gray-800 text-white">
+    <div className="flex items-center justify-center min-h-screen w-full bg-gray-800 text-white overflow-y-auto">
+      <div className="w-full max-w-4xl p-8"> {/* This container limits the form width and adds padding */}
         <FormRender schema={schema} />
-     </div>
-    </>
-  )
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
