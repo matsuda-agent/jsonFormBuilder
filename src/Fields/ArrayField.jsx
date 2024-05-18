@@ -29,8 +29,9 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
 
   return (
 
-    <Fieldset className="space-y-3 rounded-xl bg-white/5 p-6 sm:p-10">
+    <Fieldset className="space-y-3 rounded-xl bg-white/5 p-6 sm:p-10 flex grid-rows-2">
       <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
+      <div className= "flex flex-row">
         {
           fields.map((field, index) => {
             return Object.keys(field).map((key) => {
@@ -51,6 +52,8 @@ const ArrayField = ({ field :{id  , name, title , type, isMandatory , descriptio
             })
           })
         }
+        </div>
+
     </Fieldset>
   );
 
