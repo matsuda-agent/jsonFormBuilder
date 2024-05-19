@@ -16,7 +16,7 @@ import TextAreaField from './TextAreaField';
 
 
 
-const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
+const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  ,ResponseSchema }) => {
 
   const type = AttributeSchema[`${fieldArrayName}.${key}`].type;
 
@@ -27,11 +27,11 @@ const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema 
     case FieldType.DATE:
         return <InputField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.PHONE:
-          return <PhoneField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
+          return <PhoneField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.SELECT:
       return <SelectField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.ARRAY:
-      return <ArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
+      return <ArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  ResponseSchema={ResponseSchema}   />;
     case FieldType.CARRAY:
       return <CArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
     case FieldType.CHECKBOX:

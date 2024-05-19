@@ -4,10 +4,11 @@ import  Field  from '../../Fields/Field.jsx';
 import { useForm , useFieldArray, Controller , useWatch ,  FormProvider, useFormContext } from 'react-hook-form';
 
 
-export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
+export function  MultiFormRender({ResponseSchema , AttributeSchema}) {
     // extract tthe field array name and the fields from the schema
-    const fieldArrayName = Object.keys(RespsoneSchema)[0];
-    const defaultFields = RespsoneSchema[fieldArrayName];
+    const fieldArrayName = Object.keys(ResponseSchema)[0];
+    const defaultFields = ResponseSchema[fieldArrayName];
+   
 
 
     const methods = useForm(
@@ -49,7 +50,13 @@ export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
                         .map(([key , value] , i) => {
 
                           return (
-                            <Field name={`${fieldArrayName}[${index}].${key}`}  AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  key={key} />
+                            <Field 
+                              name={`${fieldArrayName}[${index}].${key}`}  
+                              AttributesKey={{fieldArrayName , key}} 
+                              AttributeSchema={AttributeSchema}  
+                              key={key} 
+                              ResponseSchema={ResponseSchema}  
+                              />
                           
                           );
                         })

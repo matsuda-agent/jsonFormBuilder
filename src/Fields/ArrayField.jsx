@@ -4,8 +4,9 @@ import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 
-const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema })  => {
+const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
   const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
+
 
 
 
@@ -17,6 +18,10 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
     control: control,
     name: name
   });
+
+  // default fields
+  const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`];
+  console.log('defaultFields',ResponseSchema[`${fieldArrayName}`]);
 
   return (
 
@@ -42,6 +47,9 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
             })
           })
         }
+        <button type='button' 
+        onClick={() => append(defaultFields)} 
+        className="bg-purple-400 text-white w-full max-w-52">Add Address</button>
     </Fieldset>
   );
 
