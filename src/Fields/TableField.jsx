@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { Field, Label, Input, Description } from '@headlessui/react';
+import { Field, Label, Input, Description, Select } from '@headlessui/react';
 import clsx from 'clsx';
+import { FaChevronDown } from "react-icons/fa";
 
 const TableField = ({ name, columns }) => {
   const { control, register } = useFormContext();
@@ -16,6 +17,57 @@ const TableField = ({ name, columns }) => {
       return acc;
     }, {});
     append(newRow);
+  };
+
+  const renderCell = (field, rowIndex, column) => {
+    const fieldName = `${name}[${rowIndex}].${column.name}`;
+    switch (column.type) {
+      case 'text':
+        return (
+          <Input
+            className={clsx(
+              'block w-full rounded-lg border border-gray-300 py-1.5 px-3 text-sm',
+              'focus:outline-none focus:border-blue-500'
+            )}
+            {...register(fieldName)}
+            type="text"
+            style={{ color: 'black' }} // Ensure the text color is black or another contrasting color
+          />
+        );
+      case 'select':
+        return (
+          <div className="relative">
+            <Select
+              className={clsx(
+                'mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-black',
+                'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+              )}
+              {...register(fieldName)}
+            >
+              {column.options.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </Select>
+            <FaChevronDown
+              className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-black/60" />
+          </div>
+        );
+      case 'checkbox':
+        return (
+          <Input
+            type="checkbox"
+            className={clsx(
+              'block rounded-lg border border-gray-300 py-1.5 px-3 text-sm',
+              'focus:outline-none focus:border-blue-500'
+            )}
+            {...register(fieldName)}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -36,15 +88,7 @@ const TableField = ({ name, columns }) => {
             <tr key={field.id}>
               {columns.map((column) => (
                 <td key={column.name} className="py-2 px-4 border-b border-gray-300">
-                  <Input
-                    className={clsx(
-                      'block w-full rounded-lg border border-gray-300 py-1.5 px-3 text-sm',
-                      'focus:outline-none focus:border-blue-500'
-                    )}
-                    {...register(`${name}[${rowIndex}].${column.name}`)}
-                    type="text"
-                    style={{ color: 'black' }} // Ensure the text color is black or another contrasting color
-                  />
+                  {renderCell(field, rowIndex, column)}
                 </td>
               ))}
               <td className="py-2 px-4 border-b border-gray-300">
@@ -72,3 +116,4 @@ const TableField = ({ name, columns }) => {
 };
 
 export default TableField;
+
