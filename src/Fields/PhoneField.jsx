@@ -9,8 +9,9 @@ import 'react-international-phone/style.css';
 
 import { useFormContext } from 'react-hook-form';
 
-const PhoneField = ({name , Attributes : {type, isMandatory , title ,  description}}) => {
+const PhoneField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
   const { register, control, setValue, watch } = useFormContext();
+  const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
 
   return (
     <Field className="my-3">

@@ -5,7 +5,9 @@ import {Input , Field , Label, Description} from '@headlessui/react'
 import clsx from 'clsx'
 
 
-const InputField = ({ name  , Attributes : {title , description , type ,isMandatory }}) => {
+const InputField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
+
+  const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
   const { register, control, setValue, watch } = useFormContext();
 
   return (

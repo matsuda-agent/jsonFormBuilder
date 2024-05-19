@@ -6,8 +6,6 @@
         ,"title" : "First Name"
         ,"description" : "Please enter your first name"
 
-
-
     },
     "applicants.last_name" : {
         "type" : "text"

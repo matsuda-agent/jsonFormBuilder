@@ -49,7 +49,7 @@ export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
                         .map(([key , value] , i) => {
 
                           return (
-                            <Field name={`${fieldArrayName}[${index}].${key}`}  Attributes={AttributeSchema[`${fieldArrayName}.${key}`]} key={key} />
+                            <Field name={`${fieldArrayName}[${index}].${key}`}  AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  key={key} />
                           
                           );
                         })

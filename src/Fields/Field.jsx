@@ -16,31 +16,34 @@ import TextAreaField from './TextAreaField';
 
 
 
-const Field = ({name , Attributes}) => {
+const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
 
-  switch (Attributes.type) {
+  const type = AttributeSchema[`${fieldArrayName}.${key}`].type;
+
+
+  switch (type) {
     case FieldType.TEXT:
-      return <InputField name={name} Attributes={Attributes} />;
+        return <InputField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.DATE:
-        return <InputField name={name} Attributes={Attributes} />;
+        return <InputField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.PHONE:
-          return <PhoneField name={name} Attributes={Attributes}  />;
+          return <PhoneField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
     case FieldType.SELECT:
-      return <SelectField name={name} Attributes={Attributes} />;
+      return <SelectField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.ARRAY:
-      return <ArrayField name={name} Attributes={Attributes}  />;
+      return <ArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
     case FieldType.CARRAY:
-      return <CArrayField name={name} Attributes={Attributes}  />;
+      return <CArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
     case FieldType.CHECKBOX:
-      return <CheckboxField name={name} Attributes={Attributes} />;
+      return <CheckboxField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.CCHECKBOX:
-        return <CCheckboxField name={name} Attributes={Attributes} />;
+        return <CCheckboxField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.TEXTAREA:
-          return <TextAreaField name={name} Attributes={Attributes} />;
+          return <TextAreaField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
 
     default:
       console.error('Unsupported field type');
-      console.log('field', field);
+      console.log('field', name);
       return null ;
   }
 };
