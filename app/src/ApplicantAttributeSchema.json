@@ -51,7 +51,7 @@
     "applicants.address.city" : {
         "type" : "text"
         ,"isMandatory" : false
-        ,"title" : "city"
+        ,"title" : "City"
         ,"description" : "Please enter your city"
     }
 }
