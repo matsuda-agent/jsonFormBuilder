@@ -1,59 +1,63 @@
 {
-
-    "applicants.first_name" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "First Name"
-        ,"description" : "Please enter your first name"
-
-    },
-    "applicants.last_name" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "Last Name"
-        ,"description" : "Please enter your last name"
-
-
-    },
-    "applicants.email" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "Email"
-        ,"description" : "Please enter your email address"
-
-    },
-    "applicants.phone" : {
-        "type" : "phone"
-        ,"isMandatory" : false
-        ,"title" : "Phone"
-        ,"description" : "Please enter your phone number"
-
-    },
-    "applicants.dateOfBirth" : {
-        "type" : "date"
-        ,"isMandatory" : false
-        ,"title" : "Date of Birth"
-        ,"description" : "Please enter your Date of Birth"
-
-    },
-    "applicants.address" : {
-        "type" : "array"
-        ,"isMandatory" : false
-        ,"title" : "Address"
-        ,"description" : "Please enter your Address"
-    },
-    "applicants.address.street" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "Street"
-        ,"description" : "Please enter your Street"
-    },
-    "applicants.address.city" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "city"
-        ,"description" : "Please enter your city"
-    }
+  "applicants.first_name": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "First Name",
+    "description": "Please enter your first name"
+  },
+  "applicants.last_name": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Last Name",
+    "description": "Please enter your last name"
+  },
+  "applicants.email": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Email",
+    "description": "Please enter your email address"
+  },
+  "applicants.phone": {
+    "type": "phone",
+    "isMandatory": false,
+    "title": "Phone",
+    "description": "Please enter your phone number"
+  },
+  "applicants.dateOfBirth": {
+    "type": "date",
+    "isMandatory": false,
+    "title": "Date of Birth",
+    "description": "Please enter your Date of Birth"
+  },
+  "applicants.address": {
+    "type": "array",
+    "isMandatory": false,
+    "title": "Address",
+    "description": "Please enter your Address"
+  },
+  "applicants.address.street": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Street",
+    "description": "Please enter your Street"
+  },
+  "applicants.address.city": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "city",
+    "description": "Please enter your city"
+  },
+  "applicants.tableField": {
+    "type": "table",
+    "isMandatory": false,
+    "title": "Table Field",
+    "description": "Please enter the table data",
+    "columns": [
+      { "name": "column1", "title": "Column 1" },
+      { "name": "column2", "title": "Column 2" },
+      { "name": "column3", "title": "Column 3" }
+    ]
+  }
 }
 
   
