@@ -1,36 +1,25 @@
 import React, { useEffect } from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray ,useFormContext } from 'react-hook-form';
 import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as necessary
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 
-const ArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields} 
-                      , formMethods: {register , control ,setValue ,watch}}) => {
+const ArrayField = ({name, Attributes}) => {
+  console.log(Attributes)
 
+  // form context 
+  const { register, control, setValue, watch } = useFormContext();
+
+  // define the field array
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
     control: control,
     name: name
   });
 
-
-    // extract the subfields name form the subfileds 
-    const FieldValues = subFields.reduce((acc, current_value) => {
-      acc[current_value.name] = '';
-      return acc;
-        },{});
-
-    useEffect(() => {
-    if(fields.length === 0){
-    update(0,FieldValues);
-    }
-    },[])
-
-
-
   return (
 
     <Fieldset className="space-y-3 rounded-xl bg-white/5 p-6 sm:p-10">
-      <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
+      <Legend className="text-base/7 font-semibold text-white">{"Array Title"}</Legend>
         {
           fields.map((field, index) => {
             return Object.keys(field).map((key) => {

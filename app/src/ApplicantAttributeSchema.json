@@ -37,6 +37,24 @@
         ,"title" : "Date of Birth"
         ,"description" : "Please enter your Date of Birth"
 
+    },
+    "applicants.address" : {
+        "type" : "array"
+        ,"isMandatory" : false
+        ,"title" : "Address"
+        ,"description" : "Please enter your Address"
+    },
+    "applicants.address.street" : {
+        "type" : "text"
+        ,"isMandatory" : false
+        ,"title" : "Street"
+        ,"description" : "Please enter your Street"
+    },
+    "applicants.address.city" : {
+        "type" : "text"
+        ,"isMandatory" : false
+        ,"title" : "city"
+        ,"description" : "Please enter your city"
     }
 }
 

@@ -30,6 +30,7 @@ export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
       name: fieldArrayName
     });
 
+
     return (
       <div className='w-full gap-3 max-h-[90vh]'>
         <h1> Multi Applicant Form</h1>
@@ -38,6 +39,7 @@ export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
             <div className='flex flex-row gap-3'>
             {
               fields.map((field , index) => {
+                
                 return (
                   <div key={field.id} className='flex flex-col gap-3 w-full max-w-[20vw]'>
                     <h1>Applicant {index + 1}</h1>
@@ -45,6 +47,7 @@ export function  MultiFormRender({RespsoneSchema , AttributeSchema}) {
                       Object.entries(field)
                         .filter(([key]) => key !== 'id')
                         .map(([key , value] , i) => {
+
                           return (
                             <Field name={`${fieldArrayName}[${index}].${key}`}  Attributes={AttributeSchema[`${fieldArrayName}.${key}`]} key={key} />
                           

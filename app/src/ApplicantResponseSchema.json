@@ -5,6 +5,14 @@
                , "last_name" : ""
                 , "email" : ""
                 , "phone" : ""
+                , "dateOfBirth" : ""
+                , "address" : [
+                    {
+                        "street" : ""
+                        , "city" : ""
+                    }
+                ]
+
             }
         ]
 }
