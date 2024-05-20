@@ -7,9 +7,6 @@ import clsx from 'clsx';
 const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
   const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
 
-
-
-
   // form context 
   const { register, control, setValue, watch } = useFormContext();
 
@@ -21,7 +18,6 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
 
   // default fields
   const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`];
-  console.log('defaultFields',ResponseSchema[`${fieldArrayName}`]);
 
   return (
 

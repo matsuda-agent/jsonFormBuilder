@@ -33,7 +33,7 @@ const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema 
     case FieldType.ARRAY:
       return <ArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  ResponseSchema={ResponseSchema}   />;
     case FieldType.CARRAY:
-      return <CArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}   />;
+      return <CArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  ResponseSchema={ResponseSchema}   />;
     case FieldType.CHECKBOX:
       return <CheckboxField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  />;
     case FieldType.CCHECKBOX:

@@ -37,10 +37,31 @@
 
     },
     "applicants.address" : {
-        "type" : "array"
+        "type" : "carray"
         ,"isMandatory" : false
         ,"title" : "Address"
         ,"description" : "Please enter your Address"
+        ,"condition" : {
+            "fieldName": "move_in_date",
+            "if": {
+              "and": [
+                {
+                  "property": "watchFields",
+                  "notNull": true
+                },
+                {
+                  "property": "watchFields.length",
+                  "greaterThan": 0
+                },
+                {
+                  "property": "Street",
+                  "equals": "a"
+            
+                }
+              ]
+            },
+            "action": "append(FieldValues)"
+        }
     },
     "applicants.address.street" : {
         "type" : "text"
