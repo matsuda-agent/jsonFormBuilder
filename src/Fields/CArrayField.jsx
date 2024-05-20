@@ -34,8 +34,9 @@ function compileAction(action) {
 
 function compile(obj) {
   const condition = compileCondition(obj.if);
+  console.log('condition', condition);
   const action = compileAction(obj.action);
-  return new Function('watchFields',  'append', `if (${condition}) { ${action} }`);
+  return new Function('watchFields', 'FieldValues' ,   'append', `if (${condition}) { ${action} }`);
 }
 
 
@@ -43,7 +44,8 @@ function compile(obj) {
 const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
   const { title, description, type, isMandatory , condition } = AttributeSchema[`${fieldArrayName}.${key}`];
   // default fields
-  const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`];
+  const FieldValues = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
+  console.log('FieldValues', FieldValues);
 
   // / form context 
   const { register, control, setValue, watch } = useFormContext();
@@ -61,7 +63,7 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
   console.log('watchFields', watchFields);
 
   useEffect(() => {
-    compiledFunction(watchFields, append)
+    compiledFunction(watchFields , FieldValues , append)
   }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
 
 

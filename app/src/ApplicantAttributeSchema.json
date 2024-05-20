@@ -42,7 +42,7 @@
         ,"title" : "Address"
         ,"description" : "Please enter your Address"
         ,"condition" : {
-            "fieldName": "move_in_date",
+            "fieldName": "street",
             "if": {
               "and": [
                 {
@@ -54,7 +54,7 @@
                   "greaterThan": 0
                 },
                 {
-                  "property": "Street",
+                  "property": "watchFields[watchFields.length-1].street",
                   "equals": "a"
             
                 }
