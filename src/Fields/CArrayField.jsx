@@ -69,30 +69,34 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
 
   return (
 
-    <Fieldset className="">
-      <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
-      {
+      <Fieldset className="">
+        <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
+        {
           fields.map((field, index) => {
-            return Object.keys(field).map((k) => {
-              if (k!='id'){
-              return (
-                
-                <Field key={k}>
-                  <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
-                  <Input className={clsx(
-                    'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                    'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
-                  )}
-                  {...register(`${name}.${index}.${k}`)} />
-           
-                </Field>
-              );
-            }
-            })
+            return (
+              <div key={index}>
+                {Object.keys(field).map((k) => {
+                  if (k !== 'id') {
+                    return (
+                      <Field key={k}>
+                        <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
+                        <Input className={clsx(
+                          'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
+                          'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+                        )}
+                        {...register(`${name}.${index}.${k}`)} />
+                      </Field>
+                    );
+                  }
+                  return null;
+                })}
+                <button type="button" onClick={() => remove(index)}>Remove Address</button>
+              </div>
+            );
           })
         }
-    </Fieldset>
-  );
+      </Fieldset>
+        );
 
 };
 // SelectField.propTypes = SelectFieldAttributes; // Apply the predefined PropTypes
