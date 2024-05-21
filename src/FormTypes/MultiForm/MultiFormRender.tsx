@@ -41,9 +41,6 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema }) {
         <>
         <FormProvider {...methods} >
           <form className={styles.form.form} onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className={styles.form.heading}>
-              <h1>Applicants Personal Details</h1>
-            </div>
             <div className={styles.form.button.div}>
                 <button type='button' 
                         onClick={() => append(defaultFields)} 

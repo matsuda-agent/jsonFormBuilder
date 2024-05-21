@@ -52,7 +52,7 @@ function App() {
       "icon" : "group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-black"
     }, 
     "form" : {
-      "form" : "flex flex-col p-10 m-5 items-center justify-center bg-blue-300 rounded-md",
+      "form" : "flex flex-col p-10 m-5 items-center justify-center bg-white rounded-md",
       "heading" : "text-2xl font-bold font-serif",
       "button" : {
         "div" : "flex flex-row justify-between w-full p-3",
@@ -62,7 +62,7 @@ function App() {
       },
 
       "grid" : {
-        "div" :  "grid grid-cols-2 gap-10 bg-purple-300"
+        "div" :  "grid grid-cols-2 gap-10 bg-white"
       },
 
       "main" : {

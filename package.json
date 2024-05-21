@@ -1,6 +1,6 @@
 {
   "name": "json-styled-form-builder",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "This library is a wrapper on top of react-hookform in order to make rendering styled form easy.",
   "main": "src/index.ts",
   "author" : "Himanshu Singh , Abhinav Bhardwaj",
