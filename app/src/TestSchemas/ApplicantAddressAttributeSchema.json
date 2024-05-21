@@ -1,0 +1,33 @@
+{
+    "applicants.address" : {
+      "type": "array",
+      "isMandatory": false,
+      "title": "Address"
+    },
+    "applicants.address.town" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Town"
+    },
+    "applicants.address.county" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "County"
+    },
+    "applicants.address.postcode" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Post Code"
+    },
+    "applicants.address.country" : {
+        "type": "text",
+        "isMandatory": false,
+        "title": "Country"
+    },
+    "applicants.address.moveInDate" : {
+        "type": "date",
+        "isMandatory": false,
+        "title": "Move In Date"
+    }
+
+}

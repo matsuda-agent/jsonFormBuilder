@@ -17,7 +17,9 @@ import TableField from './TableField'; // Import TableField
 
 
 const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  ,ResponseSchema }) => {
+
   const type = AttributeSchema[`${fieldArrayName}.${key}`].type;
+  
 
   switch (type) {
     case FieldType.TEXT:
@@ -29,7 +31,7 @@ const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema 
     case FieldType.SELECT:
       return <SelectField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     case FieldType.ARRAY:
-      return <ArrayField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
+      return <ArrayField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} ResponseSchema={ResponseSchema}  />;
     case FieldType.CARRAY:
       return <CArrayField name={name} AttributesKey={{fieldArrayName , key}} AttributeSchema={AttributeSchema}  ResponseSchema={ResponseSchema}   />;
     case FieldType.CHECKBOX:

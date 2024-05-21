@@ -54,7 +54,7 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema }) {
               fields.map((field , index) => {
                 
                 return (      
-                  <div className={styles.form.main.div}>
+                  <div className={styles.form.main.div} key={index}>
                       <div className='flex flex-row justify-between'>
                         <h1 className='text-xl font-bold font-serif'>Applicant {index + 1}</h1>
                         <button type='button' onClick={() => remove(index)} className={styles.form.button.remove}>Remove</button>
@@ -72,7 +72,7 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema }) {
                               name={`${fieldArrayName}[${index}].${key}`}  
                               AttributesKey={{fieldArrayName , key}} 
                               AttributeSchema={AttributeSchema}  
-                              key={key} 
+                              key={`${value}${i}`} 
                               ResponseSchema={ResponseSchema}  
                               />
                           

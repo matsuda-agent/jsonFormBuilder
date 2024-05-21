@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { useFieldArray ,useFormContext } from 'react-hook-form';
-import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
-import clsx from 'clsx';
+import {Input , Legend , Label, Description , Fieldset} from '@headlessui/react'
+import Field from  './Field.jsx';
+import {useStyle} from '../StyleProvider.tsx';
+
 
 const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
   const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
@@ -16,27 +18,32 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
   });
 
   // default fields
-  const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`];
+  const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
+
+  //styles
+  const {styles} = useStyle();
+  console.log('styles',styles);
 
   return (
 
-    <Fieldset className="space-y-3 rounded-xl bg-white/5 p-6 sm:p-10">
-      <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
+    <Fieldset className={styles.arrayField.Fieldset}>
+      <Legend className={styles.arrayField.Legend}>{title}</Legend>
         {
           fields.map((field, index) => {
-            return Object.keys(field).map((k) => {
+            return Object.keys(field).map((k, i) => {
+              const subkey = `${key}.${k}`;
               if (k!='id'){
               return (
-                
-                <Field key={k}>
-                  <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
-                  <Input className={clsx(
-                    'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                    'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
-                  )}
-                  {...register(`${name}.${index}.${k}`)} />
-           
-                </Field>
+                // <h1>
+                //  {fieldArrayName}.{subkey}
+                // </h1>
+                <Field 
+                  name={`${name}.${index}.${k}`}  
+                  AttributesKey={{fieldArrayName , key : subkey}} 
+                  AttributeSchema={AttributeSchema}  
+                  key={i} 
+                  ResponseSchema={ResponseSchema}
+                />
               );
             }
             })
@@ -53,3 +60,19 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
 export default ArrayField;
 
 
+          // <Field key={k}>
+                //   <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
+                //   <Input className={clsx(
+                //     'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
+                //     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+                //   )}
+                //   {...register(`${name}.${index}.${k}`)} />
+           
+                // </Field>
+                // <Field 
+                //       name={`${fieldArrayName}[${index}].${key}`}  
+                //       AttributesKey={{fieldArrayName , key}} 
+                //       AttributeSchema={AttributeSchema}  
+                //       key={key} 
+                //       ResponseSchema={ResponseSchema}  
+                // />

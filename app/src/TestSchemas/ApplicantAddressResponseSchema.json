@@ -1,0 +1,18 @@
+{
+  "applicants": [
+      {
+      "address" : [
+        {
+          "town" : "",
+          "county": "",
+          "postcode": "",
+          "country": "",
+          "moveInDate": ""
+        }
+      ]
+    }
+  ]
+}
+
+
+  

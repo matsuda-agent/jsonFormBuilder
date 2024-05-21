@@ -6,7 +6,6 @@ import Form from './FormTypes/Form.tsx';
 import { StyleProvider } from './StyleProvider.tsx';
 
 export function  FormRender({ResponseSchema , AttributeSchema  , styles , formType}) {
-  console.log('FormRender:', formType)
   let form;
   switch(formType){
     case 'MultiForm':
