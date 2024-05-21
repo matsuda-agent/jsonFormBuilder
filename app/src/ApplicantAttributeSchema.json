@@ -61,7 +61,46 @@
       ]},
       { "name": "column3", "title": "Column 3", "type": "checkbox" }
     ]
-  }
+  },
+    "applicants.address" : {
+        "type" : "carray"
+        ,"isMandatory" : false
+        ,"title" : "Address"
+        ,"description" : "Please enter your Address"
+        ,"condition" : {
+            "fieldName": "street",
+            "if": {
+              "and": [
+                {
+                  "property": "watchFields",
+                  "notNull": true
+                },
+                {
+                  "property": "watchFields.length",
+                  "greaterThan": 0
+                },
+                {
+                  "property": "watchFields[watchFields.length-1].street",
+                  "equals": "a"
+            
+                }
+              ]
+            },
+            "action": "append(FieldValues)"
+        }
+    },
+    "applicants.address.street" : {
+        "type" : "text"
+        ,"isMandatory" : false
+        ,"title" : "Street"
+        ,"description" : "Please enter your Street"
+    },
+    "applicants.address.city" : {
+        "type" : "text"
+        ,"isMandatory" : false
+        ,"title" : "City"
+        ,"description" : "Please enter your city"
+    }
 }
 
 

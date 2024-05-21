@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray,useFormContext } from 'react-hook-form';
 import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as necessary
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
@@ -34,81 +34,69 @@ function compileAction(action) {
 
 function compile(obj) {
   const condition = compileCondition(obj.if);
+  console.log('condition', condition);
   const action = compileAction(obj.action);
-  return new Function('watchFields', 'FieldValues', 'append', `if (${condition}) { ${action} }`);
+  return new Function('watchFields', 'FieldValues' ,   'append', `if (${condition}) { ${action} }`);
 }
 
 
-const CArrayField = ({ field :{id  , name, title , type, isMandatory , description , subFields , condition} 
-                      , fieldArrayName , index
-                      , formMethods: {register , control ,setValue ,watch}}) => {
 
+const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
+  const { title, description, type, isMandatory , condition } = AttributeSchema[`${fieldArrayName}.${key}`];
+  // default fields
+  const FieldValues = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
+  console.log('FieldValues', FieldValues);
 
-  let fieldName1
-  if (fieldArrayName) {
-    fieldName1 = `${fieldArrayName}.${index}.${name}`;
-  } else {
-    fieldName1 = name;
-  }
+  // / form context 
+  const { register, control, setValue, watch } = useFormContext();
+
+  // define the field array
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
     control: control,
-    name: fieldName1
+    name: name
   });
 
-
-
-  // extract the subfields name form the subfileds 
-  const FieldValues = subFields.reduce((acc, current_value) => {
-                                    acc[current_value.name] = '';
-                                    return acc;
-                                      },{});
-
-  useEffect(() => {
-    if(fields.length === 0){
-        update(0,FieldValues);
-      }
-  },[])
   
-  // const watchFields = watch(fieldName1);
+  const watchFields = watch(name);
   const compiledFunction = compile(condition);
  
-  const watchedFields = fields.map((field, index) => {
-    return watch(`${fieldName1}.${index}`);
-  });
-  console.log('watchedFields', watchedFields);
+  console.log('watchFields', watchFields);
 
-  // useEffect(() => {
-  //   compiledFunction(watchFields, FieldValues, append)
-  // }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
+  useEffect(() => {
+    compiledFunction(watchFields , FieldValues , append)
+  }, [watchFields?.[watchFields.length-1][condition?.fieldName]]);
 
 
   return (
 
-    <Fieldset className="">
-      <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
+      <Fieldset className="">
+        <Legend className="text-base/7 font-semibold text-white">{title}</Legend>
         {
           fields.map((field, index) => {
-            return Object.keys(field).map((key , i) => {
-              if (key!='id'){
-              return (
-                
-                <Field key={key}>
-                  <Label className="text-sm/6 font-medium text-white">{subFields[i].title}</Label>
-                  <Input className={clsx(
-                    'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                    'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
-                  )}
-                  type={subFields[i].type}
-                  {...register(`${fieldName1}.${index}.${key}`)} />
-           
-                </Field>
-              );
-            }
-            })
+            return (
+              <div key={index}>
+                {Object.keys(field).map((k) => {
+                  if (k !== 'id') {
+                    return (
+                      <Field key={k}>
+                        <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
+                        <Input className={clsx(
+                          'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
+                          'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
+                        )}
+                        {...register(`${name}.${index}.${k}`)} />
+                      </Field>
+                    );
+                  }
+                  return null;
+                })}
+                <button type="button" onClick={() => remove(index)}>Remove Address</button>
+              </div>
+            );
           })
         }
-    </Fieldset>
-  );
+      </Fieldset>
+        );
 
 };
 // SelectField.propTypes = SelectFieldAttributes; // Apply the predefined PropTypes
