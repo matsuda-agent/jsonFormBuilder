@@ -22,37 +22,42 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
 
   //styles
   const {styles} = useStyle();
-  console.log('styles',styles);
 
   return (
 
-    <Fieldset className={styles.arrayField.Fieldset}>
-      <Legend className={styles.arrayField.Legend}>{title}</Legend>
-        {
+    <div className={styles.arrayField.Fieldset}>
+      <div className={styles.arrayField.Div}>
+      {
           fields.map((field, index) => {
-            return Object.keys(field).map((k, i) => {
-              const subkey = `${key}.${k}`;
-              if (k!='id'){
-              return (
-                // <h1>
-                //  {fieldArrayName}.{subkey}
-                // </h1>
-                <Field 
-                  name={`${name}.${index}.${k}`}  
-                  AttributesKey={{fieldArrayName , key : subkey}} 
-                  AttributeSchema={AttributeSchema}  
-                  key={i} 
-                  ResponseSchema={ResponseSchema}
-                />
-              );
-            }
-            })
+            return (
+              <React.Fragment key={`${name}.${index}`}>
+                <p className={styles.arrayField.Legend}>{title} {index+1}</p>
+                {
+                  Object.keys(field).map((k, i) => {
+                    const subkey = `${key}.${k}`;
+                    if (k!='id'){
+                      return (
+                        <Field 
+                          name={`${name}.${index}.${k}`}  
+                          AttributesKey={{fieldArrayName , key : subkey}} 
+                          AttributeSchema={AttributeSchema}  
+                          key={`${name}.${index}.${subkey}.${i}`}
+                          ResponseSchema={ResponseSchema}
+                        />
+                      );
+                    }
+                    return null; // Add this to handle the case when k === 'id'
+                  })
+                }
+               </React.Fragment>
+            );
           })
-        }
-        <button type='button' 
-        onClick={() => append(defaultFields)} 
-        className="bg-purple-400 text-white w-full max-w-52">Add Address</button>
-    </Fieldset>
+      }
+        </div>
+          <button type='button' 
+          onClick={() => append(defaultFields)} 
+          className={styles.arrayField.AppendButton}>Add Address</button>
+    </div>
   );
 
 };

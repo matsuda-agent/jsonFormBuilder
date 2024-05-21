@@ -64,17 +64,17 @@ const styles= {
     }
     ,"fieldGrid" : {
       "div" : "grid grid-cols-1 gap-4 bg-white p-3 rounded-md"
-    },
-    "arrayField" : {
-        "Fieldset" : "space-y-3 rounded-xl bg-white/5",
-        "Legend" : "text-base/7 font-semibold text-white",
+    }
+  },
 
-
-
+  "arrayField" : {
+        "Fieldset" : "rounded-none  bg-white ",
+        "Legend" : "font-semibold text-black",
+        "AppendButton" : "bg-purple-400 hover:bg-purple-600 py-2 px-4 rounded-lg text-white w-full mt-4",
+        "Div" : "space-y-4"
     }
 
  }
-}
 
 
 
