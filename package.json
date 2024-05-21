@@ -1,16 +1,20 @@
 {
-  "name": "jsonformbuilder",
-  "version": "1.0.0",
-  "description": "",
+  "name": "json-styled-form-builder",
+  "version": "1.0.6",
+  "description": "This library is a wrapper on top of react-hookform in order to make rendering styled form easy.",
   "main": "src/index.ts",
+  "author" : "Himanshu Singh , Abhinav Bhardwaj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matsuda-agent/jsonFormBuilder.git"
+  },
   "directories": {
     "example": "examples"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["form" , "tailwind" , "headlessui" , "react-hookform" , "styled-components" , "react" , "typescript" , "json"],
   "license": "ISC",
   "peerDependencies": {
     "react": "^18.2.0",

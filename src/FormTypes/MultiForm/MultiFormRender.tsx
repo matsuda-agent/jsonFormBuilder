@@ -2,14 +2,19 @@ import React , {useState , useEffect} from 'react'
 import clsx from 'clsx' 
 import  Field  from '../../Fields/Field.jsx';
 import { useForm , useFieldArray, Controller , useWatch ,  FormProvider, useFormContext } from 'react-hook-form';
+// In the user's application
+
+import { MdAddCircleOutline } from "react-icons/md";
+import {useStyle} from '../../StyleProvider.tsx';
 
 
-export function  MultiFormRender({ResponseSchema , AttributeSchema}) {
+export function  MultiFormRender({ResponseSchema , AttributeSchema }) {
     // extract tthe field array name and the fields from the schema
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
+    // importing styles 
+    const {styles} = useStyle();
    
-
 
     const methods = useForm(
       {
@@ -33,17 +38,33 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema}) {
 
 
     return (
-      <div className='w-full gap-3 max-h-[90vh]'>
-        <h1> Multi Applicant Form</h1>
+        <>
         <FormProvider {...methods} >
-          <form className='flex flex-col max-h-[90vh] items-center justify-center space-y-3 overflow-y-auto bg-white/5 rounded-md p-3' onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className='flex flex-row gap-3'>
+          <form className={styles.form.form} onSubmit={methods.handleSubmit(onSubmit)}>
+            <div className={styles.form.heading}>
+              <h1>Applicants Personal Details</h1>
+            </div>
+            <div className={styles.form.button.div}>
+                <button type='button' 
+                        onClick={() => append(defaultFields)} 
+                        className={styles.form.button.add}><MdAddCircleOutline  size={20}/> Add </button>
+
+                <button type='submit'  
+                        className={styles.form.button.submit}>Submit</button>
+            </div>
+            <div className={styles.form.grid.div}>
             {
               fields.map((field , index) => {
                 
-                return (
-                  <div key={field.id} className='flex flex-col gap-3 w-full max-w-[20vw]'>
-                    <h1>Applicant {index + 1}</h1>
+                return (      
+                  <div className={styles.form.main.div}>
+                      <div className='flex flex-row justify-between'>
+                        <h1 className='text-xl font-bold font-serif'>Applicant {index + 1}</h1>
+                        <button type='button' onClick={() => remove(index)} className={styles.form.button.remove}>Remove</button>
+                      </div>
+
+                      <div className={styles.form.fieldGrid.div}>
+
                     {
                       Object.entries(field)
                         .filter(([key]) => key !== 'id')
@@ -61,24 +82,18 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema}) {
                           );
                         })
                     }
-                    <button type='button' onClick={() => remove(index)} className="bg-red-400 text-white w-full max-w-52">Remove</button>
+                      </div>
+
                   </div>
                 );
               })
             }
             </div>
-            <button type='button' 
-                    onClick={() => append(defaultFields)} 
-                    className="bg-purple-400 text-white w-full max-w-52">Add Applicant</button>
-
-            <button type='submit'  
-                    className="bg-green-400 text-white w-full max-w-52">Submit</button>
+      
           </form>
         </FormProvider>
-
-
-      </div>
+        </>
     )
   }
   
-  
+export default MultiFormRender;

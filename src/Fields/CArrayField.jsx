@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useFieldArray,useFormContext } from 'react-hook-form';
-import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as necessary
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 
@@ -34,7 +33,6 @@ function compileAction(action) {
 
 function compile(obj) {
   const condition = compileCondition(obj.if);
-  console.log('condition', condition);
   const action = compileAction(obj.action);
   return new Function('watchFields', 'FieldValues' ,   'append', `if (${condition}) { ${action} }`);
 }
@@ -45,7 +43,6 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
   const { title, description, type, isMandatory , condition } = AttributeSchema[`${fieldArrayName}.${key}`];
   // default fields
   const FieldValues = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
-  console.log('FieldValues', FieldValues);
 
   // / form context 
   const { register, control, setValue, watch } = useFormContext();
@@ -60,7 +57,6 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
   const watchFields = watch(name);
   const compiledFunction = compile(condition);
  
-  console.log('watchFields', watchFields);
 
   useEffect(() => {
     compiledFunction(watchFields , FieldValues , append)

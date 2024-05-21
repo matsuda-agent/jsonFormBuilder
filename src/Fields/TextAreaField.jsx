@@ -1,6 +1,5 @@
 import React  , {useRef , useEffect , useState, Fragment} from 'react';
 import { useFormContext } from 'react-hook-form';
-import { InputFieldAttributes, FieldType } from './FieldAttributes'; // Adjust the import path as necessary
 import {Textarea , Field , Label, Description} from '@headlessui/react'
 import clsx from 'clsx'
 
@@ -17,13 +16,11 @@ const TextAreaField = ({ field :{id  , name, title , type, isMandatory , descrip
     if (textareaRef.current && lines > rows && rows < 10) {
     
         setRows(rows + 1)
-        console.log('rows', rows)
     }
 
     if (textareaRef.current && lines < rows && rows > 3) {
     
       setRows(rows - 1)
-      console.log('rows', rows)
   }
   }, [value]); // Re-check whenever the value changesasdfasdfasdfasd
 

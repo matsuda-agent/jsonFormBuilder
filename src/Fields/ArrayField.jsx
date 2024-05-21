@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useFieldArray ,useFormContext } from 'react-hook-form';
-import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as necessary
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
 

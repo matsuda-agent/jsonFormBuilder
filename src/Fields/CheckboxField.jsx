@@ -1,6 +1,5 @@
 import React , {useState} from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
-import { InputFieldAttributes, FieldType } from './FieldAttributes'; // Adjust the import path as necessary
 import {Checkbox , Field , Label, Description} from '@headlessui/react'
 import { FaCheck } from "react-icons/fa";
 import clsx from 'clsx'

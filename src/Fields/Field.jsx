@@ -1,6 +1,5 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import PropTypes from 'prop-types';
 import { FieldType } from './FieldAttributes'; // Adjust path as necessary
 import InputField from './InputField';
 import SelectField from './SelectField';

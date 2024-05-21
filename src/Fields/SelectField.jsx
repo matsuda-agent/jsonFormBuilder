@@ -1,35 +1,42 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { SelectFieldAttributes } from './FieldAttributes'; // Adjust the path as necessary
 import { Description, Field, Label, Select } from '@headlessui/react'
 import { FaChevronDown } from "react-icons/fa";
 import clsx from 'clsx'
+import {useStyle} from '../StyleProvider.tsx';
 
 
 
-const SelectField = ({ field :{id  , name, title , type, isMandatory , description , options},   formMethods : {register} }) => {
+
+const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
+  const { register, control, setValue, watch } = useFormContext();
+  const { title, description, type, isMandatory , options } = AttributeSchema[`${fieldArrayName}.${key}`];
+  const {styles} = useStyle();
+
 
   return (
-    <Field className="my-3">
-      <Label className="text-sm/6 font-medium text-white">{title}</Label>
-      <Description className="text-sm/6 text-white/50">{description}</Description>
+    <Field>
+      {/* <Label className={styles.selectField.label}>{title}</Label> */}
+  
       <div className="relative">
-
         <Select
-              className={clsx(
-                'mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
-              )}
-              {...register(name, { required: isMandatory })} id={id}
+              className={styles.selectField.selectField}
+              placeholder={title}
+              {...register(name, { required: isMandatory })}
             >
+          <option value="" disabled className='disabled-option:text-gray-100'>
+                {title} 
+          </option>
           {options.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
+         
         </Select>
         <FaChevronDown  
-          className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60" />
+          className={styles.selectField.icon}/>
+       
       </div>
     </Field>
   );
