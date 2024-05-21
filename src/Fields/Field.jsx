@@ -18,9 +18,6 @@ import TableField from './TableField'; // Import TableField
 
 
 const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  ,ResponseSchema }) => {
-
-
-const Field = ({ name, AttributesKey: { fieldArrayName, key }, AttributeSchema }) => {
   const type = AttributeSchema[`${fieldArrayName}.${key}`].type;
 
   switch (type) {
