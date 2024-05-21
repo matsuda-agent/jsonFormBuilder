@@ -1,41 +1,67 @@
 {
-
-    "applicants.first_name" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "First Name"
-        ,"description" : "Please enter your first name"
-
-    },
-    "applicants.last_name" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "Last Name"
-        ,"description" : "Please enter your last name"
-
-
-    },
-    "applicants.email" : {
-        "type" : "text"
-        ,"isMandatory" : false
-        ,"title" : "Email"
-        ,"description" : "Please enter your email address"
-
-    },
-    "applicants.phone" : {
-        "type" : "phone"
-        ,"isMandatory" : false
-        ,"title" : "Phone"
-        ,"description" : "Please enter your phone number"
-
-    },
-    "applicants.dateOfBirth" : {
-        "type" : "date"
-        ,"isMandatory" : false
-        ,"title" : "Date of Birth"
-        ,"description" : "Please enter your Date of Birth"
-
-    },
+  "applicants.first_name": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "First Name",
+    "description": "Please enter your first name"
+  },
+  "applicants.last_name": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Last Name",
+    "description": "Please enter your last name"
+  },
+  "applicants.email": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Email",
+    "description": "Please enter your email address"
+  },
+  "applicants.phone": {
+    "type": "phone",
+    "isMandatory": false,
+    "title": "Phone",
+    "description": "Please enter your phone number"
+  },
+  "applicants.dateOfBirth": {
+    "type": "date",
+    "isMandatory": false,
+    "title": "Date of Birth",
+    "description": "Please enter your Date of Birth"
+  },
+  "applicants.address": {
+    "type": "array",
+    "isMandatory": false,
+    "title": "Address",
+    "description": "Please enter your Address"
+  },
+  "applicants.address.street": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "Street",
+    "description": "Please enter your Street"
+  },
+  "applicants.address.city": {
+    "type": "text",
+    "isMandatory": false,
+    "title": "City",
+    "description": "Please enter your city"
+  },
+  "applicants.tableField": {
+    "type": "table",
+    "isMandatory": false,
+    "title": "Table Field",
+    "description": "Please enter the table data",
+    "columns": [
+      { "name": "column1", "title": "Column 1", "type": "text" },
+      { "name": "column2", "title": "Column 2", "type": "select", "options": [
+        { "label": "Option 1", "value": "option1" },
+        { "label": "Option 2", "value": "option2" },
+        { "label": "Option 3", "value": "option3" }
+      ]},
+      { "name": "column3", "title": "Column 3", "type": "checkbox" }
+    ]
+  },
     "applicants.address" : {
         "type" : "carray"
         ,"isMandatory" : false
@@ -76,5 +102,6 @@
         ,"description" : "Please enter your city"
     }
 }
+
 
   

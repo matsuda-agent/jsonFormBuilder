@@ -1,20 +1,27 @@
 {
-"applicants" :[
-            {
-                "first_name" : ""
-               , "last_name" : ""
-                , "email" : ""
-                , "phone" : ""
-                , "dateOfBirth" : ""
-                , "address" : [
-                    {
-                        "street" : ""
-                        , "city" : ""
-                    }
-                ]
-
-            }
-        ]
+  "applicants": [
+    {
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "phone": "",
+      "dateOfBirth": "",
+      "address": [
+        {
+          "street": "",
+          "city": ""
+        }
+      ],
+      "tableField": [
+        {
+          "column1": "",
+          "column2": "",
+          "column3": ""
+        }
+      ]
+    }
+  ]
 }
+
 
   

@@ -11,6 +11,7 @@ export const FieldType = {
   CHECKBOX : 'checkbox',
   CCHECKBOX : 'ccheckbox',
   TEXTAREA : 'textarea',
+  TABLE : 'table',
   // ADDRESS: 'address',
 };
 
