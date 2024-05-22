@@ -12,7 +12,14 @@ import AttributeSchema  from './TestSchemas/ApplicantAttributeSchema.json';
 import AddressAttributeSchema  from './TestSchemas/ApplicantAddressAttributeSchema.json';
 import AddressResponseSchema  from './TestSchemas/ApplicantAddressResponseSchema.json';
 
+import PropertyDetailsAttributeSchema  from './TestSchemas/PropertyDetailsAttributeSchema.json';
+import PropertyDetailsResponseSchema  from './TestSchemas/PropertyDetailsResponseSchema.json';
 
+
+
+
+   
+   
    
    
 
@@ -80,8 +87,12 @@ const styles= {
         "Div" : "space-y-4"
     }
 
- }
+  , "ccheckboxField" : {
+    "Label" : "text-md font-sans text-black",
+    "Checkbox" : "group size-6 rounded-md bg-gray-200 p-1 ring-1 ring-white/15 ring-inset data-[checked]:bg-blue-600 border",
 
+ }
+}
 
 
 
@@ -106,6 +117,7 @@ const ChosenAttributeSchema = {
 const ChosenFormType = {
   1: 'MultiForm',
   2: 'MultiForm',
+  3: 'SingleForm',
   default: 'MultiForm'
 }
 
@@ -121,18 +133,9 @@ function App() {
       ,"address" : {
         "response" :AddressResponseSchema,
         "attribute" : AddressAttributeSchema
-      } ,"address1" : {
-        "response" :AddressResponseSchema,
-        "attribute" : AddressAttributeSchema
-      } ,"address2" : {
-        "response" :AddressResponseSchema,
-        "attribute" : AddressAttributeSchema
-      } ,"address3" : {
-        "response" :AddressResponseSchema,
-        "attribute" : AddressAttributeSchema
-      } ,"address4" : {
-        "response" :AddressResponseSchema,
-        "attribute" : AddressAttributeSchema
+      } ,"property" : {
+        "response" :PropertyDetailsResponseSchema,
+        "attribute" : PropertyDetailsAttributeSchema
       }
     })
 
@@ -161,12 +164,9 @@ function App() {
 
         <VerticalStep index={1} mainName={'Applicant'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex} isCompleted={true} />
         <VerticalStep index={2} mainName={'Applicant'} secondName={'Address'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={3} mainName={'Employment'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={4} mainName={'Current Mortgage'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={5} mainName={'Credit'} secondName={'History'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={6} mainName={'Existing Property'} secondName={'Details'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={7} mainName={'Property'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false}  isFinal={true}/>
-      </ol>
+        <VerticalStep index={3} mainName={'Property'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
+      
+     </ol>
 
 
       <div className='flex flex-col w-9/12 h-full bg-inherit rounded-3xl'> 

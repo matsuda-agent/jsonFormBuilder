@@ -52,6 +52,19 @@
       {"value": "divorced","label": "Divorced" }
 
     ]
+  },
+  "applicants.hasDependents" : {
+    "type": "ccheckbox",
+    "isMandatory": false,
+    "title": "Dependents",
+    "subFields" : ["NumberofDependents"]
+  },
+  "applicants.NumberofDependents": {
+    "type": "number",
+    "isMandatory": false,
+    "title": "Number of Dependents",
+    "description": "Please enter your Number of Dependents",
+    "dependantOn": "hasDependents"
   }
 }
 

@@ -8,7 +8,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 import {useStyle} from '../../StyleProvider.tsx';
 
 
-export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
+export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
     // extract tthe field array name and the fields from the schema
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
@@ -20,18 +20,9 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
       },
       shouldUnregister : true
     });
-
     // Initialize state with formMethods
     const [methods, setMethods] = useState(formMethods);
     
-    // Initialize useFieldArray outside of useEffect
-    const { fields, append, remove } = useFieldArray({
-      control: methods.control,
-      name: fieldArrayName,
-      shouldUnregister : true
-    });
-    
-
 
     const onSubmit = (data) => {
       submitFunction(data)
@@ -48,28 +39,15 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
         <FormProvider {...methods} >
           <form className={styles.form.form} onSubmit={methods.handleSubmit(onSubmit)}>
             <div className={styles.form.button.div}>
-                <button type='button' 
-                        onClick={() => append(defaultFields)} 
-                        className={styles.form.button.add}><MdAddCircleOutline  size={20}/> Add </button>
-
                 <button type='submit'  
                         className={styles.form.button.submit}>Submit</button>
             </div>
-            <div className={styles.form.grid.div}>
-            {
-              fields.map((field , index) => {
-                
-                return (      
-                  <div className={styles.form.main.div} key={index}>
-                      <div className='flex flex-row justify-between'>
-                        <h1 className='text-xl font-bold font-serif'>Applicant {index + 1}</h1>
-                        <button type='button' onClick={() => remove(index)} className={styles.form.button.remove}>Remove</button>
-                      </div>
-
+            <div className={styles.form.grid.div}> 
+                  <div className={styles.form.main.div}>
                       <div className={styles.form.fieldGrid.div}>
 
                     {
-                      Object.entries(field)
+                      Object.entries(defaultFields)
                         .filter(([key]) => key !== 'id')
                         .map(([key , value] , i) => {
 
@@ -80,12 +58,11 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
 
                           return (
                             <Field 
-                              name={`${fieldArrayName}[${index}].${key}`}  
+                              name={`${key}`}  
                               AttributesKey={{fieldArrayName , key}} 
                               AttributeSchema={AttributeSchema}  
                               key={`${value}${i}`} 
                               ResponseSchema={ResponseSchema}  
-                              index={index}
                               />
                           
                           );
@@ -94,9 +71,6 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
                       </div>
 
                   </div>
-                );
-              })
-            }
             </div>
       
           </form>
@@ -105,4 +79,4 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
     )
   }
   
-export default MultiFormRender;
+export default SingleFormRender;

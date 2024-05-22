@@ -1,0 +1,19 @@
+{
+  "property": {
+    "houseName": "",
+    "street" : "",
+    "city" : "",
+    "county" : "",
+    "postcode" : "",
+    "country" : "",
+    "tenure" : "",
+    "propertyType" : "",
+    "isLeasehold" : "",
+    "yearsRemaining" : "",
+    "yearBuilt" : ""
+    }
+
+}
+
+
+  

@@ -1,0 +1,80 @@
+{
+    "property.houseName" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "House Name"
+    },
+    "property.street" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Street"
+    },
+    "property.city" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "City"
+    },
+    "property.county" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "County"
+    },
+    "property.postcode" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Postcode"
+    },
+    "property.country" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Country"
+    },
+    "property.tenure" : {
+      "type": "number",
+      "isMandatory": false,
+      "title": "Tenure"
+    },
+    "property.propertyType" : {
+      "type": "select",
+      "isMandatory": false,
+      "title": "Property Type",
+      "description": "Please enter your propertyType",
+      "options": [
+        {
+          "value": "House",
+          "label": "House"
+        },
+        {
+          "value": "Flat",
+          "label": "Flat"
+        },
+        {
+          "value": "Bungalow",
+          "label": "Bungalow"
+        },
+        {
+          "value": "Other",
+          "label": "Other"
+        }
+      ]
+    },
+    "property.isLeasehold" : {
+      "type": "ccheckbox",
+      "isMandatory": false,
+      "title": "Is Leasehold?",
+      "subFields" : ["yearsRemaining" , "yearBuilt"]
+    },
+    "property.yearsRemaining" : {
+      "type": "number",
+      "isMandatory": false,
+      "title": "Years Remaining",
+      "dependantOn": "isLeasehold"
+    },
+    "property.yearBuilt" : {
+      "type": "number",
+      "isMandatory": false,
+      "title": "Year  Built",
+      "dependantOn": "isLeasehold"
+    }
+
+}

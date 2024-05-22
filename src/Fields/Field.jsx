@@ -16,13 +16,15 @@ import TableField from './TableField'; // Import TableField
 
 
 
-const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  ,ResponseSchema }) => {
+const Field = ({name , index , AttributesKey:{fieldArrayName , key}  , AttributeSchema  ,ResponseSchema }) => {
 
   const type = AttributeSchema[`${fieldArrayName}.${key}`].type;
   
 
   switch (type) {
     case FieldType.TEXT:
+      return <InputField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
+    case FieldType.NUMBER:
       return <InputField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     case FieldType.DATE:
       return <InputField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
@@ -37,7 +39,7 @@ const Field = ({name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema 
     case FieldType.CHECKBOX:
       return <CheckboxField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     case FieldType.CCHECKBOX:
-      return <CCheckboxField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
+      return <CCheckboxField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} index={index} />;
     case FieldType.TEXTAREA:
       return <TextAreaField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     case FieldType.TABLE: // Add case for TableField

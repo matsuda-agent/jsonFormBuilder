@@ -3,6 +3,7 @@
 // Define field types as constants
 export const FieldType = {
   TEXT: 'text',
+  NUMBER: 'number',
   SELECT: 'select',
   ARRAY: 'array',
   CARRAY: 'carray',
