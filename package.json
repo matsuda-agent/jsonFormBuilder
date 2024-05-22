@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "description": "This library is a wrapper on top of react-hookform in order to make rendering styled form easy.",
   "main": "src/index.ts",
-  "author" : "Himanshu Singh , Abhinav Bhardwaj",
+  "author": "Himanshu Singh , Abhinav Bhardwaj",
   "repository": {
     "type": "git",
     "url": "https://github.com/matsuda-agent/jsonFormBuilder.git"
@@ -14,21 +14,32 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["form" , "tailwind" , "headlessui" , "react-hookform" , "styled-components" , "react" , "typescript" , "json"],
+  "keywords": [
+    "form",
+    "tailwind",
+    "headlessui",
+    "react-hookform",
+    "styled-components",
+    "react",
+    "typescript",
+    "json"
+  ],
   "license": "ISC",
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "typescript": "^5.4.5"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.4"
+
   },
   "dependencies": {
     "@headlessui/react": "^2.0.3",
     "prop-types": "^15.8.1",
-    "react-hook-form": "^7.51.4",
+
     "react-icons": "^5.2.1",
     "react-international-phone": "^4.3.0"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1"
+    , "typescript": "^5.4.5"
   }
 }

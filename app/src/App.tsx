@@ -1,9 +1,10 @@
 
+
+
 import './App.css'
 import { FormRender  , FieldType , MultiFormRender} from 'json-styled-form-builder' ; 
 
-import React from 'react';
-
+import React,{ useState, useEffect }  from 'react';
 
 // import schema 
 import ResponseSchema  from './TestSchemas/ApplicantResponseSchema.json';
@@ -28,7 +29,7 @@ import CreditHistoryDetailsResponseSchema  from './TestSchemas/CreditHistoryDeta
 
 
 
-const styles= {
+const styles = {
   'text' : 'border border-gray-300 rounded-md w-full p-2',
   "inputField" : {
     "label" : "text-sm font-medium text-gray-700 font-serif",
@@ -100,22 +101,9 @@ const styles= {
 
 
 
-import { useState, useEffect } from 'react';
 
 
 
-
-const ChosenResponseSchema = {
-  1:  AddressResponseSchema,
-  2: ResponseSchema,
-  default: ResponseSchema
-}
-
-const ChosenAttributeSchema = {
-  1:  AddressAttributeSchema,
-  2: AttributeSchema,
-  default: AttributeSchema
-}
 
 const ChosenFormType = {
   1: 'MultiForm',
@@ -125,9 +113,9 @@ const ChosenFormType = {
   default: 'MultiForm'
 }
 
-function App() {
+export default function App() {
 
-  const [formIndex , setFormIndex] = React.useState(1);
+  const [formIndex , setFormIndex] = useState(1);
 
   const [schemaFiles, setSchemaFiles]  = useState({
       "applicant"  :{
@@ -202,7 +190,7 @@ function App() {
 
 }
 
-export default App;
+
 
 
 
