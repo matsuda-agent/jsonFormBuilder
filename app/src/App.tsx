@@ -1,6 +1,10 @@
 
 import './App.css'
 import { FormRender  , FieldType , MultiFormRender} from 'json-styled-form-builder' ; 
+
+import React from 'react';
+
+
 // import schema 
 import ResponseSchema  from './TestSchemas/ApplicantResponseSchema.json';
 import AttributeSchema  from './TestSchemas/ApplicantAttributeSchema.json';
@@ -8,7 +12,9 @@ import AttributeSchema  from './TestSchemas/ApplicantAttributeSchema.json';
 import AddressAttributeSchema  from './TestSchemas/ApplicantAddressAttributeSchema.json';
 import AddressResponseSchema  from './TestSchemas/ApplicantAddressResponseSchema.json';
 
-import React from 'react';
+
+   
+   
 
 
 
@@ -78,15 +84,74 @@ const styles= {
 
 
 
+
+
+import { useState, useEffect } from 'react';
+
+
+
+
+const ChosenResponseSchema = {
+  1:  AddressResponseSchema,
+  2: ResponseSchema,
+  default: ResponseSchema
+}
+
+const ChosenAttributeSchema = {
+  1:  AddressAttributeSchema,
+  2: AttributeSchema,
+  default: AttributeSchema
+}
+
+const ChosenFormType = {
+  1: 'MultiForm',
+  2: 'MultiForm',
+  default: 'MultiForm'
+}
+
 function App() {
 
   const [formIndex , setFormIndex] = React.useState(1);
-  const Forms = {
-    // 1 : <FormRender ResponseSchema={ResponseSchema} AttributeSchema={AttributeSchema} styles={styles} formType={'MultiForm'}/>,
-    1 : <FormRender ResponseSchema={AddressResponseSchema} AttributeSchema={AddressAttributeSchema} styles={styles} formType={'MultiForm'}/>,
-    2 : null
-  }
 
+  const [schemaFiles, setSchemaFiles]  = useState({
+      "applicant"  :{
+        "response" : ResponseSchema,
+        "attribute" : AttributeSchema
+      }
+      ,"address" : {
+        "response" :AddressResponseSchema,
+        "attribute" : AddressAttributeSchema
+      } ,"address1" : {
+        "response" :AddressResponseSchema,
+        "attribute" : AddressAttributeSchema
+      } ,"address2" : {
+        "response" :AddressResponseSchema,
+        "attribute" : AddressAttributeSchema
+      } ,"address3" : {
+        "response" :AddressResponseSchema,
+        "attribute" : AddressAttributeSchema
+      } ,"address4" : {
+        "response" :AddressResponseSchema,
+        "attribute" : AddressAttributeSchema
+      }
+    })
+
+
+
+
+  const Submitfunc = (data ,key) => {  
+    console.log('Data Submitted' , key);
+    console.log(data);
+    setSchemaFiles(prev => ({...prev, 
+      [key] : {
+        "attribute"  : schemaFiles[key].attribute,
+        "response" : data 
+      }
+    })
+    )
+    
+    console.log(schemaFiles);
+  }
 
 
   return (
@@ -99,14 +164,30 @@ function App() {
         <VerticalStep index={3} mainName={'Employment'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
         <VerticalStep index={4} mainName={'Current Mortgage'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
         <VerticalStep index={5} mainName={'Credit'} secondName={'History'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={6} mainName={'Existing Property'} secondName={'Details'} currentIndex={formIndex}  isCompleted={false} />
+        <VerticalStep index={6} mainName={'Existing Property'} secondName={'Details'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
         <VerticalStep index={7} mainName={'Property'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false}  isFinal={true}/>
       </ol>
 
 
       <div className='flex flex-col w-9/12 h-full bg-inherit rounded-3xl'> 
-        <h1 className='text-2xl font-bold font-sans mb-3 pb-3 border-b-4 border-blue-500 w-[200px]'>Applicant Details</h1>
-        {Forms[formIndex]}
+        <h1 className='text-2xl font-bold font-sans mb-3 pb-3 border-b-4 border-blue-500 w-[200px]'>Applicant Details</h1>           
+            {Object.entries(schemaFiles).map(([key , value] , index) => {
+              return (
+                <div key={index} className={formIndex === index + 1 ? `visible` : 'hidden'}>
+                  <FormRender 
+                    key={index}
+                    ResponseSchema={value.response} 
+                    AttributeSchema={value.attribute} 
+                    submitFunction = {(data) => Submitfunc(data , key)}
+                    styles={styles} 
+                    formType={ChosenFormType[index + 1] || ChosenFormType.default} 
+                  />
+                </div>
+              );
+
+            }
+          )}
+
       </div>
 
     </div>
@@ -121,7 +202,7 @@ export default App;
 
 const VerticalStep = ({index , mainName , secondName ,currentIndex, isFinal , isCompleted , setFormIndex}) => {
   const click = () => {
-    setFormIndex(index) 
+      setFormIndex(index);
   }
 
   const current= 'text-blue-700 bg-blue-100 border-blue-300 ';

@@ -1,4 +1,4 @@
-import React , {useState , useEffect} from 'react'
+import React , {useState , useEffect, useMemo} from 'react'
 import clsx from 'clsx' 
 import  Field  from '../../Fields/Field.jsx';
 import { useForm , useFieldArray, Controller , useWatch ,  FormProvider, useFormContext } from 'react-hook-form';
@@ -8,33 +8,39 @@ import { MdAddCircleOutline } from "react-icons/md";
 import {useStyle} from '../../StyleProvider.tsx';
 
 
-export function  MultiFormRender({ResponseSchema , AttributeSchema }) {
+export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
     // extract tthe field array name and the fields from the schema
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
-    // importing styles 
-    const {styles} = useStyle();
-   
 
-    const methods = useForm(
-      {
-        defaultValues: {
-          [fieldArrayName]: defaultFields
-        }
-      }
-    );
+    // Initialize useForm outside of useEffect and useState
+    const formMethods = useForm({
+      defaultValues: {
+       [fieldArrayName] : defaultFields
+      },
+      shouldUnregister : true
+    });
 
+    // Initialize state with formMethods
+    const [methods, setMethods] = useState(formMethods);
+    
+    // Initialize useFieldArray outside of useEffect
+    const { fields, append, remove } = useFieldArray({
+      control: methods.control,
+      name: fieldArrayName,
+      shouldUnregister : true
+    });
+    
 
 
     const onSubmit = (data) => {
-      console.log(data)
+      submitFunction(data)
     }
 
 
-    const { fields, append, remove } = useFieldArray({
-      control: methods.control,
-      name: fieldArrayName
-    });
+    // importing styles 
+    const {styles} = useStyle();
+
 
 
     return (

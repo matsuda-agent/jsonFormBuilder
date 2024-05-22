@@ -5,11 +5,11 @@ import MultiFormRender from './FormTypes/MultiForm/MultiFormRender.tsx';
 import Form from './FormTypes/Form.tsx';
 import { StyleProvider } from './StyleProvider.tsx';
 
-export function  FormRender({ResponseSchema , AttributeSchema  , styles , formType}) {
+export function  FormRender({ResponseSchema , AttributeSchema  , styles , formType , submitFunction}) {
   let form;
   switch(formType){
     case 'MultiForm':
-      form = <MultiFormRender ResponseSchema={ResponseSchema} AttributeSchema={AttributeSchema} />
+      form = <MultiFormRender ResponseSchema={ResponseSchema} AttributeSchema={AttributeSchema} submitFunction={submitFunction} />
       break;
     case 'Form':
       form = <Form ResponseSchema={ResponseSchema} AttributeSchema={AttributeSchema} />
