@@ -1,4 +1,3 @@
-export * from './SampleForm';
 export * from './FormRender';
 export * from './FormTypes/MultiForm/MultiFormRender';
 
