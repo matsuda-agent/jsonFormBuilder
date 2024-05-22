@@ -25,9 +25,6 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
   }
   })
 
-  console.log('responseSubFields', responseSubFields)
-
-
 // watch the checkbox to be checked
   const watchFields = watch(name);
   useEffect(() => {

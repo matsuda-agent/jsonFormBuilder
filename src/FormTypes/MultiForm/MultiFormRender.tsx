@@ -13,6 +13,8 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
 
+    console.log('defaultFields' , defaultFields);
+
     // Initialize useForm outside of useEffect and useState
     const formMethods = useForm({
       defaultValues: {

@@ -15,6 +15,9 @@ import AddressResponseSchema  from './TestSchemas/ApplicantAddressResponseSchema
 import PropertyDetailsAttributeSchema  from './TestSchemas/PropertyDetailsAttributeSchema.json';
 import PropertyDetailsResponseSchema  from './TestSchemas/PropertyDetailsResponseSchema.json';
 
+import CreditHistoryDetailsAttributeSchema  from './TestSchemas/CreditHistoryDetailsAttributeSchema.json';
+import CreditHistoryDetailsResponseSchema  from './TestSchemas/CreditHistoryDetailsResponseSchema.json';
+
 
 
 
@@ -118,6 +121,7 @@ const ChosenFormType = {
   1: 'MultiForm',
   2: 'MultiForm',
   3: 'SingleForm',
+  4: 'MultiForm',
   default: 'MultiForm'
 }
 
@@ -136,6 +140,9 @@ function App() {
       } ,"property" : {
         "response" :PropertyDetailsResponseSchema,
         "attribute" : PropertyDetailsAttributeSchema
+      },"credithistory" : {
+        "response" :CreditHistoryDetailsResponseSchema,
+        "attribute" : CreditHistoryDetailsAttributeSchema
       }
     })
 
@@ -165,7 +172,7 @@ function App() {
         <VerticalStep index={1} mainName={'Applicant'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex} isCompleted={true} />
         <VerticalStep index={2} mainName={'Applicant'} secondName={'Address'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
         <VerticalStep index={3} mainName={'Property'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
-      
+        <VerticalStep index={4} mainName={'Credit History'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
      </ol>
 
 

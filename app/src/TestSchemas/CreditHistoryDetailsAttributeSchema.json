@@ -1,0 +1,27 @@
+{
+    "applicants.defaults" : {
+      "type": "array",
+      "isMandatory": true,
+      "title": "Have you had any defaults in the last 6 years?"
+    },
+    "applicants.defaults.company" : {
+      "type": "text",
+      "isMandatory": false,
+      "title": "Company"
+    },
+    "applicants.defaults.amount" : {
+      "type": "number",
+      "isMandatory": false,
+      "title": "Amount"
+    },
+    "applicants.defaults.regDate" : {
+      "type": "date",
+      "isMandatory": false,
+      "title": "Date Registered"
+    },
+    "applicants.defaults.statisfiedDate" : {
+      "type": "date",
+      "isMandatory": false,
+      "title": "Date Satisfied"
+    }
+}
