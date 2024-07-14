@@ -3,18 +3,16 @@ import { Controller } from 'react-hook-form';
 import {Input , Field , Label, Description} from '@headlessui/react'
 import { PhoneInput } from 'react-international-phone';
 // import 'react-international-phone/style.css';
-import {useStyle} from '../StyleProvider.tsx';
 import { useFormContext } from 'react-hook-form';
 
 const PhoneField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
   const { register, control, setValue, watch } = useFormContext();
   const { title, description, type, isMandatory } = AttributeSchema[`${fieldArrayName}.${key}`];
-  const {styles} = useStyle();
 
 
   return (
-    <Field className="my-3">
-      <Label className={styles.phoneField.label}>{title}</Label>
+    <Field>
+      <Label className="phone-input-label">{title}</Label>
       {/* <Description className="text-sm/6 text-white/50">{description}</Description> */}
         <Controller
           control={control}
@@ -25,7 +23,7 @@ const PhoneField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
               placeholder={description}
               value={value}
               onChange={phoneNumber => onChange(phoneNumber)} 
-              inputStyle={styles.phoneField.PhoneInput}
+              className='phone-input'
 
               // className='mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-black focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
             />

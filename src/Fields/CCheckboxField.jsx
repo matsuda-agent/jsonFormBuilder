@@ -1,7 +1,6 @@
 import React , {useEffect, useState} from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
 import {Checkbox , Field , Label, Description , Input} from '@headlessui/react'
-import {useStyle} from '../StyleProvider.tsx';
 import { FaCheck } from "react-icons/fa";
 
 const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  , index }) => {
@@ -9,7 +8,6 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
 
   const { title, description, type, isMandatory , subFields } = AttributeSchema[`${fieldArrayName}.${key}`];
   const { register, control, setValue, watch } = useFormContext();
-  const {styles} = useStyle();
 
  
   // extract the sub fields 
@@ -39,7 +37,7 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
   return (
     <Field>
       <div className='flex flex-row w-full justify-between'>
-      <Label className={styles.ccheckboxField.Label}>{title}</Label>
+      <Label>{title}</Label>
               <Controller
                   control={control}
                   name={name} // Adjust the name prop
@@ -47,7 +45,6 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
                   render={({ field: { onChange, onBlur, value, ref } })  => (
 
                   <Checkbox 
-                    className={styles.ccheckboxField.Checkbox}
                     onChange={onChange}
                     as="div"
                     value={value}
@@ -71,7 +68,6 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
                     <Field key={i}>
                       <Input 
                       type={attr.type}
-                      className={styles.inputField.Input}
                       placeholder={attr.title}
                       {...register(field.name)} />
                 

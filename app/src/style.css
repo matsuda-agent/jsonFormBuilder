@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.Single-Form {
+    @apply bg-black
+}
+
+
+
+.Multi-Form {
+    @apply p-4 flex flex-col bg-white rounded-lg shadow-sm space-y-2 overflow-y-auto max-h-[calc(100vh-4rem)] relative
+}
+
+
+
+
+.Multi-Form .ToolBar {
+    @apply flex justify-between sticky border rounded-lg shadow-sm top-0 left-0 right-0 p-2 bg-white
+
+}
+
+/* define a form-input variable */
+
+
+.Multi-Form .add-button{
+    @apply bg-blue-500 text-white px-3 rounded-md flex flex-row justify-center items-center p-2
+}
+
+.Multi-Form .submit-button{
+    @apply bg-red-500 text-white px-3 rounded-md
+}
+
+
+.Multi-Form .Field-Grid{
+    @apply flex flex-col space-y-2
+}
+
+
+.Multi-Form .Field-Section{
+    @apply border border-black/10 dark:border-white/10 p-5 rounded-md
+}
+
+
+.Multi-Form .Field-Section .Field-Section-header{
+    @apply flex  flex-row justify-between p-3 mb-5
+}
+ 
+.Multi-Form .Field-Section .Field-Section-header .h1{
+    @apply text-lg font-semibold
+}
+
+
+.Multi-Form .Field-Section  .Field-Section-header .remove-button{
+    @apply bg-red-500 border-2 border-red-500 text-white px-3 rounded-md
+}
+
+.Multi-Form .Field-Section .FieldSet{
+    @apply  grid grid-cols-1 xl:grid-cols-2 gap-4 gap-y-4
+}
+
+
+
+.Multi-Form .Field-Section .FieldSet .basic-input{
+    @apply  py-2.5 px-4 w-full border border-red-100 rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
+}
+
+
+.Multi-Form .Field-Section .FieldSet .basic-input-label{
+    @apply w-full  text-black text-sm
+}
+
+
+
+
+.Multi-Form .Field-Section .FieldSet .select-input{
+    @apply w-full p-2 rounded-lg border-2 px-2
+}
+
+
+
+.Multi-Form .Field-Section .FieldSet .select-input-label{
+    @apply w-full text-black text-sm
+}
+
+
+.Multi-Form .Field-Section .FieldSet .phone-input{
+    @apply w-full p-2 rounded-lg border-2 px-2
+}
+
+
+
+.Multi-Form .Field-Section .FieldSet .phone-input-label{
+    @apply w-full text-black text-sm
+}

@@ -3,9 +3,8 @@ import React from 'react'
 
 import MultiFormRender from './FormTypes/MultiForm/MultiFormRender.tsx';
 import SingleFormRender from './FormTypes/SingleForm/SingleFormRender.tsx';
-import { StyleProvider } from './StyleProvider.tsx';
 
-export function  FormRender({ResponseSchema , AttributeSchema  , styles , formType , submitFunction}) {
+export function  FormRender({ResponseSchema , AttributeSchema , formType , submitFunction}) {
   let form;
 
   switch(formType){
@@ -22,8 +21,8 @@ export function  FormRender({ResponseSchema , AttributeSchema  , styles , formTy
  
 
   return (
-    <StyleProvider styles={styles}>
+    <>
       {form}
-    </StyleProvider>
+    </>
   )
 }

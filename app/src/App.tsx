@@ -21,86 +21,9 @@ import CreditHistoryDetailsResponseSchema  from './TestSchemas/CreditHistoryDeta
 
 
 
-
+import './style.css'
    
    
-   
-   
-
-
-
-const styles = {
-  'text' : 'border border-gray-300 rounded-md w-full p-2',
-  "inputField" : {
-    "label" : "text-sm font-medium text-gray-700 font-serif",
-    "Input": "border-b-2 hover:border-dashed hover:border-blue-400 border-gray-300 rounded-none w-full p-2",
-  },
-  "phoneField" :{
-    "label" : "text-sm font-medium text-gray-700",
-    "PhoneInput" :  {
-      width: '100%',
-      padding: '0.375rem 0.75rem',
-      fontSize: '1rem',
-      fontWeight: '400',
-      lineHeight: '1.5',
-      color: '#495057',
-      backgroundColor: 'white',
-      backgroundClip: 'padding-box',
-      borderBottom: '1px solid #ced4da',
-      transition: 'border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out',
-      '&:focus': {
-        color: '#495057',
-        backgroundColor: '#fff',
-        borderColor: '#80bdff',
-        outline: 0,
-        boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-      },
-    }
-  },
-  "selectField" : {
-    "label" : "text-sm font-medium text-gray-700 font-serif",
-    "selectField" : 'border-b border-gray-300 rounded-none w-full p-2 appearance-none',
-    "icon" : "group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-black"
-  },
-  "form" : {
-    "form" : "flex flex-col p-4 m-1 items-center bg-white h-full rounded-3xl",
-    "heading" : "text-2xl font-bold font-serif",
-    "button" : {
-      "div" : "flex flex-row justify-between w-full p-3",
-      "add" : "py-2 px-5 bg-gray-600 text-white rounded-md hover:bg-blue-600 flex flex-row justify-center items-center",
-      "submit" : "py-2 px-5 bg-blue-600 text-white rounded-md hover:bg-green-400",
-      "remove": "py-2 px-5 bg-red-600 text-white rounded-md hover:bg-red-400"
-    },
-
-    "grid" : {
-      "div" :  "grid grid-cols-2 w-full gap-5 bg-inherit rounded-md  overflow-y-scroll"
-    },
-
-    "main" : {
-      "div" : "flex flex-col space-y-2 bg-white border-2 p-5 rounded-md"
-    }
-    ,"fieldGrid" : {
-      "div" : "grid grid-cols-1 gap-4 bg-white p-3 rounded-md"
-    }
-  },
-
-  "arrayField" : {
-        "Fieldset" : "rounded-none  bg-white ",
-        "Legend" : "font-semibold text-black",
-        "AppendButton" : "bg-purple-400 hover:bg-purple-600 py-2 px-4 rounded-lg text-white w-full mt-4",
-        "Div" : "space-y-4"
-    }
-
-  , "ccheckboxField" : {
-    "Label" : "text-md font-sans text-black",
-    "Checkbox" : "group size-6 rounded-md bg-gray-200 p-1 ring-1 ring-white/15 ring-inset data-[checked]:bg-blue-600 border",
-
- }
-}
-
-
-
-
 
 
 
@@ -135,8 +58,6 @@ export default function App() {
     })
 
 
-
-
   const Submitfunc = (data ,key) => {  
     console.log('Data Submitted' , key);
     console.log(data);
@@ -148,7 +69,6 @@ export default function App() {
     })
     )
     
-    console.log(schemaFiles);
   }
 
 
@@ -164,8 +84,7 @@ export default function App() {
      </ol>
 
 
-      <div className='flex flex-col w-9/12 h-full bg-inherit rounded-3xl'> 
-        <h1 className='text-2xl font-bold font-sans mb-3 pb-3 border-b-4 border-blue-500 w-[200px]'>Applicant Details</h1>           
+      <div className='flex flex-col w-9/12 h-full bg-inherit rounded-3xl'>      
             {Object.entries(schemaFiles).map(([key , value] , index) => {
               return (
                 <div key={index} className={formIndex === index + 1 ? `visible` : 'hidden'}>
@@ -174,7 +93,6 @@ export default function App() {
                     ResponseSchema={value.response} 
                     AttributeSchema={value.attribute} 
                     submitFunction = {(data) => Submitfunc(data , key)}
-                    styles={styles} 
                     formType={ChosenFormType[index + 1] || ChosenFormType.default} 
                   />
                 </div>

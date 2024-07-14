@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useFieldArray ,useFormContext } from 'react-hook-form';
 import {Input , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import Field from  './Field.jsx';
-import {useStyle} from '../StyleProvider.tsx';
 
 
 const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {
@@ -20,18 +19,17 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
   // default fields
   const defaultFields = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
 
-  //styles
-  const {styles} = useStyle();
+
 
   return (
 
-    <div className={styles.arrayField.Fieldset}>
-      <div className={styles.arrayField.Div}>
+    <div>
+      <div>
       {
           fields.map((field, index) => {
             return (
               <React.Fragment key={`${name}.${index}`}>
-                <p className={styles.arrayField.Legend}>{title} {index+1}</p>
+                <p>{title} {index+1}</p>
                 {
                   Object.keys(field).map((k, i) => {
                     const subkey = `${key}.${k}`;
@@ -55,8 +53,7 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
       }
         </div>
           <button type='button' 
-          onClick={() => append(defaultFields)} 
-          className={styles.arrayField.AppendButton}>Add Address</button>
+          onClick={() => append(defaultFields)}>Add Address</button>
     </div>
   );
 

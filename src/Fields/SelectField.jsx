@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form';
 import { Description, Field, Label, Select } from '@headlessui/react'
 import { FaChevronDown } from "react-icons/fa";
 import clsx from 'clsx'
-import {useStyle} from '../StyleProvider.tsx';
 
 
 
@@ -11,18 +10,14 @@ import {useStyle} from '../StyleProvider.tsx';
 const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
   const { register, control, setValue, watch } = useFormContext();
   const { title, description, type, isMandatory , options } = AttributeSchema[`${fieldArrayName}.${key}`];
-  const {styles} = useStyle();
-
 
   return (
     <Field>
-      {/* <Label className={styles.selectField.label}>{title}</Label> */}
-  
-      <div className="relative">
+      <Label className="select-input-label">{title}</Label>
         <Select
-              className={styles.selectField.selectField}
               placeholder={title}
               {...register(name, { required: isMandatory })}
+              className="select-input" 
             >
           <option value="" disabled className='disabled-option:text-gray-100'>
                 {title} 
@@ -32,12 +27,9 @@ const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
               {option.label}
             </option>
           ))}
-         
+
+          <FaChevronDown  />
         </Select>
-        <FaChevronDown  
-          className={styles.selectField.icon}/>
-       
-      </div>
     </Field>
   );
 };

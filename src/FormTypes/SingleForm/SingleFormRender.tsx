@@ -5,7 +5,6 @@ import { useForm , useFieldArray, Controller , useWatch ,  FormProvider, useForm
 // In the user's application
 
 import { MdAddCircleOutline } from "react-icons/md";
-import {useStyle} from '../../StyleProvider.tsx';
 
 
 export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
@@ -29,22 +28,18 @@ export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFun
     }
 
 
-    // importing styles 
-    const {styles} = useStyle();
-
 
 
     return (
-        <>
         <FormProvider {...methods} >
-          <form className={styles.form.form} onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className={styles.form.button.div}>
+          <form  onSubmit={methods.handleSubmit(onSubmit)} className='Single-Form'>
+            <div>
                 <button type='submit'  
-                        className={styles.form.button.submit}>Submit</button>
+                        >Submit</button>
             </div>
-            <div className={styles.form.grid.div}> 
-                  <div className={styles.form.main.div}>
-                      <div className={styles.form.fieldGrid.div}>
+            <div> 
+                  <div>
+                      <div>
 
                     {
                       Object.entries(defaultFields)
@@ -72,10 +67,9 @@ export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFun
 
                   </div>
             </div>
-      
+       
           </form>
         </FormProvider>
-        </>
     )
   }
   

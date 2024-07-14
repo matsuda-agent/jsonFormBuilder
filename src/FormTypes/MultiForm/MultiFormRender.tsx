@@ -1,11 +1,10 @@
 import React , {useState , useEffect, useMemo} from 'react'
 import clsx from 'clsx' 
 import  Field  from '../../Fields/Field.jsx';
-import { useForm , useFieldArray, Controller , useWatch ,  FormProvider, useFormContext } from 'react-hook-form';
+import { useForm , useFieldArray  ,  FormProvider } from 'react-hook-form';
 // In the user's application
 
 import { MdAddCircleOutline } from "react-icons/md";
-import {useStyle} from '../../StyleProvider.tsx';
 
 
 export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
@@ -13,14 +12,13 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
 
-    console.log('defaultFields' , defaultFields);
-
     // Initialize useForm outside of useEffect and useState
     const formMethods = useForm({
       defaultValues: {
        [fieldArrayName] : defaultFields
       },
-      shouldUnregister : true
+      shouldUnregister : true,
+       criteriaMode: "all"
     });
 
     // Initialize state with formMethods
@@ -40,35 +38,33 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
     }
 
 
-    // importing styles 
-    const {styles} = useStyle();
 
 
 
     return (
-        <>
         <FormProvider {...methods} >
-          <form className={styles.form.form} onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className={styles.form.button.div}>
+          <form  onSubmit={methods.handleSubmit(onSubmit)} className='Multi-Form'>
+            <div className='ToolBar'>
                 <button type='button' 
+                        className='add-button'
                         onClick={() => append(defaultFields)} 
-                        className={styles.form.button.add}><MdAddCircleOutline  size={20}/> Add </button>
+                        ><MdAddCircleOutline  size={20}/> Add </button>
 
-                <button type='submit'  
-                        className={styles.form.button.submit}>Submit</button>
+                <button type='submit'   className='submit-button'
+                        >Submit</button>
             </div>
-            <div className={styles.form.grid.div}>
+            <div className='Field-Grid'>
             {
               fields.map((field , index) => {
                 
                 return (      
-                  <div className={styles.form.main.div} key={index}>
-                      <div className='flex flex-row justify-between'>
-                        <h1 className='text-xl font-bold font-serif'>Applicant {index + 1}</h1>
-                        <button type='button' onClick={() => remove(index)} className={styles.form.button.remove}>Remove</button>
+                  <div className='Field-Section' key={index}>
+                      <div className='Field-Section-header'>
+                        <h1 className="h1">Applicant {index + 1}</h1>
+                        <button className='remove-button' type='button' onClick={() => remove(index)}>Remove</button>
                       </div>
 
-                      <div className={styles.form.fieldGrid.div}>
+                      <div className='FieldSet'>
 
                     {
                       Object.entries(field)
@@ -82,7 +78,7 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
 
                           return (
                             <Field 
-                              name={`${fieldArrayName}[${index}].${key}`}  
+                              name={`${fieldArrayName}.${index}.${key}`}  
                               AttributesKey={{fieldArrayName , key}} 
                               AttributeSchema={AttributeSchema}  
                               key={`${value}${i}`} 
@@ -103,7 +99,6 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
       
           </form>
         </FormProvider>
-        </>
     )
   }
   

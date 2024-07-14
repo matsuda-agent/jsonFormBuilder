@@ -13,15 +13,29 @@
   }
   ,"applicants.first_name": {
     "type": "text",
-    "isMandatory": false,
+    "isMandatory": true,
     "title": "First Name",
-    "description": "Please enter your first name"
+    "description": "Please enter your first name",
+    "validations": {
+      "required": "First Name is required"
+      , "minLength": {
+        "value": 3,
+        "message": "First Name should be atleast 3 characters"
+      }
+    }
   },
   "applicants.last_name": {
     "type": "text",
     "isMandatory": false,
     "title": "Last Name",
-    "description": "Please enter your last name"
+    "description": "Please enter your last name",
+    "validations": {
+      "required": "Last Name is required"
+      , "minLength": {
+        "value": 3,
+        "message": "Last Name should be atleast 3 characters"
+      }
+    }
   },
   "applicants.email": {
     "type": "text",
