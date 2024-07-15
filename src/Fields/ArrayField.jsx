@@ -23,13 +23,16 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
 
   return (
 
-    <div>
-      <div>
+    <div className='Array-FieldGrid'>
+        <div className='Array-FieldSet'>
+        
       {
           fields.map((field, index) => {
             return (
               <React.Fragment key={`${name}.${index}`}>
-                <p>{title} {index+1}</p>
+                <div className='header'>
+                  <h1 className='h1'>{title} {index+1}</h1>
+                </div>
                 {
                   Object.keys(field).map((k, i) => {
                     const subkey = `${key}.${k}`;
@@ -52,29 +55,10 @@ const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
           })
       }
         </div>
-          <button type='button' 
+          <button type='button'  className='add-button'
           onClick={() => append(defaultFields)}>Add Address</button>
     </div>
   );
 
 };
-// SelectField.propTypes = SelectFieldAttributes; // Apply the predefined PropTypes
 export default ArrayField;
-
-
-          // <Field key={k}>
-                //   <Label className="text-sm/6 font-medium text-white">{AttributeSchema[`${fieldArrayName}.${key}.${k}`].title}</Label>
-                //   <Input className={clsx(
-                //     'mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white',
-                //     'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25'
-                //   )}
-                //   {...register(`${name}.${index}.${k}`)} />
-           
-                // </Field>
-                // <Field 
-                //       name={`${fieldArrayName}[${index}].${key}`}  
-                //       AttributesKey={{fieldArrayName , key}} 
-                //       AttributeSchema={AttributeSchema}  
-                //       key={key} 
-                //       ResponseSchema={ResponseSchema}  
-                // />

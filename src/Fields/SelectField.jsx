@@ -19,7 +19,7 @@ const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
               {...register(name, { required: isMandatory })}
               className="select-input" 
             >
-          <option value="" disabled className='disabled-option:text-gray-100'>
+          <option value="" disabled className='select-input-option'>
                 {title} 
           </option>
           {options.map(option => (

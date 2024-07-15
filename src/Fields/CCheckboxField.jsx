@@ -8,7 +8,7 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
 
   const { title, description, type, isMandatory , subFields } = AttributeSchema[`${fieldArrayName}.${key}`];
   const { register, control, setValue, watch } = useFormContext();
-
+  const [isChecked, setIsChecked] = useState(false);
  
   // extract the sub fields 
   const responseSubFields = subFields.map((field , i) => {
@@ -35,9 +35,9 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
 
 
   return (
-    <Field>
-      <div className='flex flex-row w-full justify-between'>
-      <Label>{title}</Label>
+    <Field className="ccheckbox-fieldset">
+      <div className='flex flex-row  w-full items-center'>
+      <Label className="ccheckbox-label">{title}</Label>
               <Controller
                   control={control}
                   name={name} // Adjust the name prop
@@ -48,8 +48,10 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
                     onChange={onChange}
                     as="div"
                     value={value}
+                    className="ccheckbox-input"
                     >   
-                    <FaCheck className="hidden size-4 fill-white group-data-[checked]:block" />
+
+                    {value===true ? <FaCheck className="ccheckbox-icon"/>: null}
                   </Checkbox>
                   )} />
       </div>
@@ -65,13 +67,11 @@ const CCheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attrib
                  attr = AttributeSchema[`${fieldArrayName}.${field.name}`]
               }
                   return (
-                    <Field key={i}>
                       <Input 
                       type={attr.type}
                       placeholder={attr.title}
-                      {...register(field.name)} />
-                
-                    </Field>
+                      className="basic-input"
+                      {...register(field.name)} key={i} />
                   );
               })
           ) : null 

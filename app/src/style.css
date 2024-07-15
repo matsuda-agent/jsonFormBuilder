@@ -4,11 +4,6 @@
 
 
 
-.Single-Form {
-    @apply bg-black
-}
-
-
 
 .Multi-Form {
     @apply p-4 flex flex-col bg-white rounded-lg shadow-sm space-y-2 overflow-y-auto max-h-[calc(100vh-4rem)] relative
@@ -86,6 +81,46 @@
 }
 
 
+
+.Multi-Form .Field-Section .FieldSet .select-input-option{
+    @apply w-full text-black text-sm
+}
+
+
+
+.Multi-Form .Field-Section .FieldSet .ccheckbox-fieldset{
+    @apply w-full flex flex-col 
+}
+
+
+.Multi-Form .Field-Section .FieldSet .ccheckbox-fieldset .ccheckbox-label{
+    @apply w-full text-black text-lg
+}
+
+
+.Multi-Form .Field-Section .FieldSet .ccheckbox-fieldset .ccheckbox-input{
+    @apply  text-black text-sm border data-[checked]:border-red-500 p-1 rounded-md w-10 h-10 items-center  justify-center flex
+}
+
+
+.Multi-Form .Field-Section .FieldSet .ccheckbox-fieldset .ccheckbox-icon{
+    @apply w-5 h-5
+}
+
+.Multi-Form .Field-Section .FieldSet .ccheckbox-fieldset  .basic-input{
+    @apply  py-2.5 px-4 w-full border border-red-100 rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
+}
+
+
+.basic-input-label{
+    @apply w-full  text-black text-sm
+}
+
+
+
+
+
+
 .Multi-Form .Field-Section .FieldSet .phone-input{
     @apply w-full p-2 rounded-lg border-2 px-2
 }
@@ -94,4 +129,104 @@
 
 .Multi-Form .Field-Section .FieldSet .phone-input-label{
     @apply w-full text-black text-sm
+}
+
+
+
+
+.Multi-Form .Field-Section .FieldSet .Array-FieldGrid{
+    @apply w-full p-2 rounded-lg px-2 space-y-2
+}
+
+
+
+.Multi-Form .Field-Section .FieldSet .Array-FieldSet{
+    @apply w-full grid grid-cols-2 lg:grid-cols-2 gap-4 gap-y-4 border p-3 rounded-md
+}
+
+
+.Multi-Form .Field-Section .FieldSet .Array-FieldSet .header {
+    @apply w-full col-span-1 lg:col-span-2 text-black text-sm
+}
+
+
+
+
+
+
+
+
+.Single-Form {
+    @apply flex flex-col justify-between sticky border rounded-lg shadow-sm top-0 left-0 right-0 p-2 bg-white
+}
+
+
+
+.Single-Form .ToolBar {
+    @apply flex justify-between sticky top-0 left-0 right-0 p-2 bg-white
+
+}
+
+.Single-Form .submit-button{
+    @apply bg-red-500 text-white px-3 py-2 rounded-md
+}
+
+
+.Single-Form .FieldSet{
+    @apply  p-3 border border-black/10 dark:border-white/10 grid grid-cols-1 xl:grid-cols-2 gap-4 gap-y-4
+}
+
+
+.Single-Form .FieldSet .basic-input{
+    @apply  py-2.5 px-4 w-full border border-red-100 rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
+}
+
+
+
+
+
+
+
+
+.Single-Form .FieldSet .select-input{
+    @apply w-full p-2 rounded-lg border-2 px-2
+}
+
+
+
+.Single-Form .FieldSet .select-input-label{
+    @apply w-full text-black text-sm
+}
+
+
+
+.Single-Form .FieldSet .select-input-option{
+    @apply w-full text-black text-sm
+}
+
+
+
+
+
+.Single-Form .FieldSet .ccheckbox-fieldset{
+    @apply w-full flex flex-col 
+}
+
+
+.Single-Form .FieldSet .ccheckbox-fieldset .ccheckbox-label{
+    @apply w-full text-black text-lg
+}
+
+
+.Single-Form .FieldSet .ccheckbox-fieldset .ccheckbox-input{
+    @apply  text-black text-sm border data-[checked]:border-red-500 p-1 rounded-md w-10 h-10 items-center  justify-center flex
+}
+
+
+.Single-Form .FieldSet .ccheckbox-fieldset .ccheckbox-icon{
+    @apply w-5 h-5
+}
+
+.Single-Form .FieldSet .ccheckbox-fieldset  .basic-input{
+    @apply  py-2.5 px-4 w-full border border-red-100 rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
 }

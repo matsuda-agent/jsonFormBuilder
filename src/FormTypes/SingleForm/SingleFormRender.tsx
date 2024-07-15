@@ -33,13 +33,12 @@ export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFun
     return (
         <FormProvider {...methods} >
           <form  onSubmit={methods.handleSubmit(onSubmit)} className='Single-Form'>
-            <div>
+            <div className='ToolBar'>
                 <button type='submit'  
+                        className='submit-button'
                         >Submit</button>
             </div>
-            <div> 
-                  <div>
-                      <div>
+            <div className='FieldSet'> 
 
                     {
                       Object.entries(defaultFields)
@@ -63,11 +62,7 @@ export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFun
                           );
                         })
                     }
-                      </div>
-
-                  </div>
             </div>
-       
           </form>
         </FormProvider>
     )

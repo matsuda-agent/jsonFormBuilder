@@ -17,9 +17,6 @@ const CheckboxField = ({ field :{id  , name, title , type, isMandatory , descrip
 
 
   return (
-    //  <Field className="w-full">
-    
-    //   <Description className="text-sm/6 text-white/50">{description}</Description>
     <div className="flex items-center justify-between p-4 space-x-3 my-3">
       <span className="text-sm/6 font-medium text-white">{description}</span>
 
@@ -32,11 +29,7 @@ const CheckboxField = ({ field :{id  , name, title , type, isMandatory , descrip
             className="group size-6 rounded-md bg-white/10 p-1 ring-1 ring-white/15 ring-inset data-[checked]:bg-white"
             onChange={onChange}
             value={value}
-            // {...register(name, { required: isMandatory })} 
-   
             >
-            {/* Checkmark icon */}
-            {/* <Label className="text-sm/6 font-medium text-white">{title}</Label> */}
             
             <FaCheck className="hidden size-4 fill-black group-data-[checked]:block" />
           </Checkbox>
@@ -45,13 +38,8 @@ const CheckboxField = ({ field :{id  , name, title , type, isMandatory , descrip
   );
 };
 
-// InputField.propTypes = InputFieldAttributes; // Apply the predefined PropTypes
 
 export default CheckboxField;
 
-
-
-
-// InputField.propTypes = InputFieldAttributes; // Apply the predefined PropTypes
 
 
