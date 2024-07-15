@@ -72,7 +72,7 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
                         .map(([key , value] , i) => {
 
                           // check if the field is dependant then don't render 
-                          if(AttributeSchema[`${fieldArrayName}.${key}`].dependantOn){
+                          if(AttributeSchema[`${fieldArrayName}.${key}`]?.dependantOn){
                             return null;
                           }
 
