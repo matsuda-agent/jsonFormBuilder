@@ -26,7 +26,7 @@ const InputField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeS
           messages &&
           Object.entries(messages).map(([type, message]) => {
             return (
-            <p key={type}>{message}</p>
+            <p className='text-red-400' key={type}>{message}</p>
           )
         })
         }

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useFieldArray,useFormContext } from 'react-hook-form';
 import {Input , Field , Legend , Label, Description , Fieldset} from '@headlessui/react'
 import clsx from 'clsx';
+import { ErrorMessage } from "@hookform/error-message"
 
 
 function compileCondition(condition) {
@@ -45,7 +46,7 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
   const FieldValues = ResponseSchema[`${fieldArrayName}`][0][`${key}`][0];
 
   // / form context 
-  const { register, control, setValue, watch } = useFormContext();
+  const { register, control, setValue, watch, formState: {errors}} = useFormContext();
 
   // define the field array
   const { fields, append, prepend, remove, swap, move, insert , update } = useFieldArray({
@@ -91,6 +92,21 @@ const CArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
             );
           })
         }
+
+
+    <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => {
+            return (
+            <p className='text-red-400' key={type}>{message}</p>
+          )
+        })
+        }
+      />    
+        
       </Fieldset>
         );
 

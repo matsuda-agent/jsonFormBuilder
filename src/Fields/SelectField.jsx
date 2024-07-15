@@ -3,13 +3,13 @@ import { useFormContext } from 'react-hook-form';
 import { Description, Field, Label, Select } from '@headlessui/react'
 import { FaChevronDown } from "react-icons/fa";
 import clsx from 'clsx'
-
+import { ErrorMessage } from "@hookform/error-message"
 
 
 
 const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
   const { register, control, setValue, watch } = useFormContext();
-  const { title, description, type, isMandatory , options } = AttributeSchema[`${fieldArrayName}.${key}`];
+  const { title, description, type, isMandatory , options , formState: {errors} } = AttributeSchema[`${fieldArrayName}.${key}`];
 
   return (
     <Field>
@@ -30,6 +30,21 @@ const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , Attribute
 
           <FaChevronDown  />
         </Select>
+
+
+    <ErrorMessage
+        errors={errors}
+        name={name}
+        render={({ messages }) =>
+          messages &&
+          Object.entries(messages).map(([type, message]) => {
+            return (
+            <p className='text-red-400' key={type}>{message}</p>
+          )
+        })
+        }
+      />    
+
     </Field>
   );
 };
