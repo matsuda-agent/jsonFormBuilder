@@ -8,8 +8,8 @@ import { ErrorMessage } from "@hookform/error-message"
 
 
 const SelectField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
-  const { register, control, setValue, watch } = useFormContext();
-  const { title, description, type, isMandatory , options , formState: {errors} } = AttributeSchema[`${fieldArrayName}.${key}`];
+  const { register, control, setValue, watch , formState: {errors}  } = useFormContext();
+  const { title, description, type, isMandatory , options } = AttributeSchema[`${fieldArrayName}.${key}`];
 
   return (
     <Field>
