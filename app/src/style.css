@@ -59,7 +59,11 @@
 
 
 .Multi-Form .Field-Section .FieldSet .basic-input{
-    @apply  py-2.5 px-4 w-full border border-red-100 rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
+    @apply  py-2.5 px-4 w-full border border-black rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
+}
+
+.Multi-Form .Field-Section .FieldSet .basic-input-error{
+    @apply  py-2.5 px-4 w-full border border-red-400  rounded-lg  focus:border-red-100  focus:shadow-none  p-2 bg-transparent text-black dark:text-white  text-sm font-normal placeholder-black/20 dark:placeholder-white/20 focus:ring-0 focus:ring-transparent
 }
 
 

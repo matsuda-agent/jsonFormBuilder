@@ -4,15 +4,11 @@ import {Checkbox , Field , Label, Description} from '@headlessui/react'
 import { FaCheck } from "react-icons/fa";
 import clsx from 'clsx'
 
-const CheckboxField = ({ field :{id  , name, title , type, isMandatory , description},   formMethods : {register , control}  , index , fieldArrayName}) => {
+const CheckboxField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema }) => {
 
-  const [enabled, setEnabled] = useState(false)
-  let fieldName;
-  if(fieldArrayName){
-    fieldName= `${fieldArrayName}.${index}.${name}`
-  } else{
-    fieldName = name
-  }
+ 
+  const { title, description, type, isMandatory , validations } = AttributeSchema[`${fieldArrayName}.${key}`];
+  const { register, control, setValue, watch , formState: {errors} } = useFormContext();
 
 
 
