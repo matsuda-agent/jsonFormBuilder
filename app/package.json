@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
+    "json-styled-form-builder": "^1.0.19",
+    "lodash": "^4.17.21",
     "react-hook-form": "^7.51.4",
     "save": "^2.9.0"
   }
