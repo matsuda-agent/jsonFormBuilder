@@ -4,7 +4,7 @@ import {Input , Field , Label, Description} from '@headlessui/react';
 import { useState } from 'react';
 import clsx from 'clsx'
 import { ErrorMessage } from "@hookform/error-message"
-import {get , isBoolean} from 'lodash'
+import get from 'lodash-es/get';
 
 
 const InputField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema  }) => {

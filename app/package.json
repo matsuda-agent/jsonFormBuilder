@@ -9,10 +9,6 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "resolutions": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
@@ -31,8 +27,10 @@
   "dependencies": {
     "@hookform/error-message": "^2.0.1",
     "json-styled-form-builder": "^1.0.19",
-    "lodash": "^4.17.21",
     "react-hook-form": "^7.51.4",
-    "save": "^2.9.0"
+    "save": "^2.9.0",
+     "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lodash-es": "^4.17.21"
   }
 }

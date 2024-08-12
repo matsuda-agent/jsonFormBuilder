@@ -4,7 +4,7 @@ import { Description, Field, Label, Select } from '@headlessui/react'
 import { FaChevronDown } from "react-icons/fa";
 import clsx from 'clsx'
 import { ErrorMessage } from "@hookform/error-message"
-import {get , isBoolean} from 'lodash'
+import get from 'lodash-es/get';
 
 
 
