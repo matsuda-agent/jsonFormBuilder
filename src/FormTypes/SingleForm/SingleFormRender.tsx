@@ -9,22 +9,29 @@ import { MdAddCircleOutline } from "react-icons/md";
 
 export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFunction}) {
     // extract tthe field array name and the fields from the schema
+    console.log('SingleFormRender', ResponseSchema)
     const fieldArrayName = Object.keys(ResponseSchema)[0];
     const defaultFields = ResponseSchema[fieldArrayName];
 
+    console.log('SingleFormRender defaultValues', defaultFields)
+
     // Initialize useForm outside of useEffect and useState
     const formMethods = useForm({
-      defaultValues: {
-       [fieldArrayName] : defaultFields
-      },
-      shouldUnregister : true
+      defaultValues: defaultFields,
+      shouldUnregister : true,
+        criteriaMode: "all"
     });
     // Initialize state with formMethods
     const [methods, setMethods] = useState(formMethods);
     
 
     const onSubmit = (data) => {
-      submitFunction(data)
+      const newData ={
+      [fieldArrayName]:data
+      }
+
+      console.log('SingleFormData', newData)
+      submitFunction(newData)
     }
 
 
@@ -46,10 +53,9 @@ export function  SingleFormRender({ResponseSchema , AttributeSchema  , submitFun
                         .map(([key , value] , i) => {
 
                           // check if the field is dependant then don't render 
-                          if(AttributeSchema[`${fieldArrayName}.${key}`].dependantOn){
+                          if(AttributeSchema[`${fieldArrayName}.${key}`]?.dependantOn){
                             return null;
                           }
-
                           return (
                             <Field 
                               name={`${key}`}  

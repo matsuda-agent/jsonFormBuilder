@@ -34,6 +34,7 @@ export function  MultiFormRender({ResponseSchema , AttributeSchema  , submitFunc
 
 
     const onSubmit = (data) => {
+      console.log('MultiFormRender', data)
       submitFunction(data)
     }
 

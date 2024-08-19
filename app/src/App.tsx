@@ -60,7 +60,11 @@ export default function App() {
 
   const Submitfunc = (data ,key) => {  
     console.log('Data Submitted' , key);
-    console.log(data);
+    console.log('Submitfunc',data);
+
+    // update the schame files with the new data corresponding to the key
+
+
     setSchemaFiles(prev => ({...prev, 
       [key] : {
         "attribute"  : schemaFiles[key].attribute,
