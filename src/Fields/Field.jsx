@@ -43,7 +43,7 @@ const Field = ({name , index , AttributesKey:{fieldArrayName , key}  , Attribute
     case FieldType.TEXTAREA:
       return <TextAreaField name={name} AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     case FieldType.TABLE: // Add case for TableField
-      return <TableField name={name} columns={AttributeSchema[`${fieldArrayName}.${key}`].columns} />;
+      return <TableField AttributesKey={{ fieldArrayName, key }} AttributeSchema={AttributeSchema} />;
     default:
       console.error('Unsupported field type');
       console.log('field', name);
