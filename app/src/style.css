@@ -6,7 +6,7 @@
 
 
 .Multi-Form {
-    @apply p-4 flex flex-col bg-white rounded-lg shadow-sm space-y-2 overflow-y-auto max-h-[calc(100vh-4rem)] relative
+    @apply p-4 w-full  max-w-2xl flex flex-col rounded-lg  space-y-10 overflow-y-auto max-h-[calc(100vh-4rem)] relative
 }
 
 
@@ -30,12 +30,12 @@
 
 
 .Multi-Form .Field-Grid{
-    @apply flex flex-col space-y-2
+    @apply flex flex-col space-y-5
 }
 
 
 .Multi-Form .Field-Section{
-    @apply border border-black/10 dark:border-white/10 p-5 rounded-md
+    @apply border border-black/10 bg-white shadow-lg dark:border-white/10 p-5 rounded-md
 }
 
 
@@ -53,7 +53,7 @@
 }
 
 .Multi-Form .Field-Section .FieldSet{
-    @apply  grid grid-cols-1 xl:grid-cols-2 gap-4 gap-y-4
+    @apply  grid grid-cols-1 gap-4 gap-y-7
 }
 
 
@@ -68,7 +68,7 @@
 
 
 .Multi-Form .Field-Section .FieldSet .basic-input-label{
-    @apply w-full  text-black text-sm
+    @apply w-full  text-black text-sm font-light
 }
 
 

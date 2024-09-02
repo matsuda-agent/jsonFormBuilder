@@ -36,6 +36,7 @@ const ChosenFormType = {
   default: 'MultiForm'
 }
 
+
 export default function App() {
 
   const [formIndex , setFormIndex] = useState(1);
@@ -58,22 +59,165 @@ export default function App() {
     })
 
 
+
+    const applianct_details_data =
+{"applicant_peronsal_details" :
+    [ 
+      {
+         "applicant_id" : '1',
+          "fields" : [
+        { 
+         "id" : '1'
+         , "field_name" : 'first_name'
+         , "field_value" : ''
+         , "field_type" : 'text'
+         , "title" : 'First Name'
+         , "description" : 'Enter your first name'
+         , "is_required" : true
+         , "validation_schema" : {
+            minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+            }
+         }
+        , "field_type_id" : "1"
+       } , 
+       { 
+         "id" : '2'
+         , "field_name" : 'last_name'
+         , "field_value" : ''
+         , "field_type" : 'text'
+         , "title" : 'Last Name'
+         , "description" : 'Enter your last name'
+         , "is_required" : true
+         , "validation_schema" : {}
+           , "field_type_id" : "2"
+       } , {
+         "id" : '3'
+         ,  "field_name" : 'marital_status'
+         , "field_value" : ''
+         , "field_type" : 'select'
+         , "title" : 'Marital Status'
+         , "description" : 'Select your marital status'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "field_type_id" : "3"
+         , "options" : [
+           {"value" : 'single' , "label" : 'Single'}
+           , {"value" : 'married' , "label" : 'Married'}
+           , {"value" : 'divorced' , "label" : 'Divorced'}
+         ]
+       } , 
+       { 
+         "id" : '4'
+         ,"field_name" : "has_dependants"
+         , "field_value" : ''
+         , "field_type" : 'radio'
+         , "title" : 'Has Dependants'
+         , "description" : 'Select if you have dependants'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "field_type_id" : "4"
+       }, {
+         "id" : '5'
+         , "field_name" : 'dependants_count'
+         , "field_value" : ''
+         , "field_type" : 'number'
+         , "title" : 'Dependants Count'
+         , "description" : 'Enter the number of dependants'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "dependantOn" : 'has_dependants'
+       }
+       ]} ,
+      {
+         "applicant_id" : '2',
+          "fields" : [
+        { 
+         "id" : '1'
+         , "field_name" : 'first_name'
+         , "field_value" : ''
+         , "field_type" : 'text'
+         , "title" : 'First Name'
+         , "description" : 'Enter your first name'
+         , "is_required" : true
+         , "validation_schema" : {}
+        , "field_type_id" : "1"
+       } , 
+       { 
+         "id" : '2'
+         , "field_name" : 'last_name'
+         , "field_value" : ''
+         , "field_type" : 'text'
+         , "title" : 'Last Name'
+         , "description" : 'Enter your last name'
+         , "is_required" : true
+         , "validation_schema" : {}
+           , "field_type_id" : "2"
+       } , {
+         "id" : '3'
+         ,  "field_name" : 'marital_status'
+         , "field_value" : ''
+         , "field_type" : 'select'
+         , "title" : 'Marital Status'
+         , "description" : 'Select your marital status'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "field_type_id" : "3"
+         , "options" : [
+           {"value" : 'single' , "label" : 'Single'}
+           , {"value" : 'married' , "label" : 'Married'}
+           , {"value" : 'divorced' , "label" : 'Divorced'}
+         ]
+       } , 
+       { 
+         "id" : '4'
+         ,"field_name" : "has_dependants"
+         , "field_value" : ''
+         , "field_type" : 'cradio'
+         , "title" : 'Do you have any dependants'
+         , "description" : 'Select if you have dependants'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "field_type_id" : "4"
+         , "options" : [
+            {"value" : 'yes' , "label" : 'Yes'}
+            , {"value" : 'no' , "label" : 'No'}
+          ]
+       }, {
+         "id" : '5'
+         , "field_name" : 'dependants_count'
+         , "field_value" : ''
+         , "field_type" : 'number'
+         , "title" : 'Dependants Count'
+         , "description" : 'Enter the number of dependants'
+         , "is_required" : true
+         , "validation_schema" : {}
+         , "dependantOn" : {
+            "field_name" : 'has_dependants',
+            "field_value" : 'yes'
+         }
+       }
+       ]} ,
+     ]
+    }
   const Submitfunc = (data ,key) => {  
     console.log('Data Submitted' , key);
     console.log('Submitfunc',data);
 
-    // update the schame files with the new data corresponding to the key
-
-
-    setSchemaFiles(prev => ({...prev, 
-      [key] : {
-        "attribute"  : schemaFiles[key].attribute,
-        "response" : data 
-      }
-    })
-    )
+    // setSchemaFiles(prev => ({...prev, 
+    //   [key] : {
+    //     "attribute"  : schemaFiles[key].attribute,
+    //     "response" : data 
+    //   }
+    // })
+    // )
     
   }
+
+
+
+
 
 
   return (
@@ -83,35 +227,23 @@ export default function App() {
 
         <VerticalStep index={1} mainName={'Applicant'} secondName={'Details'} setFormIndex={setFormIndex} currentIndex={formIndex} isCompleted={true} />
         <VerticalStep index={2} mainName={'Applicant'} secondName={'Address'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={3} mainName={'Property'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
-        <VerticalStep index={4} mainName={'Credit History'} secondName={'Details'} setFormIndex={setFormIndex}  currentIndex={formIndex}  isCompleted={false} />
-     </ol>
+   </ol>
 
 
-      <div className='flex flex-col w-9/12 h-full bg-inherit rounded-3xl'>      
-            {Object.entries(schemaFiles).map(([key , value] , index) => {
-              return (
-                <div key={index} className={formIndex === index + 1 ? `visible` : 'hidden'}>
-                  <FormRender 
-                    key={index}
-                    ResponseSchema={value.response} 
-                    AttributeSchema={value.attribute} 
-                    submitFunction = {(data) => Submitfunc(data , key)}
-                    formType={ChosenFormType[index + 1] || ChosenFormType.default} 
-                  />
-                </div>
-              );
-
-            }
-          )}
-
-      </div>
+      <div className='flex flex-col w-9/12 items-center h-full bg-inherit rounded-3xl'>    
+        <FormRender 
+            key={1}
+            field_data = {applianct_details_data}
+            submitFunction = {(data) => Submitfunc(data , 1)}
+            formType={"MultiForm"} 
+          />
+    
+      </div>  
 
     </div>
   )
 
 }
-
 
 
 

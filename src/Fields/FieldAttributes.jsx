@@ -13,6 +13,7 @@ export const FieldType = {
   CCHECKBOX : 'ccheckbox',
   TEXTAREA : 'textarea',
   TABLE : 'table',
+  CRADIO : 'cradio',
   // ADDRESS: 'address',
 };
 
