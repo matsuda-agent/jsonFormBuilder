@@ -8,6 +8,7 @@ import get from 'lodash-es/get';
 import {Input } from '../UI/Input'
 
 import { useDependantField } from '../lib/DependantFieldProvider';
+import { de } from 'date-fns/locale';
 
 const InputField = ({ name  , Attributes:{title, description, type , is_required , dependantOn}  , validations  }) => {
 
@@ -18,15 +19,38 @@ const InputField = ({ name  , Attributes:{title, description, type , is_required
 
  
   // this is using the depandat field provider, it also matches the field, it also takes into account the arra 
-  if (dependantOn) {
-    const { dependantFields } = useDependantField();
-    const parts = name.split('.');
-    parts[parts.length - 1] = dependantOn.field_name;
-    const watchfield = parts.join('.');
-    if( dependantFields[watchfield]  !== dependantOn.field_value) {
-      return null;
+  const { dependantFields } = useDependantField();
+
+  const [show , setShow] = useState(dependantOn ? false : true)
+
+
+  useEffect(() => {
+    if (dependantOn) {
+      const parts = name.split('.');
+      parts[parts.length - 1] = dependantOn.field_name;
+      const watchfield = parts.join('.');
+      console.log('watchfield' , name , watchfield  ,dependantFields , dependantFields[watchfield] , dependantOn.field_value)
+      if( dependantFields[watchfield]  === dependantOn.field_value) {
+        console.log('setting value for ' , name)
+        setShow(true)
+      } else {
+        setShow(false)
+      }
     }
+  }, [dependantFields])
+
+  if (show === false) {
+    return (
+      <div className='hidden'>
+      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{title}</label>
+    </div>
+    )
+
+
   }
+
+ 
+
 
 
 

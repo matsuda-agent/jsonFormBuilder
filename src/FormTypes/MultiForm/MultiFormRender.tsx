@@ -5,7 +5,7 @@ import { useForm , useFieldArray  ,  FormProvider , Controller } from 'react-hoo
 // In the user's application
 
 import { MdAddCircleOutline } from "react-icons/md";
-import { DependantFieldProvider } from '../../lib/DependantFieldProvider';
+import useDependantFieldStore from '../../store/useDependantFieldStore';
 
 
 type FieldItem = {
@@ -74,21 +74,45 @@ export function  MultiFormRender({field_data , submitFunction}) {
       name: fieldArrayName,
       shouldUnregister : true
     });
-    
+
+    const { removeDependantField } = useDependantFieldStore();
+
 
 
     const onSubmit = (data) => {
       console.log('Submitetd DAta', data)
-      submitFunction(data)
+
+      const tabularFormat = [];
+
+      data[fieldArrayName].forEach((applicant , index) => {
+
+        const applicantData = {};
+        Object.entries(applicant).forEach(([key , value]) => {
+          applicantData["applicant_id"] = index;
+          applicantData["field_name"] = key;
+          applicantData["field_value"] = value;
+        });
+        tabularFormat.push(applicantData);
+      });
+      // format the data so it matches sql schema 
+      // id is the applicant id
+      //  loan_application_id is the loan application id
+      console.log('Tabular Format', tabularFormat);
+      submitFunction(tabularFormat)
     }
 
-
+    const handleRemove = (index) => {
+      // Remove dependant fields related to the item being removed
+      Object.keys(fields[index]).forEach(key => {
+        removeDependantField(`${fieldArrayName}.${index}.${key}`);
+      });
+      remove(index);
+    };
 
 
 
     return (
         <FormProvider {...methods} >
-           <DependantFieldProvider>
           <form  onSubmit={methods.handleSubmit(onSubmit)} className='Multi-Form'>
             <div className='ToolBar'>
                 <button type='button' 
@@ -108,7 +132,7 @@ export function  MultiFormRender({field_data , submitFunction}) {
                   <div className='Field-Section' key={index}>
                       <div className='Field-Section-header'>
                         <h1 className="h1">Applicant {index + 1}</h1>
-                        <button className='remove-button' type='button' onClick={() => remove(index)}>Remove</button>
+                        <button className='remove-button' type='button' onClick={() => handleRemove(index)}>Remove</button>
                       </div>
 
                       <div className='FieldSet'>
@@ -138,7 +162,6 @@ export function  MultiFormRender({field_data , submitFunction}) {
             </div>
       
           </form>
-          </DependantFieldProvider>
         </FormProvider>
     )
   }

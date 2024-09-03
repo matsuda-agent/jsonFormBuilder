@@ -65,6 +65,7 @@ export default function App() {
     [ 
       {
          "applicant_id" : '1',
+         "loan_application_id" : '1',
           "fields" : [
         { 
          "id" : '1'
@@ -103,9 +104,9 @@ export default function App() {
          , "validation_schema" : {}
          , "field_type_id" : "3"
          , "options" : [
-           {"value" : 'single' , "label" : 'Single'}
-           , {"value" : 'married' , "label" : 'Married'}
-           , {"value" : 'divorced' , "label" : 'Divorced'}
+           {"value" : "single" , "label" : "Single"}
+           , {"value" : "married" , "label" : "Married"}
+           , {"value" : "divorced" , "label" : "Divorced"}
          ]
        } , 
        { 
@@ -159,7 +160,7 @@ export default function App() {
          ,  "field_name" : 'marital_status'
          , "field_value" : ''
          , "field_type" : 'select'
-         , "title" : 'Marital Status'
+         , "title" : ''
          , "description" : 'Select your marital status'
          , "is_required" : true
          , "validation_schema" : {}
