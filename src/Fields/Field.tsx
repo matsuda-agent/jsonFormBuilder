@@ -1,23 +1,29 @@
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { FieldType } from './FieldAttributes'; // Adjust path as necessary
 import InputField from './InputField';
 import SelectField from './SelectField';
-import ArrayField from './ArrayField';
-import CArrayField from './CArrayField';
-import PhoneField from './PhoneField';
-import CheckboxField from './CheckboxField';
-import CCheckboxField from './CCheckboxField';
-import TextAreaField from './TextAreaField';
-import TableField from './TableField'; // Import TableField
 import CRadioField from './CRadioField'; // Import CRadioField
 
 
 
+interface Attributes {
+  type: string;
+  title: string;
+  description: string;
+  is_required: boolean;
+  options?: any; // Replace 'any' with the actual type if known
+  dependantOn?: {} ; // Replace 'any' with the actual type if known
+}
+
+interface FieldProps {
+  name: string;
+  Attributes: Attributes;
+  validations?: any; // Replace 'any' with the actual type if known
+}
 
 
 
-const Field = ({name , Attributes, validations }) => {
+const Field: React.FC<FieldProps>  = ({name , Attributes, validations }) => {
 
   const type = Attributes.type;
 

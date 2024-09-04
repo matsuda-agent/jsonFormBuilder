@@ -1,124 +1,110 @@
-import React , {useState, createContext, useContext, useEffect, useMemo} from 'react'
-import clsx from 'clsx' 
-import  Field  from '../../Fields/Field.jsx';
-import { useForm , useFieldArray  ,  FormProvider , Controller } from 'react-hook-form';
-// In the user's application
-
-import { MdAddCircleOutline } from "react-icons/md";
-import useDependantFieldStore from '../../store/useDependantFieldStore';
+import React from 'react'
+import  Field  from '../../Fields/Field';
+import { useForm , useFieldArray  , SubmitHandler , FormProvider  } from 'react-hook-form';
 
 
-type FieldItem = {
+interface Field {
+  applicant_loan_application_id: string;
   field_name: string;
-  field_value: any; // Adjust the type of field_value based on your actual data type
-};
+  field_value: any; // Replace 'any' with the actual type if known
+  field_type: string;
+  title: string;
+  description: string;
+  is_required: boolean;
+  options?: any; // Replace 'any' with the actual type if known
+  dependantOn?: any; // Replace 'any' with the actual type if known
+  validation_schema?: any; // Replace 'any' with the actual type if known
+}
 
-type Field = {
-  fields: FieldItem[];
-};
+type FieldData = Field[];
 
-type FieldData = {
-  [key: string]: Field[];
-};
-
+interface MultiFormRenderProps {
+  field_data: FieldData
+  submitFunction: (data: any) => void; // Replace 'any' with the actual type if known
+}
 
 
 
-export function  MultiFormRender({field_data , submitFunction}) {
+interface FormField {
+  field_name: string;
+  field_value: any; // Replace 'any' with the actual type if known
+  field_type: string;
+  title: string;
+  description: string;
+  is_required: boolean;
+  options?: any; // Replace 'any' with the actual type if known
+  dependantOn?: any; // Replace 'any' with the actual type if known
+  validation_schema?: any; // Replace 'any' with the actual type if known
+}
+
+
+interface Applicant {
+  app_id: string;
+  fields: FormField[];
+}
+
+
+export function  MultiFormRender({field_data , submitFunction} : MultiFormRenderProps) {
     // extract tthe field array name and the fields from the schema
-    const fieldArrayName = Object.keys(field_data)[0];
-
-        // Iterate through each applicant and generate the response_schema for each
-    const response_schema = field_data[fieldArrayName].map(applicant => {
-      const applicantFields = {};
-      applicant.fields.forEach(field => {
-        applicantFields[field.field_name] = field.field_value;
-      });
-      return applicantFields;
-    });
-
-  const AttributeSchema = {};
-
-  field_data[fieldArrayName].forEach(applicant => {
-      applicant.fields.forEach(field => {
-        AttributeSchema[field.field_name] = {
-          type: field.field_type,
-          title: field.title,
-          description: field.description,
-          is_required: field.is_required,
-        };
-      if (field.options) {
-        AttributeSchema[field.field_name].options = field.options;
-      }
-      if (field.dependantOn) {
-        AttributeSchema[field.field_name].dependantOn = field.dependantOn;
-      }
-      });
-    });
-
-    // Initialize useForm outside of useEffect and useState
-    const formMethods = useForm({
-      defaultValues: {
-       [fieldArrayName] : response_schema
-      },
-      shouldUnregister : true,
-       criteriaMode: "all"
-    });
-
-    // Initialize state with formMethods
-    const [methods, setMethods] = useState(formMethods);
-    
-    // Initialize useFieldArray outside of useEffect
-    const { fields, append, remove } = useFieldArray({
-      control: methods.control,
-      name: fieldArrayName,
-      shouldUnregister : true
-    });
-
-    const { removeDependantField } = useDependantFieldStore();
-
-
-
-    const onSubmit = (data) => {
-      console.log('Submitetd DAta', data)
-
-      const tabularFormat = [];
-
-      data[fieldArrayName].forEach((applicant , index) => {
-
-        const applicantData = {};
-        Object.entries(applicant).forEach(([key , value]) => {
-          applicantData["applicant_id"] = index;
-          applicantData["field_name"] = key;
-          applicantData["field_value"] = value;
-        });
-        tabularFormat.push(applicantData);
-      });
-      // format the data so it matches sql schema 
-      // id is the applicant id
-      //  loan_application_id is the loan application id
-      console.log('Tabular Format', tabularFormat);
-      submitFunction(tabularFormat)
-    }
-
-    const handleRemove = (index) => {
-      // Remove dependant fields related to the item being removed
-      Object.keys(fields[index]).forEach(key => {
-        removeDependantField(`${fieldArrayName}.${index}.${key}`);
-      });
-      remove(index);
+    const transformData = (data: Field[]): { [key: string]: any } => {
+      const groupedData = data.reduce<{ [key: string]: FormField[] }>((acc :{ [key: string]: any }, item:Field) => {
+        const { applicant_loan_application_id, ...field } = item;
+        if (!acc[applicant_loan_application_id]) {
+          acc[applicant_loan_application_id] = [];
+        }
+        acc[applicant_loan_application_id].push(field);
+        return acc;
+      }, {});
+      return groupedData;
     };
 
+
+    const transformedData = transformData(field_data );
+    const methods = useForm({
+      defaultValues: {
+        applicants: Object.keys(transformedData).map((id) => ({
+          app_id: id,
+          fields: transformedData[id].reduce((acc:{[key:string]: string} , field:FormField) => {
+            acc[field.field_name] = field.field_value;
+            return acc;
+          }, {}),
+        })),
+      },
+      shouldUnregister: true,
+       criteriaMode: "all"
+    } 
+  );
+  
+    const { fields } = useFieldArray({
+      control: methods.control,
+      name: 'applicants',
+    });
+  
+
+    const onSubmit: SubmitHandler<{ applicants: { app_id: string; fields: any; }[] }> = (data) => {
+      const formattedData: FieldData = [];
+  
+      data.applicants.forEach((applicant:Applicant) => {
+        const { app_id, fields } = applicant;
+
+        Object.entries(fields).forEach(([field_name, field_value]) => {
+          const fieldMeta = transformedData[app_id].find((field:FormField) => field.field_name === field_name);
+          formattedData.push({
+            ...fieldMeta,
+            field_value,
+            applicant_loan_application_id: app_id,
+          });
+        });
+      });
+  
+      submitFunction(formattedData);
+    };
 
 
     return (
         <FormProvider {...methods} >
           <form  onSubmit={methods.handleSubmit(onSubmit)} className='Multi-Form'>
             <div className='ToolBar'>
-                <button type='button' 
-                        className='add-button'
-                        onClick={() => append(response_schema)} 
-                        ><MdAddCircleOutline  size={20}/> Add </button>
 
                 <button type='submit'   className='submit-button'
                         >Submit</button>
@@ -127,30 +113,41 @@ export function  MultiFormRender({field_data , submitFunction}) {
              
              {
               fields.map((field , index) => {
-
                 return (      
                   <div className='Field-Section' key={index}>
                       <div className='Field-Section-header'>
-                        <h1 className="h1">Applicant {index + 1}</h1>
-                        <button className='remove-button' type='button' onClick={() => handleRemove(index)}>Remove</button>
+                        <h1 className="h1">Applicant  
+                          <input 
+                            className='px-2 hidden'
+                            {...methods.register(`applicants.${index}.app_id`)}
+                            disabled
+                            />
+
+                        </h1>
                       </div>
 
                       <div className='FieldSet'>
-
-                      {
-                        Object.entries(field)
-                          .filter(([key]) => key !== 'id')
-                          .map(([key , value] , i) => {
+                        {
+                          transformedData[field.app_id].map((field:FormField , i:number) => {
                             return (
-                              <Field key={i}  name={`${fieldArrayName}.${index}.${key}`}  
-                              Attributes = {AttributeSchema[key]}
-                              validations={field.validation_schema}
-                              />
-                            
+                              <div key ={i}>
+                                <Field  name={`applicants.${index}.fields.${field.field_name}`}  
+                                    Attributes = {
+                                      {type: field.field_type,
+                                      title: field.title,
+                                      description: field.description,
+                                      is_required: field.is_required,
+                                      options: field?.options,
+                                      dependantOn: field?.dependantOn
+                                      }
+                                    }
+                                    validations={field.validation_schema}
+                                    />
+                              </div>
                             );
                           })
-                      }
-                        
+                        }
+
 
                       </div>
 

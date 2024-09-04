@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFieldArray ,useFormContext } from 'react-hook-form';
 // import {Input , Legend , Label, Description , Fieldset} from '@headlessui/react'
-import Field from  './Field.jsx';
+import Field from  '../src/Fields/Field.js';
 
 
 const ArrayField = ({ name  , AttributesKey:{fieldArrayName , key}  , AttributeSchema , ResponseSchema })  => {

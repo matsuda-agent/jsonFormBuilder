@@ -1,7 +1,5 @@
 import React from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
-import { FaChevronDown } from "react-icons/fa";
-import clsx from 'clsx'
 import { ErrorMessage } from "@hookform/error-message"
 import get from 'lodash-es/get';
 
@@ -15,9 +13,23 @@ import {
 
 
 
+interface SelectFieldFieldProps {
+  name: string;
+  Attributes: {
+    type: string;
+    title: string;
+    description: string; // Make description optional
+    is_required: boolean;
+    options?: any; // Replace 'any' with the actual type if known
+    dependantOn?: any; // Replace 'any' with the actual type if known
+  };
+  validations?: any; // Replace 'any' with the actual type if known
+}
 
-const SelectField = ({ name  , Attributes:{title, description, type , is_required , options}  , validations  }) => {
-  const { register, control, setValue, watch , formState: {errors}  } = useFormContext();
+
+
+const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{title, is_required , options}  , validations  }) => {
+  const {control, formState: {errors}  } = useFormContext();
   
 
 
@@ -36,13 +48,13 @@ const SelectField = ({ name  , Attributes:{title, description, type , is_require
           required: is_required ? 'This field is required' : false ,
           ...validations
         }}
-        render={({ field : {value , onChange , onBlue } }) => (
+        render={({ field : {value , onChange  } }) => (
           <Select defaultValue ={value} onValueChange={(v) => onChange(v)}>
             <SelectTrigger id="size" className="mt-2">
               <SelectValue placeholder="Select" />
             </SelectTrigger>
             <SelectContent>
-              {options.map((item) => (
+              {options.map((item: {value : string , label: string} ) => (
                 <SelectItem key={item.value} value={item.value}>
                   {item.label}
                 </SelectItem>

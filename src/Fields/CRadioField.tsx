@@ -1,12 +1,11 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
-import { FaChevronDown } from "react-icons/fa";
-import clsx from 'clsx'
 import { ErrorMessage } from "@hookform/error-message"
 import get from 'lodash-es/get';
+import useDependantFieldStore from '../store/useDependantFieldStore'  
 
-import { useDependantField } from '../lib/DependantFieldProvider';
+
 
 import {
     RadioCardGroup,
@@ -15,11 +14,25 @@ import {
   } from "../UI/RadioCardGroup"
   
 
-const CRadioField = ({ name  , Attributes:{title, description, type , is_required , options }  , validations  }) => {
-  const { register, control, setValue, watch , formState: {errors}   } = useFormContext();
-  const { setDependantField } = useDependantField();
-  
 
+
+interface CRadioFieldProps {
+  name: string;
+  Attributes: {
+    type: string;
+    title: string;
+    description: string; // Make description optional
+    is_required: boolean;
+    options?: any; // Replace 'any' with the actual type if known
+    dependantOn?: any; // Replace 'any' with the actual type if known
+  };
+  validations?: any; // Replace 'any' with the actual type if known
+}
+
+
+const CRadioField:React.FC<CRadioFieldProps>  = ({ name  , Attributes:{ description , is_required , options }  , validations  }) => {
+  const { control, formState: {errors}   } = useFormContext();
+  const setDependantField = useDependantFieldStore(state => state.setDependantField)
 
   // get the errors 
   const error = get(errors, name)
@@ -28,7 +41,7 @@ const CRadioField = ({ name  , Attributes:{title, description, type , is_require
   return (
     <div>
       <label className={`${error ? 'select-input-label-error' : 'select-input-label'}`}>
-        {title}
+        {description}
       </label>
       <Controller 
         control={control}
@@ -37,9 +50,9 @@ const CRadioField = ({ name  , Attributes:{title, description, type , is_require
           required: is_required ? 'This field is required' : false ,
           ...validations
         }}
-        render={({ field : {value , onChange , onBlur } }) => (
+        render={({ field : {value , onChange  } }) => (
         <RadioCardGroup  defaultValue={value} onValueChange={(value) => { onChange(value); setDependantField(name , value)}} className="grid-cols-2 text-sm">
-            {options && options.map((option , index) => (   
+            {options && options.map((option : {value: string , label:string} , index :number) => (   
                 <RadioCardItem key={index} value={option.value}>
                     <div className="flex items-center gap-3">
                         <RadioCardIndicator />

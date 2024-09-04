@@ -1,64 +1,74 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useState , useMemo } from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
-import { useState } from 'react';
-import clsx from 'clsx'
 import { ErrorMessage } from "@hookform/error-message"
 import get from 'lodash-es/get';
-
 import {Input } from '../UI/Input'
 
-import { useDependantField } from '../lib/DependantFieldProvider';
-import { de } from 'date-fns/locale';
+import useDependantFieldStore from '../store/useDependantFieldStore'  
 
-const InputField = ({ name  , Attributes:{title, description, type , is_required , dependantOn}  , validations  }) => {
 
-  const { register, control, setValue, watch , formState: {errors} } = useFormContext();
+
+interface InputFieldProps {
+  name: string;
+  Attributes: {
+    type: string;
+    title: string;
+    description: string; // Make description optional
+    is_required: boolean;
+    options?: any; // Replace 'any' with the actual type if known
+    dependantOn?: any; // Replace 'any' with the actual type if known
+  };
+  validations?: any; // Replace 'any' with the actual type if known
+}
+
+
+const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, description, type , is_required , dependantOn}  , validations  }) => {
+
+  const {control, formState: {errors} } = useFormContext();
 
   // get the errors 
   const error = get(errors, name)
 
+
+  const dependantFields = useDependantFieldStore(state => state.dependantFields)
+
  
   // this is using the depandat field provider, it also matches the field, it also takes into account the arra 
-  const { dependantFields } = useDependantField();
-
   const [show , setShow] = useState(dependantOn ? false : true)
 
-
-  useEffect(() => {
+  // Compute the specific key to watch
+  const watchfield = useMemo(() => {
     if (dependantOn) {
       const parts = name.split('.');
       parts[parts.length - 1] = dependantOn.field_name;
-      const watchfield = parts.join('.');
-      console.log('watchfield' , name , watchfield  ,dependantFields , dependantFields[watchfield] , dependantOn.field_value)
-      if( dependantFields[watchfield]  === dependantOn.field_value) {
-        console.log('setting value for ' , name)
-        setShow(true)
+      return parts.join('.');
+    }
+    return null;
+  }, [name, dependantOn]);
+
+
+  // Effect to update show state based on the specific key in dependantFields
+  useEffect(() => {
+    if (dependantOn && watchfield) {
+      if (dependantFields[watchfield] === dependantOn.field_value) {
+        setShow(true);
       } else {
-        setShow(false)
+        setShow(false);
       }
     }
-  }, [dependantFields])
+  }, [dependantFields, watchfield && dependantFields[watchfield], dependantOn, watchfield]);
 
   if (show === false) {
     return (
       <div className='hidden'>
-      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{title}</label>
-    </div>
-    )
-
-
+        <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{title}</label>
+      </div>
+    );
   }
-
- 
-
-
-
-
-
 
   return (
     <div>
-      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{title}</label>
+      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{description}</label>
       <Controller 
       control={control}
       name={name}
@@ -88,9 +98,7 @@ const InputField = ({ name  , Attributes:{title, description, type , is_required
       })
       }
     />    
-
-
-
+ 
     </div>
 
   );

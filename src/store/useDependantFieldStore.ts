@@ -9,10 +9,17 @@ interface DependantFieldState {
 
 const useDependantFieldStore = create<DependantFieldState>((set) => ({
   dependantFields: {},
+
+
   setDependantField: (fieldName, value) =>
-    set((state) => ({
+    set((state) => (
+        console.log('Setting Dependant Field', fieldName, value , state),
+        {
       dependantFields: { ...state.dependantFields, [fieldName]: value },
     })),
+
+
+
   removeDependantField: (fieldName) =>
     set((state) => {
       const newFields = { ...state.dependantFields };

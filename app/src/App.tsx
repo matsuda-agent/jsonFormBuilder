@@ -2,7 +2,7 @@
 
 
 import './App.css'
-import { FormRender  , FieldType , MultiFormRender} from 'json-styled-form-builder' ; 
+import { FormRender } from 'json-styled-form-builder' ; 
 
 import React,{ useState, useEffect }  from 'react';
 
@@ -25,6 +25,7 @@ import './style.css'
    
    
 
+import { useForm , useFieldArray  ,  FormProvider , Controller } from 'react-hook-form';
 
 
 
@@ -40,6 +41,14 @@ const ChosenFormType = {
 export default function App() {
 
   const [formIndex , setFormIndex] = useState(1);
+
+
+  // // Initialize state with formMethods
+  // const methods =  useForm({
+  //   shouldUnregister : true,
+  //    criteriaMode: "all"
+  // });
+
 
   const [schemaFiles, setSchemaFiles]  = useState({
       "applicant"  :{
@@ -61,14 +70,10 @@ export default function App() {
 
 
     const applianct_details_data =
-{"applicant_peronsal_details" :
     [ 
-      {
-         "applicant_id" : '1',
-         "loan_application_id" : '1',
-          "fields" : [
         { 
          "id" : '1'
+         , "applicant_loan_application_id": 1
          , "field_name" : 'first_name'
          , "field_value" : ''
          , "field_type" : 'text'
@@ -85,22 +90,29 @@ export default function App() {
        } , 
        { 
          "id" : '2'
+         , "applicant_loan_application_id": 1
          , "field_name" : 'last_name'
          , "field_value" : ''
          , "field_type" : 'text'
          , "title" : 'Last Name'
          , "description" : 'Enter your last name'
-         , "is_required" : true
-         , "validation_schema" : {}
+         , "is_required" : false
+         , "validation_schema" : {
+            minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+            }
+         }
            , "field_type_id" : "2"
        } , {
          "id" : '3'
+         , "applicant_loan_application_id": 1
          ,  "field_name" : 'marital_status'
          , "field_value" : ''
          , "field_type" : 'select'
          , "title" : 'Marital Status'
          , "description" : 'Select your marital status'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
          , "field_type_id" : "3"
          , "options" : [
@@ -111,42 +123,49 @@ export default function App() {
        } , 
        { 
          "id" : '4'
+         , "applicant_loan_application_id": 1
          ,"field_name" : "has_dependants"
          , "field_value" : ''
-         , "field_type" : 'radio'
+         , "field_type" : 'cradio'
          , "title" : 'Has Dependants'
          , "description" : 'Select if you have dependants'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
          , "field_type_id" : "4"
+         , "options" : [
+          {"value" : 'yes' , "label" : 'Yes'}
+          , {"value" : 'no' , "label" : 'No'}
+        ]
        }, {
          "id" : '5'
+         , "applicant_loan_application_id": 1
          , "field_name" : 'dependants_count'
          , "field_value" : ''
          , "field_type" : 'number'
          , "title" : 'Dependants Count'
          , "description" : 'Enter the number of dependants'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
-         , "dependantOn" : 'has_dependants'
+         , "dependantOn" : {
+          "field_name" : 'has_dependants',
+          "field_value" : 'yes'
        }
-       ]} ,
-      {
-         "applicant_id" : '2',
-          "fields" : [
+       },
         { 
          "id" : '1'
+         ,"applicant_loan_application_id": 2
          , "field_name" : 'first_name'
          , "field_value" : ''
          , "field_type" : 'text'
          , "title" : 'First Name'
          , "description" : 'Enter your first name'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
         , "field_type_id" : "1"
        } , 
        { 
          "id" : '2'
+         ,"applicant_loan_application_id": 2
          , "field_name" : 'last_name'
          , "field_value" : ''
          , "field_type" : 'text'
@@ -157,12 +176,13 @@ export default function App() {
            , "field_type_id" : "2"
        } , {
          "id" : '3'
+         , "applicant_loan_application_id": 2
          ,  "field_name" : 'marital_status'
          , "field_value" : ''
          , "field_type" : 'select'
          , "title" : ''
          , "description" : 'Select your marital status'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
          , "field_type_id" : "3"
          , "options" : [
@@ -173,12 +193,13 @@ export default function App() {
        } , 
        { 
          "id" : '4'
+         , "applicant_loan_application_id": 2
          ,"field_name" : "has_dependants"
          , "field_value" : ''
          , "field_type" : 'cradio'
          , "title" : 'Do you have any dependants'
          , "description" : 'Select if you have dependants'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
          , "field_type_id" : "4"
          , "options" : [
@@ -187,21 +208,21 @@ export default function App() {
           ]
        }, {
          "id" : '5'
+         , "applicant_loan_application_id": 2
          , "field_name" : 'dependants_count'
          , "field_value" : ''
          , "field_type" : 'number'
          , "title" : 'Dependants Count'
          , "description" : 'Enter the number of dependants'
-         , "is_required" : true
+         , "is_required" : false
          , "validation_schema" : {}
          , "dependantOn" : {
             "field_name" : 'has_dependants',
             "field_value" : 'yes'
          }
        }
-       ]} ,
      ]
-    }
+
   const Submitfunc = (data ,key) => {  
     console.log('Data Submitted' , key);
     console.log('Submitfunc',data);
@@ -254,6 +275,8 @@ const VerticalStep = ({index , mainName , secondName ,currentIndex, isFinal , is
   const click = () => {
       setFormIndex(index);
   }
+
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
   const current= 'text-blue-700 bg-blue-100 border-blue-300 ';
   const done = 'text-green-700 bg-green-100 border-green-300';

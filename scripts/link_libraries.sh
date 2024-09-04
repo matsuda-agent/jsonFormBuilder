@@ -18,11 +18,15 @@ echo "Linking React-DOM"
 cd "$WEBAPP_PATH/node_modules/react-dom"
 npm link 
 
+# Step 3: Link zustand library from the web application
+echo "Linking zustand library"
+cd "$WEBAPP_PATH/node_modules/zustand"
+npm link 
 
 # Step 3: Link React and related libraries to the component library
 echo "Linking React and related libraries to the component library"
 cd "$COMPONENTS_PATH"
-npm link  react react-dom 
+npm link  react react-dom zustand
 
 # Step 4: Link component library to the web application
 
