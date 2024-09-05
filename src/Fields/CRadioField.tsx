@@ -24,7 +24,7 @@ interface CRadioFieldProps {
     description: string; // Make description optional
     is_required: boolean;
     options?: any; // Replace 'any' with the actual type if known
-    dependantOn?: any; // Replace 'any' with the actual type if known
+    dependant_on?: any; // Replace 'any' with the actual type if known
   };
   validations?: any; // Replace 'any' with the actual type if known
 }

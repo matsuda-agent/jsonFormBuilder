@@ -3,7 +3,8 @@ import { FieldType } from './FieldAttributes'; // Adjust path as necessary
 import InputField from './InputField';
 import SelectField from './SelectField';
 import CRadioField from './CRadioField'; // Import CRadioField
-
+import DateRangeField from './DateRangeField';
+import DateField from './DateField'; // Import DateField
 
 
 interface Attributes {
@@ -12,7 +13,7 @@ interface Attributes {
   description: string;
   is_required: boolean;
   options?: any; // Replace 'any' with the actual type if known
-  dependantOn?: {} ; // Replace 'any' with the actual type if known
+  dependant_on?: {} ; // Replace 'any' with the actual type if known
 }
 
 interface FieldProps {
@@ -32,8 +33,8 @@ const Field: React.FC<FieldProps>  = ({name , Attributes, validations }) => {
       return <InputField name={name} Attributes={Attributes}  validations={validations} />;
     case FieldType.NUMBER:
       return <InputField name={name} Attributes={Attributes} validations={validations}  />;
-    // case FieldType.DATE:
-    //   return <InputField name={name} Attributes={Attributes} validations={validations}  />;
+    case FieldType.DATE:
+      return <DateField name={name} Attributes={Attributes} validations={validations}  />;
     // case FieldType.PHONE:
     //    return <PhoneField name={name} AttributesKey={{fieldArrayName , key}}   />;
     case FieldType.SELECT:
@@ -52,6 +53,8 @@ const Field: React.FC<FieldProps>  = ({name , Attributes, validations }) => {
     //   return <TableField AttributesKey={{ fieldArrayName, key }}  />;
     case FieldType.CRADIO:
       return <CRadioField name={name}  Attributes={Attributes} validations={validations}  />;
+    case FieldType.DATERANGE:
+      return <DateRangeField name={name} Attributes={Attributes} validations={validations}  />;
 
     default:
       console.error('Unsupported field type' , name  , type);

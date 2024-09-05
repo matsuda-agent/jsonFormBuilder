@@ -14,6 +14,7 @@ export enum FieldType  {
   TEXTAREA = 'textarea',
   TABLE = 'table',
   CRADIO = 'cradio',
+  DATERANGE = 'dateRange',
   // ADDRESS: 'address',
 };
 

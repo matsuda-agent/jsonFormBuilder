@@ -2,13 +2,15 @@ import React, { useEffect , useState , useMemo } from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message"
 import get from 'lodash-es/get';
-import {Input } from '../UI/Input'
 
 import useDependantFieldStore from '../store/useDependantFieldStore'  
 
+import { DateRange, DateRangePicker } from "../UI/DateRangePicker"
 
 
-interface InputFieldProps {
+
+
+interface DateRangeFieldProps {
   name: string;
   Attributes: {
     type: string;
@@ -22,10 +24,13 @@ interface InputFieldProps {
 }
 
 
-const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, description, type , is_required , dependant_on}  , validations  }) => {
+const DateRangeField: React.FC<DateRangeFieldProps> = ({ name  , Attributes:{title, description,  is_required , dependant_on}  , validations  }) => {
 
   const {control, formState: {errors} } = useFormContext();
 
+  const [dateRange, setDateRange] = React.useState<DateRange | undefined>(
+    undefined,
+  )
 
   // get the errors 
   const error = get(errors, name)
@@ -68,7 +73,7 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, desc
   }
 
   return (
-    <div className='py-4'>
+    <div>
       <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{description}</label>
       <Controller 
       control={control}
@@ -77,14 +82,22 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, desc
         required: is_required ? 'This field is required' : false ,
         ...validations
       }}
-      render={({ field}) => (
-        <Input
-          {...field}
-          placeholder={`Enter ${title}`}
-          type={type}
-          className='py-1'
-          hasError={!!error}
-        />
+      render={({ field : {value , onChange }}) => (
+        <>
+        <DateRangePicker
+          enableYearNavigation
+          value={value}
+          onChange={(value) => {onChange(value);  setDateRange(value)}}
+          className="w-60"
+          />
+          <p className="flex items-center rounded-md bg-gray-100 p-2 text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-300">
+          Selected Range:{" "}
+          {dateRange
+            ? `${dateRange.from?.toLocaleDateString()} – ${dateRange.to?.toLocaleDateString() ?? ""}`
+            : "None"}
+        </p>
+        </>
+
       )}
     />
 
@@ -106,25 +119,7 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, desc
   );
 };
 
-export default InputField;
+export default DateRangeField;
 
-
-
-{/* <Field>
-<Label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>
- {title}
- </Label> 
- <Input  {...register(name , {required: 'This field is required'})} 
-       type={type} placeholder={`Enter ${title}`}  
-       className={`${error ? 'basic-input-error' : 'basic-input'}`} />
-
-
-   
-
-</Field> */}
-
-
-
-// InputField.propTypes = InputFieldAttributes; // Apply the predefined PropTypes
 
 

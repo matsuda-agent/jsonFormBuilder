@@ -1,41 +1,9 @@
 import React from 'react'
-import  Field  from '../../Fields/Field';
+import  Field  from '../Fields/Field';
 import { useForm , useFieldArray  , SubmitHandler , FormProvider  } from 'react-hook-form';
+import { FieldRow, FieldData, MultiFormRenderProps, FormField } from "@/types/InputTypes"
 
 
-interface Field {
-  applicant_loan_application_id: string;
-  field_name: string;
-  field_value: any; // Replace 'any' with the actual type if known
-  field_type: string;
-  title: string;
-  description: string;
-  is_required: boolean;
-  options?: any; // Replace 'any' with the actual type if known
-  dependantOn?: any; // Replace 'any' with the actual type if known
-  validation_schema?: any; // Replace 'any' with the actual type if known
-}
-
-type FieldData = Field[];
-
-interface MultiFormRenderProps {
-  field_data: FieldData
-  submitFunction: (data: any) => void; // Replace 'any' with the actual type if known
-}
-
-
-
-interface FormField {
-  field_name: string;
-  field_value: any; // Replace 'any' with the actual type if known
-  field_type: string;
-  title: string;
-  description: string;
-  is_required: boolean;
-  options?: any; // Replace 'any' with the actual type if known
-  dependantOn?: any; // Replace 'any' with the actual type if known
-  validation_schema?: any; // Replace 'any' with the actual type if known
-}
 
 
 interface Applicant {
@@ -46,9 +14,10 @@ interface Applicant {
 
 export function  MultiFormRender({field_data , submitFunction} : MultiFormRenderProps) {
     // extract tthe field array name and the fields from the schema
-    const transformData = (data: Field[]): { [key: string]: any } => {
-      const groupedData = data.reduce<{ [key: string]: FormField[] }>((acc :{ [key: string]: any }, item:Field) => {
-        const { applicant_loan_application_id, ...field } = item;
+
+    const transformData = (data: FieldRow[]): { [key: string]: any } => {
+      const groupedData = data.reduce<{ [key: string]: FormField[] }>((acc :{ [key: string]: any }, item:FieldRow) => {
+        const { applicant_loan_application_id , ...field } = item;
         if (!acc[applicant_loan_application_id]) {
           acc[applicant_loan_application_id] = [];
         }
@@ -58,17 +27,19 @@ export function  MultiFormRender({field_data , submitFunction} : MultiFormRender
       return groupedData;
     };
 
+    const transformedData = transformData(field_data);
 
-    const transformedData = transformData(field_data );
+    const defaultValues = Object.keys(transformedData).map((id) => ({
+      app_id: id,
+      fields: transformedData[id].reduce((acc: { [key: string]: any }, field: FormField) => {
+          acc[field.field_name] = field.field_value;
+        return acc;
+      }, {}),
+    }));
+
     const methods = useForm({
       defaultValues: {
-        applicants: Object.keys(transformedData).map((id) => ({
-          app_id: id,
-          fields: transformedData[id].reduce((acc:{[key:string]: string} , field:FormField) => {
-            acc[field.field_name] = field.field_value;
-            return acc;
-          }, {}),
-        })),
+        applicants: defaultValues
       },
       shouldUnregister: true,
        criteriaMode: "all"
@@ -138,7 +109,7 @@ export function  MultiFormRender({field_data , submitFunction} : MultiFormRender
                                       description: field.description,
                                       is_required: field.is_required,
                                       options: field?.options,
-                                      dependantOn: field?.dependantOn
+                                      dependant_on: field?.dependant_on
                                       }
                                     }
                                     validations={field.validation_schema}

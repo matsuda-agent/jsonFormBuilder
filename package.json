@@ -1,6 +1,6 @@
 {
   "name": "json-styled-form-builder",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "This library is a wrapper on top of react-hookform in order to make rendering styled form easy.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.mjs",
@@ -31,6 +31,7 @@
     "prepare": "husky",
     "prebuild": "pnpm clean",
     "build": "pnpm build:esm",
+    "watch": "rollup -c ./scripts/rollup/watchrollup.esm.config.mjs --watch",
     "build:watch": "pnpm build:esm -w",
     "postbuild": "rimraf dist/__tests__ && node ./scripts/rollup/assert-esm-exports.mjs",
     "build:esm": "rollup --bundleConfigAsCjs -c ./scripts/rollup/rollup.esm.config.js"
@@ -40,6 +41,7 @@
     "tailwind",
     "headlessui",
     "react-hookform",
+
     "styled-components",
     "react",
     "typescript",
@@ -52,6 +54,7 @@
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-radio-group": "^1.2.0",
     "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-switch": "^1.1.0",
     "@remixicon/react": "^4.2.0",
     "clsx": "^2.1.1",
@@ -63,12 +66,17 @@
     "react-icons": "^5.2.1",
     "react-international-phone": "^4.3.0",
     "tailwind-variants": "^0.2.1",
-    "zustand": "^4.5.5"
+    "react-day-picker": "^8.10.1",
+    "zustand": "^4.5.5",
+    "@react-aria/datepicker": "^3.11.2",
+    "@react-stately/datepicker": "^3.10.2",
+    "@internationalized/date": "^3.5.5"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.3.5",
     "husky": "^9.1.5",
@@ -79,6 +87,7 @@
     "typescript": "^5.4.5"
   },
   "dependencies": {
+    "danfojs": "^1.1.2",
     "lodash-es": "^4.17.21",
     "tailwind-merge": "^2.5.2"
   }

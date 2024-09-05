@@ -16,9 +16,13 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src", "to_add_fields/ArrayField.jsx", "to_add_fields/CArrayField.jsx", "to_add_fields/CCheckboxField.jsx", "to_add_fields/CheckboxField.jsx", "to_add_fields/PhoneField.jsx", "to_add_fields/TableField.jsx", "to_add_fields/TextAreaField.jsx", "to_add_fields/SingleFormRender.tsx"],
+  "include": ["src", "src/Fields/ArrayField.tsx", ],
   "exclude": [
     "node_modules",
     "app",

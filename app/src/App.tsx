@@ -68,6 +68,194 @@ export default function App() {
     })
 
 
+    const joined_address = 
+            [
+              {'address_idx': 0,
+              'field_name': 'address_line_1',
+              'field_value': 'Linesdasdasd 1',
+              'field_type': 'text',
+              'title': 'Address Line 2',
+              'description': 'Enter your address line 1',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+            }
+            },
+            {
+              'address_idx': 0,
+              'field_name': 'address_line_2',
+              'field_value': 'Line 2',
+              'field_type': 'text',
+              'title': 'Address Line 2',
+              'description': 'Enter your address line 2',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+            }
+            },
+            {
+              'address_idx': 0,
+              'field_name': 'move_in_date',
+              'field_value': '',
+              'field_type': 'date',
+              'title': 'Move In Date',
+              'description': 'Enter your Move In Date',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+            }
+            },
+            {
+              'address_idx': 1,
+              'field_name': 'address_line_1',
+              'field_value': '',
+              'field_type': 'text',
+              'title': 'Address Line 2',
+              'description': 'Enter your address line 2',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+              }
+            },
+            {
+              'address_idx': 1,
+              'field_name': 'address_line_2',
+              'field_value': '',
+              'field_type': 'text',
+              'title': 'Address Line 2',
+              'description': 'Enter your address line 2',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+              }
+            },
+            {
+              'address_idx': 1,
+              'field_name': 'move_in_date',
+              'field_value': '',
+              'field_type': 'dateRange',
+              'title': 'Move In Date',
+              'description': 'Enter your Move In Date',
+              'is_required': false,
+              'validation_schema': {
+                minLength: {
+                  value: 3,
+                  message: 'Minimum length is 3'
+                }
+            }
+          }
+          ];
+    
+    const address_details = [
+      {
+        'applicant_loan_application_id' : 1,
+        'array_index' : 1,
+        'field_name': 'address_line_1',
+        'field_value': '',
+        'field_type': 'text',
+        'title': 'Address Line 1',
+        'description': 'Enter your address line 1',
+        'is_required': true,
+        'validation_schema': {
+          minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+          }
+        },
+        'field_type_id': 1
+      },
+      {
+        'applicant_loan_application_id': 1,
+        'array_index': 1,
+        'field_name': 'address_line_2',
+        'field_value': '',
+        'field_type': 'text',
+        'title': 'Address Line 2',
+        'description': 'Enter your address line 2',
+        'is_required': false,
+        'validation_schema': {
+          minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+          }
+        },
+      },
+      {
+        'applicant_loan_application_id': 1,
+        'array_index': 2,
+        'field_name': 'address_line_2',
+        'field_value': '',
+        'field_type': 'text',
+        'title': 'Address Line 2',
+        'description': 'Enter your address line 2',
+        'is_required': false,
+        'validation_schema': {
+          minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+          }
+        },
+      },
+      {
+        'applicant_loan_application_id' :2,
+        'array_index' : 2,
+        'field_name': 'address_line_1',
+        'field_value': '',
+        'field_type': 'text',
+        'title': 'Address Line 1',
+        'description': 'Enter your address line 1',
+        'is_required': true,
+        'validation_schema': {
+          minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+          }
+        },
+        'field_type_id': 1
+      },
+      {
+        'applicant_loan_application_id': 2,
+        'array_index': 2,
+        'field_name': 'address_line_2',
+        'field_value': '',
+        'field_type': 'text',
+        'title': 'Address Line 2',
+        'description': 'Enter your address line 2',
+        'is_required': false,
+        'validation_schema': {
+          minLength: {
+            value: 3,
+            message: 'Minimum length is 3'
+          }
+        },
+      },
+      // {
+      //   'applicant_loan_application_id': 1,
+      //   'array_index': 1,
+      //   'field_name': 'move_in_date',
+      //   'field_value': '',
+      //   'field_type': 'date',
+      //   'title': 'Move In Date',
+      //   'description': 'Enter your move in date',
+      //   'is_required': true,
+      //   'validation_schema': {},
+      // },
+    ]
 
     const applianct_details_data =
     [ 
@@ -146,7 +334,7 @@ export default function App() {
          , "description" : 'Enter the number of dependants'
          , "is_required" : false
          , "validation_schema" : {}
-         , "dependantOn" : {
+         , "dependant_on" : {
           "field_name" : 'has_dependants',
           "field_value" : 'yes'
        }
@@ -216,7 +404,7 @@ export default function App() {
          , "description" : 'Enter the number of dependants'
          , "is_required" : false
          , "validation_schema" : {}
-         , "dependantOn" : {
+         , "dependant_on" : {
             "field_name" : 'has_dependants',
             "field_value" : 'yes'
          }
@@ -238,10 +426,6 @@ export default function App() {
   }
 
 
-
-
-
-
   return (
     <div className='flex flex-row w-full h-[100vh] overflow-y-scroll space-x-4 bg-gray-100 p-5'>
 
@@ -251,13 +435,12 @@ export default function App() {
         <VerticalStep index={2} mainName={'Applicant'} secondName={'Address'}  setFormIndex={setFormIndex} currentIndex={formIndex}  isCompleted={false} />
    </ol>
 
-
       <div className='flex flex-col w-9/12 items-center h-full bg-inherit rounded-3xl'>    
         <FormRender 
             key={1}
-            field_data = {applianct_details_data}
+            field_data = {joined_address}
             submitFunction = {(data) => Submitfunc(data , 1)}
-            formType={"MultiForm"} 
+            formType={"AddressForm"} 
           />
     
       </div>  

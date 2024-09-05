@@ -32,6 +32,6 @@ npm link  react react-dom zustand
 
 echo "Linking component library to the web application"
 cd "$WEBAPP_PATH"
-npm link  "json-styled-form-builder"
+npm link  json-styled-form-builder
 
 echo "Linking complete!"
