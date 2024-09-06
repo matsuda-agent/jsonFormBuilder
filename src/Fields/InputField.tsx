@@ -4,7 +4,8 @@ import { ErrorMessage } from "@hookform/error-message"
 import get from 'lodash-es/get';
 import {Input } from '../UI/Input'
 
-import useDependantFieldStore from '../store/useDependantFieldStore'  
+import useDependantFieldStore from '../store/useDependantFieldStore' ;
+import { Label} from '../UI/Label';
 
 
 
@@ -13,6 +14,7 @@ interface InputFieldProps {
   Attributes: {
     type: string;
     title: string;
+    disabled: boolean;
     description: string; // Make description optional
     is_required: boolean;
     options?: any; // Replace 'any' with the actual type if known
@@ -22,7 +24,7 @@ interface InputFieldProps {
 }
 
 
-const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, description, type , is_required , dependant_on}  , validations  }) => {
+const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disabled, description, type , is_required , dependant_on}  , validations  }) => {
 
   const {control, formState: {errors} } = useFormContext();
 
@@ -68,8 +70,12 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, desc
   }
 
   return (
-    <div className='py-4'>
-      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{description}</label>
+    <div className='grid gap-2'>
+      <Label htmlFor="r1"
+      >
+        {description}
+
+      </Label>
       <Controller 
       control={control}
       name={name}
@@ -81,6 +87,7 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, desc
         <Input
           {...field}
           placeholder={`Enter ${title}`}
+          disabled={disabled}
           type={type}
           className='py-1'
           hasError={!!error}

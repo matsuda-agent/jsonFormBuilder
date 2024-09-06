@@ -7,6 +7,7 @@ export interface FieldRow {
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
     title: string;
+    disabled: boolean;
     address_idx?: string;
     description: string;
     is_required: boolean;
@@ -29,6 +30,7 @@ export interface FieldRow {
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
     title: string;
+    disabled: boolean;
     description: string;
     is_required: boolean;
     array_index?: number;

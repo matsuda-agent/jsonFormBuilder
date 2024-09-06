@@ -1,16 +1,20 @@
-import React from 'react'
+import React , {useState} from 'react'
 import  Field  from '../Fields/Field';
 import { useForm, useFieldArray, FormProvider ,SubmitHandler } from 'react-hook-form';
 import { FieldData  } from '@/types/InputTypes';
 
+import {Button } from '../UI/Button';
+import { set } from 'date-fns';
+
 // this the field that will be imported from the database 
 export interface AddressFieldRow {
-    address_idx?: string;
+    applicant_loan_application_id: number;
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
     title: string;
-    array_index?: number;
+    disabled: boolean;
+    array_index?: string;
     description: string;
     is_required: boolean;
     options?: any; // Replace 'any' with the actual type if known
@@ -40,9 +44,11 @@ interface Attribute {
     description: string;
     is_required: boolean;
     field_type: string;
+    disabled: boolean;
     options?: any; // Adjust the type as needed
     dependant_on?: any; // Adjust the type as needed
     validations?: any; // Adjust the type as needed
+
   }
 
 
@@ -58,15 +64,18 @@ interface ResponseSchema {
 
 export default function AddressForm({ field_data, submitFunction }: AddressFormRenderProps) {
 
-
+const [submitting , setSubmitting] = useState(false);
+  
   const transformData= (data:AddressFieldRowFieldData) : ResponseSchema => {
   const groupedData = data.reduce<{ [key:string] : AddressFormField}>((acc :{ [key: string]: any }, item:AddressFieldRow) => {
-    const { address_idx , ...field } = item;
-    if (address_idx !== undefined) {
-        if (!acc[address_idx]) {
-        acc[address_idx] = {};
+    const { array_index , ...field } = item;
+    if (array_index !== undefined) {
+        if (!acc[array_index]) {
+        acc[array_index] = {};
+        acc[array_index].app_id = field.applicant_loan_application_id;
+       
         }
-        acc[address_idx][field.field_name] = field.field_value;
+        acc[array_index][field.field_name] = field.field_value;
     }
     return acc;
   }, {});
@@ -76,6 +85,7 @@ export default function AddressForm({ field_data, submitFunction }: AddressFormR
 
 
 const defaultValues: ResponseSchema = transformData(field_data);
+console.log('defaultValues', defaultValues);
 
 
 
@@ -87,9 +97,11 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
         description: address.description,
         is_required: address.is_required,
         field_type: address.field_type,
+        disabled: address.disabled,
         options: address?.options,
         dependant_on: address?.dependant_on,
-        validations: address?.validation_schema
+        validations: address?.validation_schema,
+        
      };
     }
     return acc;
@@ -113,7 +125,18 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
 
   const onSubmit:SubmitHandler<{addresses : {}[] }> = (data) => {
     console.log('data', data);
-    submitFunction(data);
+    setSubmitting(true);
+    try {
+        submitFunction(data);
+    } catch (error) {
+        console.log('error', error);
+    }  finally {
+        setSubmitting(false);
+    }
+
+
+
+
   }
 
 
@@ -137,20 +160,25 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className='Multi-Form'>
-        <div className='ToolBar'>
-          <button type='submit' className='submit-button'>Submit</button>
-        </div>
-
-        <div className='bg-white p-3 grid grid-cols-1 gap-4'>
+        <div className='Field-Grid'>
            {fields.map((field , i:number) => {
             return (
-            <div className='border-b p-4' key={i}>
+            <div className='Field-Section' key={i}>
+                <div className='flex flex-row justify-between'>
+                    <h5>Address {i+1}</h5>
+                    <Button variant='destructive' onClick={() => handleRemove(i)}> Remove  </Button>
+                </div>
                 <div className='FieldSet'>
-                    <div className='flex flex-row justify-between'>
-                        <h5>Address {i+1}</h5>
-                        <button onClick={() => handleRemove(i)}> Remove  </button>
-                    </div>
                     {Object.keys(field).filter(k => k != 'id').map((key:string) => {
+                        if(key === "app_id") {
+                            return (
+                                <input
+                                    key={key}
+                                    {...methods.register(`addresses[${i}].${key}`)}
+                                    disabled
+                                />
+                            )
+                        }
                         return (
                             <Field 
                                 key={key}
@@ -162,7 +190,8 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
                                         description: attributeObject[key].description,
                                         is_required: attributeObject[key].is_required,
                                         options: attributeObject[key].options,
-                                        dependant_on: attributeObject[key].dependant_on
+                                        dependant_on: attributeObject[key].dependant_on,
+                                        disabled: attributeObject[key].disabled
                                     }
                                 }
                                 validations={attributeObject[key].validations}
@@ -172,16 +201,17 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
                     )
                     }
                 )}
-
                 </div>
             </div>
             );
             })}
         </div>
 
-        <button type='button' className='add-button'
-                                        onClick={handleAppend}
-                                        >Add</button>
+      
+        <div className='flex space-x-4 mt-10'>
+            <Button type='submit' className='min-w-[200px]' isLoading={submitting} loadingText='Submitting Data'>Submit</Button>
+            <Button type='button'   className='min-w-[200px]'  variant="secondary" onClick={handleAppend}>Add + </Button>
+        </div>
                     
 
 

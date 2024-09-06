@@ -37,7 +37,7 @@ const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{titl
   const error = get(errors, name)
 
   return (
-    <div>
+    <div className='col-span-2'>
       <label className={`${error ? 'select-input-label-error' : 'select-input-label'}`}>
         {title}
       </label>

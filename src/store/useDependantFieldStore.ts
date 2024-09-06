@@ -13,7 +13,6 @@ const useDependantFieldStore = create<DependantFieldState>((set) => ({
 
   setDependantField: (fieldName, value) =>
     set((state) => (
-        console.log('Setting Dependant Field', fieldName, value , state),
         {
       dependantFields: { ...state.dependantFields, [fieldName]: value },
     })),

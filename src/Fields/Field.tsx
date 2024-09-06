@@ -11,6 +11,7 @@ interface Attributes {
   type: string;
   title: string;
   description: string;
+  disabled: boolean;
   is_required: boolean;
   options?: any; // Replace 'any' with the actual type if known
   dependant_on?: {} ; // Replace 'any' with the actual type if known

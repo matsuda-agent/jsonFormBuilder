@@ -39,7 +39,7 @@ const CRadioField:React.FC<CRadioFieldProps>  = ({ name  , Attributes:{ descript
 
 
   return (
-    <div>
+    <div className='col-span-2'>
       <label className={`${error ? 'select-input-label-error' : 'select-input-label'}`}>
         {description}
       </label>
