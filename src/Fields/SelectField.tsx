@@ -11,6 +11,9 @@ import {
   SelectValue,
 } from "../UI/Select"
 
+import useDependantFieldStore from '../store/useDependantFieldStore'  ;
+import { set } from 'date-fns';
+
 
 
 interface SelectFieldFieldProps {
@@ -30,11 +33,16 @@ interface SelectFieldFieldProps {
 
 const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{title, is_required , options}  , validations  }) => {
   const {control, formState: {errors}  } = useFormContext();
+  const setDependantField = useDependantFieldStore(state => state.setDependantField)
   
 
 
   // get the errors 
   const error = get(errors, name)
+
+  const handleChange = (value:string) => {
+    setDependantField(name , value)
+  }
 
   return (
     <div className='col-span-2'>
@@ -49,7 +57,7 @@ const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{titl
           ...validations
         }}
         render={({ field : {value , onChange  } }) => (
-          <Select defaultValue ={value} onValueChange={(v) => onChange(v)}>
+          <Select defaultValue ={value} onValueChange={(v) => {onChange(v); handleChange(v); }}>
             <SelectTrigger id="size" className="mt-2">
               <SelectValue placeholder="Select" />
             </SelectTrigger>

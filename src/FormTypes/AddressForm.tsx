@@ -2,13 +2,12 @@ import React , {useState} from 'react'
 import  Field  from '../Fields/Field';
 import { useForm, useFieldArray, FormProvider ,SubmitHandler } from 'react-hook-form';
 import { FieldData  } from '@/types/InputTypes';
-
 import {Button } from '../UI/Button';
-import { set } from 'date-fns';
+import { flatMap } from 'lodash-es';
 
 // this the field that will be imported from the database 
 export interface AddressFieldRow {
-    applicant_loan_application_id: number;
+    applicant_loan_application_id: string;
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
@@ -72,7 +71,7 @@ const [submitting , setSubmitting] = useState(false);
     if (array_index !== undefined) {
         if (!acc[array_index]) {
         acc[array_index] = {};
-        acc[array_index].app_id = field.applicant_loan_application_id;
+        acc[array_index].applicant_loan_application_id = field.applicant_loan_application_id;
        
         }
         acc[array_index][field.field_name] = field.field_value;
@@ -85,7 +84,6 @@ const [submitting , setSubmitting] = useState(false);
 
 
 const defaultValues: ResponseSchema = transformData(field_data);
-console.log('defaultValues', defaultValues);
 
 
 
@@ -108,7 +106,7 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
   }, {});
   
 
-  const methods = useForm(
+  const methods = useForm<ResponseSchema>(
     {
       defaultValues:defaultValues
 ,
@@ -124,10 +122,31 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
   });
 
   const onSubmit:SubmitHandler<{addresses : {}[] }> = (data) => {
-    console.log('data', data);
     setSubmitting(true);
     try {
-        submitFunction(data);
+        const formattedData = data.addresses.map((address:AddressFormField , i:number) => {
+            return  Object.entries(address)
+                    .filter(([key, _]) => key !== 'applicant_loan_application_id')      
+                    .map(([field_name, field_value]) => {
+                const fieldMeta = field_data.find((field:AddressFieldRow) => field.field_name === field_name && field.applicant_loan_application_id === address.applicant_loan_application_id);
+                if (fieldMeta) {
+                    const { id, applicant_loan_application_id, ...filteredFieldMeta } = fieldMeta;
+                    return {
+                      ...filteredFieldMeta,
+                      field_value,
+                        applicant_loan_application_id,
+                      array_index: i.toString()
+                    };
+                  }
+                return null;
+            }
+            );
+        });
+
+        // make formattedData flat
+        const flatData = flatMap(formattedData);
+
+        submitFunction(flatData);
     } catch (error) {
         console.log('error', error);
     }  finally {
@@ -144,6 +163,11 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
     const newAddress: AddressFormField = Object.keys(fields[0])
         .filter(k => k !== 'id')
         .reduce((acc: AddressFormField, key) => {
+            if (key === 'applicant_loan_application_id') {
+                acc[key] =  fields[0][key];
+                return acc;
+            }
+
             acc[key] = '';
             return acc;
         }, {});
@@ -166,15 +190,16 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
             <div className='Field-Section' key={i}>
                 <div className='flex flex-row justify-between'>
                     <h5>Address {i+1}</h5>
-                    <Button variant='destructive' onClick={() => handleRemove(i)}> Remove  </Button>
+                    { i > 0 ? <Button variant='destructive' onClick={() => handleRemove(i)}> Remove  </Button> : null}
                 </div>
                 <div className='FieldSet'>
                     {Object.keys(field).filter(k => k != 'id').map((key:string) => {
-                        if(key === "app_id") {
+                        if(key === "applicant_loan_application_id") {
                             return (
                                 <input
                                     key={key}
-                                    {...methods.register(`addresses[${i}].${key}`)}
+                                    className='px-2 hidden'
+                                    {...methods.register(`addresses.${i}.${key}` as const)}
                                     disabled
                                 />
                             )

@@ -2,6 +2,7 @@
 
 // this the field that will be imported from the database 
 export interface FieldRow {
+    id: string;
     applicant_loan_application_id: string;
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known

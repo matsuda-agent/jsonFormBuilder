@@ -4,6 +4,7 @@ import React,{ useState, useEffect }  from 'react';
 import './style.css'
 import { useForm , useFieldArray  ,  FormProvider , Controller } from 'react-hook-form';
 import { createClient } from '@supabase/supabase-js'
+import { element } from 'prop-types';
 
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -18,7 +19,7 @@ export const supabase = createClient(supabaseUrl
 
 export default function App() {
 
-  const [formIndex , setFormIndex] = useState(2);
+  const [formIndex , setFormIndex] = useState(1);
 
     
  
@@ -27,43 +28,46 @@ export default function App() {
   const [address_details, setAddressDetails] = useState();
 
 
+  const fetchAddressDetails = async () => { 
+    const { data, error } = await supabase
+      .from('applicant_details')
+      .select('* , array_fields(*)')
+      .eq('applicant_loan_application_id', 54)
+      .eq('form_name', 'Applicant Address')
+      .order('field_order', { referencedTable: 'array_fields', ascending: true});
+
+      console.log('Data', data)
+
+      const formattedData = data[0].array_fields.map((item) => {
+        return {
+          ...item,
+          options: item.options ?  (item.options.options ? item.options.options : item.options )  : null,
+        }
+
+      })
+      console.log('Formatted  Addrress Data' , formattedData);
+
+      return formattedData;
+  }
+
+
   useEffect(() => {
     const fetchApplicantDetails = async () => { 
       const { data, error } = await supabase
         .from('applicant_details')
         .select('*')
-        .eq('applicant_loan_application_id', 52)
-        .eq('form_name', "Applicants Information")
+        .eq('applicant_loan_application_id', 54)
+        .eq('form_name', "Employment Information")
         .order('field_order', { ascending: true })
         return data;
     }
 
     fetchApplicantDetails().then((data) => {  
-      console.log('data', data)
       setApplicantDetails(data);
     }
     )
 
-    const fetchAddressDetails = async () => { 
-      const { data, error } = await supabase
-        .from('applicant_details')
-        .select('* , array_fields(*)')
-        .eq('applicant_loan_application_id', 52)
-        .eq('form_name', 'Applicant Address')
-        .order('field_order', { referencedTable: 'array_fields', ascending: true});
-
-
-        const formattedData = data[0].array_fields.map((item) => {
-          return {
-            ...item,
-            options: item.options ?  (item.options.options ? item.options.options : item.options )  : null,
-          }
-
-        })
-        console.log('Formatted  Addrress Data' , formattedData);
-
-        return formattedData;
-    }
+ 
   
     fetchAddressDetails().then((data) => {
       console.log('data', data)
@@ -73,18 +77,47 @@ export default function App() {
 
 
 
-
   const Submitfunc = (data ,key) => {  
-    console.log('Data Submitted' , key);
-    console.log('Submitfunc',data);
+    if(key == 2){
+      console.log('Applicant Details Submitted' , data);
+      // upsert data to supabase 
+      const array_indexes = data.map((item) => item.array_index);
 
-    // setSchemaFiles(prev => ({...prev, 
-    //   [key] : {
-    //     "attribute"  : schemaFiles[key].attribute,
-    //     "response" : data 
-    //   }
-    // })
-    // )
+      console.log('array_indexes', array_indexes)
+
+      // find the array _index no longer in data and delete it from the database  
+      const deleted_arrays = address_details.filter((item) => {
+        return  !array_indexes.includes(String(item.array_index));
+      });
+
+      if(deleted_arrays.length > 0){
+        const {data:deletedData, error } = supabase.from('array_fields')
+                                      .delete()
+                                      .in('array_index', deleted_arrays.map((item) => item.array_index))
+                                      .in('applicant_loan_application_id',  deleted_arrays.map((item) => item.applicant_loan_application_id))
+        .then((data) => {
+          console.log('data deleted', data)
+        });
+      }
+
+      data.forEach((item) => {
+        item.updated_at = new Date();
+      }
+      );
+
+      const {data:updatedData, error } = supabase.from('array_fields').upsert(data
+        , {onConflict: ['applicant_loan_application_id', 'field_name' , 'array_index' ]})
+        .select()
+        .then((data) => {
+          console.log('data updated', data)
+        }).then(() => {
+            fetchAddressDetails().then((data) => {
+              console.log('Fetching new address data', data)
+              setAddressDetails(data);
+            }
+            )
+        });
+    }
     
   }
 
@@ -126,7 +159,7 @@ export default function App() {
         <FormRender 
             key={1}
             field_data = {address_details}
-            submitFunction = {(data) => Submitfunc(data , 1)}
+            submitFunction = {(data) => Submitfunc(data , 2)}
             formType={"AddressForm"} 
           />
           : null
