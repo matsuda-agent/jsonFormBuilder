@@ -53,7 +53,6 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disa
   // Effect to update show state based on the specific key in dependantFields
   useEffect(() => {
     if (dependant_on && watchfield) {
-      console.log(dependantFields[watchfield] , name . dpe , dependant_on.field_value)
       if (dependantFields[watchfield] === dependant_on.field_value) {
         setShow(true);
       } else {
