@@ -94,7 +94,7 @@
 
 
 .Single-Form {
-    @apply p-4 w-full  max-w-2xl flex flex-col rounded-lg
+    @apply p-4 w-full  max-w-2xl flex flex-col rounded-lg 
 }
 
 
