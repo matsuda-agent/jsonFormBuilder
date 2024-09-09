@@ -14,17 +14,18 @@ interface InputFieldProps {
   Attributes: {
     type: string;
     title: string;
-    disabled: boolean;
+    disabled?: boolean;
     description: string; // Make description optional
     is_required: boolean;
     options?: any; // Replace 'any' with the actual type if known
     dependant_on?: any; // Replace 'any' with the actual type if known
+    hidden?: boolean;
   };
   validations?: any; // Replace 'any' with the actual type if known
 }
 
 
-const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disabled, description, type , is_required , dependant_on}  , validations  }) => {
+const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disabled, type , is_required , dependant_on}  , validations  }) => {
 
   const {control, formState: {errors} } = useFormContext();
 
@@ -70,10 +71,10 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disa
   }
 
   return (
-    <div className='grid gap-2'>
+    <div className=''>
       <Label htmlFor="r1"
       >
-        {description}
+        {title}
 
       </Label>
       <Controller 
@@ -114,24 +115,3 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disa
 };
 
 export default InputField;
-
-
-
-{/* <Field>
-<Label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>
- {title}
- </Label> 
- <Input  {...register(name , {required: 'This field is required'})} 
-       type={type} placeholder={`Enter ${title}`}  
-       className={`${error ? 'basic-input-error' : 'basic-input'}`} />
-
-
-   
-
-</Field> */}
-
-
-
-// InputField.propTypes = InputFieldAttributes; // Apply the predefined PropTypes
-
-

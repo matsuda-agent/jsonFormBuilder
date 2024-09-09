@@ -19,13 +19,35 @@ export const supabase = createClient(supabaseUrl
 
 export default function App() {
 
-  const [formIndex , setFormIndex] = useState(1);
+  const [formIndex , setFormIndex] = useState(3);
 
     
  
 
   const [applicant_details, setApplicantDetails] = useState({});
   const [address_details, setAddressDetails] = useState();
+  const [loan_details, setLoanDetails] = useState();
+
+  const fetchLoanDetails = async () => {
+    const { data, error } = await supabase
+      .from('loan_details')
+      .select('*')
+      .eq('loan_application_id', 46)
+      .eq('form_name', 'Loan Details')
+      .order('field_order', { ascending: true });
+    return data;
+  }
+
+  const fetchApplicantDetails = async () => { 
+    const { data, error } = await supabase
+      .from('applicant_details')
+      .select('*')
+      .eq('applicant_loan_application_id', 54)
+      .eq('form_name', "Employment Information")
+      .order('field_order', { ascending: true })
+      return data;
+  }
+
 
 
   const fetchAddressDetails = async () => { 
@@ -52,21 +74,17 @@ export default function App() {
 
 
   useEffect(() => {
-    const fetchApplicantDetails = async () => { 
-      const { data, error } = await supabase
-        .from('applicant_details')
-        .select('*')
-        .eq('applicant_loan_application_id', 54)
-        .eq('form_name', "Employment Information")
-        .order('field_order', { ascending: true })
-        return data;
-    }
+
 
     fetchApplicantDetails().then((data) => {  
       setApplicantDetails(data);
     }
     )
 
+    fetchLoanDetails().then((data) => {
+      console.log('data', data)
+      setLoanDetails(data);
+    })
  
   
     fetchAddressDetails().then((data) => {
@@ -78,6 +96,8 @@ export default function App() {
 
 
   const Submitfunc = (data ,key) => {  
+    console.log('Key', key)
+    console.log('Data', data)
     if(key == 2){
       console.log('Applicant Details Submitted' , data);
       // upsert data to supabase 
@@ -100,11 +120,13 @@ export default function App() {
         });
       }
 
+
       data.forEach((item) => {
         item.updated_at = new Date();
       }
       );
 
+      if (key == 1) {
       const {data:updatedData, error } = supabase.from('array_fields').upsert(data
         , {onConflict: ['applicant_loan_application_id', 'field_name' , 'array_index' ]})
         .select()
@@ -117,7 +139,30 @@ export default function App() {
             }
             )
         });
+      }
     }
+
+      if (key == 3) {
+
+        console.log('Loan Details Submitted' , data);
+        data.forEach((item) => {
+          item.updated_at = new Date();
+        }
+        );
+        const {data: updatedData, error } = supabase.from('loan_details').upsert(data , {onConflict: ['id']})
+            .select()
+            .then((data) => {
+              console.log('data updated', data)
+            }).catch((error) => {
+              console.log('error', error)
+            }).then(() => {
+              fetchLoanDetails().then((data) => {
+                console.log('Fetching new loan data', data)
+                setLoanDetails(data);
+              }
+              )
+            })
+      }
     
   }
 
@@ -141,6 +186,12 @@ export default function App() {
 
             <h1> Address Details </h1>
           </div>
+
+          <div className='bg-blue-100 border p-4 w-full rounded-lg hover:bg-slate-50 cursor-pointer'
+            onClick={() => setFormIndex(3)}>
+
+            <h1> Loan Details </h1>
+          </div>
       </div>
 
 
@@ -157,10 +208,20 @@ export default function App() {
 
       {formIndex == 2 ? 
         <FormRender 
-            key={1}
+            key={2}
             field_data = {address_details}
             submitFunction = {(data) => Submitfunc(data , 2)}
             formType={"AddressForm"} 
+          />
+          : null
+       }
+
+      {formIndex == 3 ? 
+        <FormRender 
+            key={3}
+            field_data = {loan_details}
+            submitFunction = {(data) => Submitfunc(data , 3)}
+            formType={"SingleForm"} 
           />
           : null
        }

@@ -6,6 +6,7 @@ import get from 'lodash-es/get';
 import useDependantFieldStore from '../store/useDependantFieldStore'  
 
 import { DateRange, DateRangePicker } from "../UI/DateRangePicker"
+import { Label} from '../UI/Label';
 
 
 
@@ -74,7 +75,7 @@ const DateRangeField: React.FC<DateRangeFieldProps> = ({ name  , Attributes:{tit
 
   return (
     <div>
-      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{description}</label>
+      <Label className='text-sm'>{description}</Label>
       <Controller 
       control={control}
       name={name}

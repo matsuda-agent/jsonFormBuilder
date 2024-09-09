@@ -5,16 +5,18 @@ import SelectField from './SelectField';
 import CRadioField from './CRadioField'; // Import CRadioField
 import DateRangeField from './DateRangeField';
 import DateField from './DateField'; // Import DateField
+import TextAreaField from './TextAreaField'; // Import TextAreaField
 
 
 interface Attributes {
   type: string;
   title: string;
   description: string;
-  disabled: boolean;
+  disabled?: boolean;
   is_required: boolean;
   options?: any; // Replace 'any' with the actual type if known
-  dependant_on?: {} ; // Replace 'any' with the actual type if known
+  dependant_on?: any; // Replace 'any' with the actual type if known
+  hidden?: boolean;
 }
 
 interface FieldProps {
@@ -34,8 +36,11 @@ const Field: React.FC<FieldProps>  = ({name , Attributes, validations }) => {
       return <InputField name={name} Attributes={Attributes}  validations={validations} />;
     case FieldType.NUMBER:
       return <InputField name={name} Attributes={Attributes} validations={validations}  />;
+    case FieldType.CURRENCY:
+        return <InputField name={name} Attributes={Attributes} validations={validations}  />;
     case FieldType.DATE:
       return <DateField name={name} Attributes={Attributes} validations={validations}  />;
+    
     // case FieldType.PHONE:
     //    return <PhoneField name={name} AttributesKey={{fieldArrayName , key}}   />;
     case FieldType.SELECT:
@@ -48,8 +53,8 @@ const Field: React.FC<FieldProps>  = ({name , Attributes, validations }) => {
     //   return <CheckboxField name={name} AttributesKey={{ fieldArrayName, key }}  />;
     // case FieldType.CCHECKBOX:
     //   return <CCheckboxField name={name} AttributesKey={{ fieldArrayName, key }}  index={index} />;
-    // case FieldType.TEXTAREA:
-    //   return <TextAreaField name={name} AttributesKey={{ fieldArrayName, key }}  />;
+    case FieldType.TEXTAREA:
+      return <TextAreaField name={name} Attributes={Attributes} validations={validations}   />;
     // case FieldType.TABLE: // Add case for TableField
     //   return <TableField AttributesKey={{ fieldArrayName, key }}  />;
     case FieldType.CRADIO:

@@ -3,18 +3,24 @@
 // this the field that will be imported from the database 
 export interface FieldRow {
     id: string;
-    applicant_loan_application_id: string;
+    applicant_loan_application_id?: string;
+    loan_application_id?: string;
+
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
     title: string;
-    disabled: boolean;
-    address_idx?: string;
+    disabled?: boolean;
+
+    array_index?: string;
     description: string;
     is_required: boolean;
     options?: any; // Replace 'any' with the actual type if known
     dependant_on?: any; // Replace 'any' with the actual type if known
     validation_schema?: any; // Replace 'any' with the actual type if known
+    form_name?: string;
+    hidden?: boolean;
+
   }
   
   export type FieldData = FieldRow[];

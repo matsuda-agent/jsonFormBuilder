@@ -15,6 +15,7 @@ export enum FieldType  {
   TABLE = 'table',
   CRADIO = 'cradio',
   DATERANGE = 'dateRange',
+  CURRENCY = 'currency',
   // ADDRESS: 'address',
 };
 

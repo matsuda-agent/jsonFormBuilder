@@ -1,7 +1,7 @@
 // Tremor Raw Input [v1.0.3]
 
 import React from "react"
-import { RiEyeFill, RiEyeOffFill, RiSearchLine } from "@remixicon/react"
+import { RiEyeFill, RiEyeOffFill, RiSearchLine , RiMoneyPoundCircleFill} from "@remixicon/react"
 import { tv, type VariantProps } from "tailwind-variants"
 
 import { cx, focusInput, focusRing, hasErrorInput } from "../lib/utils"
@@ -69,16 +69,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const isPassword = type === "password"
     const isSearch = type === "search"
+    const isCurrency = type === "currency"
 
     return (
       <div className={cx("relative w-full", className)}>
         <input
           ref={forwardedRef}
-          type={isPassword ? typeState : type}
+          type={isPassword ? typeState :  isCurrency ? "number" : type}
           className={cx(
             inputStyles({ hasError, enableStepper }),
             {
-              "pl-8": isSearch,
+              "pl-8": isSearch || isCurrency,
               "pr-10": isPassword,
             },
             inputClassName,
@@ -95,6 +96,21 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             )}
           >
             <RiSearchLine
+              className="size-[1.125rem] shrink-0"
+              aria-hidden="true"
+            />
+          </div>
+        )}
+        {isCurrency && (
+          <div
+            className={cx(
+              // base
+              "pointer-events-none absolute bottom-0 left-2 flex h-full items-center justify-center",
+              // text color
+              "text-gray-400 dark:text-gray-600",
+            )}
+          >
+            <RiMoneyPoundCircleFill
               className="size-[1.125rem] shrink-0"
               aria-hidden="true"
             />

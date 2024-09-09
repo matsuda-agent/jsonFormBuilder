@@ -5,6 +5,7 @@ import React from 'react'
 import MultiFormRender from './FormTypes/MultiFormRender';
 import { FieldData } from "@/types/InputTypes"
 import AddressForm from './FormTypes/AddressForm';
+import SingleForm from './FormTypes/SingleForm';
 
 
 interface FormRenderProps {
@@ -34,6 +35,9 @@ export function FormRender({ field_data, formType, submitFunction }: FormRenderP
   }
   if (formType === 'AddressForm') {
     return <AddressForm field_data={field_data} submitFunction={submitFunction} />
+  }
+  if (formType === 'SingleForm') {
+    return <SingleForm field_data={field_data} submitFunction={submitFunction} />
   }
 
   return null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext , Controller } from 'react-hook-form';
 import { ErrorMessage } from "@hookform/error-message"
-import get from 'lodash-es/get';
+
 
 import {
   Select,
@@ -12,6 +12,7 @@ import {
 } from "../UI/Select"
 
 import useDependantFieldStore from '../store/useDependantFieldStore'  ;
+import { Label } from '@radix-ui/react-label';
 
 
 
@@ -37,8 +38,7 @@ const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{titl
   
 
 
-  // get the errors 
-  const error = get(errors, name)
+
 
   const handleChange = (value:string) => {
     setDependantField(name , value)
@@ -46,9 +46,9 @@ const SelectField:React.FC<SelectFieldFieldProps>  = ({ name  , Attributes:{titl
 
   return (
     <div className='col-span-2'>
-      <label className={`${error ? 'select-input-label-error' : 'select-input-label'}`}>
+      <Label className='text-sm'>
         {title}
-      </label>
+      </Label>
       <Controller 
         control={control}
         name={name}

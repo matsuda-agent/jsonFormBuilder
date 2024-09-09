@@ -18,10 +18,14 @@ export function  MultiFormRender({field_data , submitFunction} : MultiFormRender
     const transformData = (data: FieldRow[]): { [key: string]: any } => {
       const groupedData = data.reduce<{ [key: string]: FormField[] }>((acc :{ [key: string]: any }, item:FieldRow) => {
         const { applicant_loan_application_id , ...field } = item;
-        if (!acc[applicant_loan_application_id]) {
-          acc[applicant_loan_application_id] = [];
+        if (applicant_loan_application_id) { // Type guard to ensure it's defined
+          if (!acc[applicant_loan_application_id]) {
+            acc[applicant_loan_application_id] = [];
+          }
+          acc[applicant_loan_application_id].push(field);
+        } else {
+          console.error('applicant_loan_application_id is undefined for field:', field);
         }
-        acc[applicant_loan_application_id].push(field);
         return acc;
       }, {});
       return groupedData;

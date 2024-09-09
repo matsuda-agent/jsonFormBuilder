@@ -7,12 +7,12 @@ import { flatMap } from 'lodash-es';
 
 // this the field that will be imported from the database 
 export interface AddressFieldRow {
-    applicant_loan_application_id: string;
+    applicant_loan_application_id?: string;
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known
     field_type: string;
     title: string;
-    disabled: boolean;
+    disabled?: boolean;
     array_index?: string;
     description: string;
     is_required: boolean;
@@ -43,7 +43,7 @@ interface Attribute {
     description: string;
     is_required: boolean;
     field_type: string;
-    disabled: boolean;
+    disabled?: boolean;
     options?: any; // Adjust the type as needed
     dependant_on?: any; // Adjust the type as needed
     validations?: any; // Adjust the type as needed
@@ -95,7 +95,7 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
         description: address.description,
         is_required: address.is_required,
         field_type: address.field_type,
-        disabled: address.disabled,
+        disabled: address?.disabled,
         options: address?.options,
         dependant_on: address?.dependant_on,
         validations: address?.validation_schema,
@@ -216,7 +216,7 @@ const attributeObject:AttributeObject =  field_data.reduce((acc:AttributeObject,
                                         is_required: attributeObject[key].is_required,
                                         options: attributeObject[key].options,
                                         dependant_on: attributeObject[key].dependant_on,
-                                        disabled: attributeObject[key].disabled
+                                        disabled: attributeObject[key]?.disabled
                                     }
                                 }
                                 validations={attributeObject[key].validations}

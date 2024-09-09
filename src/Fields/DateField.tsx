@@ -7,6 +7,7 @@ import useDependantFieldStore from '../store/useDependantFieldStore'  ;
 
 import { DatePicker as DatePicker } from '../UI/DatePicker';
 
+import { Label} from '../UI/Label';
 
 
 
@@ -72,7 +73,7 @@ const DateRangeField: React.FC<DateField> = ({ name  , Attributes:{title, descri
 
   return (
     <div className='w-full'>
-      <label className={`${error ? 'basic-input-label-error' : 'basic-input-label'}`}>{description}</label>
+      <Label>{description}</Label>
       <Controller 
       control={control}
       name={name}
