@@ -7,6 +7,7 @@ import {Button } from '../UI/Button'
 
 
 export interface SingleFieldRow {
+    id?: string;
     loan_application_id?: string;
     field_name: string;
     field_value: any; // Replace 'any' with the actual type if known
@@ -92,13 +93,30 @@ const SingleForm:React.FC<SingleFormRenderProps> = ({field_data , submitFunction
             try {
                 const formattedData = Object.keys(data).map((key) => {
                     const fieldMeta = field_data.find((field) => field.field_name === key);
+                    if (fieldMeta) { // Type guard to ensure fieldMeta is defined
+                        const { 
+                            id,
+                            field_type,
+                            title,
+                            description,
+                        } = fieldMeta; 
+        
+                        return {
+                            field_name: key,
+                            field_value: data[key],
+                            id,
+                            field_type,
+                            title,
+                            description,
+                        };
+                    
+                } 
+                return null;
+            
+            });
+                
 
-                    return {
-                        field_name: key,
-                        field_value: data[key],
-                        ...fieldMeta
-                    }
-                })
+                console.log('Formatted Data', formattedData)    
 
                 submitFunction(formattedData)
 
