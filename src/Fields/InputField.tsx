@@ -25,7 +25,7 @@ interface InputFieldProps {
 }
 
 
-const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disabled, type , is_required , dependant_on}  , validations  }) => {
+const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disabled, type , hidden, is_required , dependant_on}  , validations  }) => {
 
   const {control, formState: {errors} } = useFormContext();
 
@@ -71,7 +71,7 @@ const InputField: React.FC<InputFieldProps> = ({ name  , Attributes:{title, disa
   }
 
   return (
-    <div className=''>
+    <div className={`${hidden ? 'hidden' : ''}`}>
       <Label htmlFor="r1"
       >
         {title}
